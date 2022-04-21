@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">productcsv_form.productcsv_form_data_source</item>
+        </item>
+        <item name="ajaxSave" xsi:type="boolean">false</item>
+        <item name="label" xsi:type="string" translate="true">General Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="save" xsi:type="array">
+                <item name="name" xsi:type="string">save</item>
+                <item name="label" xsi:type="string" translate="true">Save</item>
+                <item name="class" xsi:type="string">primary</item>
+                <item name="url" xsi:type="string">productcsv/index/save</item>
+            </item>
+        </item>
+    </argument>
+    <settings>
+        <namespace>productcsv_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>productcsv_form.productcsv_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="productcsv_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="productcsv/index/save"/>
+        </settings>
+        <dataProvider class="Codilar\ProductCsv\Ui\Component\EditDataProvider"
+                      name="productcsv_form_data_source">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="general">
+        <settings>
+            <label/>
+        </settings>
+
+ <field name="productcsv">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="dataType" xsi:type="string">string</item>
+                <item name="source" xsi:type="string">Label </item>
+                <item name="label" xsi:type="string" translate="true">Upload Csv</item>
+                <item name="visible" xsi:type="boolean">true</item>
+                <item name="formElement" xsi:type="string">fileUploader</item>
+                <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
+                <item name="required" xsi:type="boolean">false</item>
+                <item name="sortOrder" xsi:type="number">4</item>
+                <item name="uploaderConfig" xsi:type="array">
+                    <item name="url" xsi:type="url" path="productcsv/index/save"/>
+                </item>
+            </item>
+        </argument>
+</field>
+        <!-- <field name="productcsv">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="label" xsi:type="string" translate="true">Upload Csv File</item>
+                    <item name="formElement" xsi:type="string">imageUploader</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
+                    <item name="sortOrder" xsi:type="number">1</item>
+                    <item name="scopeLabel" xsi:type="string">[STORE]</item>
+                    <item name="source" xsi:type="string">product</item>
+                    <item name="required" xsi:type="boolean">false</item>
+                    <item name="placeholderType" xsi:type="string">document</item>
+                    <item name="uploaderConfig" xsi:type="array">
+                    <item name="url" xsi:type="url" path="productcsv/index/save"/>
+                    </item>
+                </item>
+            </argument>
+        </field> -->
+        
+
+    </fieldset>
+</form>

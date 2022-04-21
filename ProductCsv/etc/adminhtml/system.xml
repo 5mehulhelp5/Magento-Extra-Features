@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="productcsv_tab" translate="label" sortOrder="10">
+            <label>CSV Upload</label>
+        </tab>
+        <section id="uploadcsv" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>CSV Form</label>
+            <tab>productcsv_tab</tab>
+            <resource>Codilar_ProductCsv::productcsv_config</resource>
+            <group id="productcsv" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" >
+                <label>Upload File</label>
+                <field id="custom_file_upload" translate="label" type="Magento\Config\Block\System\Config\Form\Field\File" sortOrder="6" showInDefault="1" showInWebsite="1" >
+                    <label>Upload custom file</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\File</backend_model>
+                    <upload_dir config="system" scope_info="1">test</upload_dir>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
