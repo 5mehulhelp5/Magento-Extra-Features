@@ -1,0 +1,4 @@
+wget https://files.magerun.net/n98-magerun2.phar
+php n98-magerun2.phar sys:cron:list
+php n98-magerun2.phar sys:cron:run codilar_helloworld_cron
+
