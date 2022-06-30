@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">inquirydetails_form.inquirydetails_form_data_source</item>
+        </item>
+        <item name="ajaxSave" xsi:type="boolean">false</item>
+        <item name="label" xsi:type="string" translate="true">General Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="array">
+            <item name="name" xsi:type="string">back</item>
+            <item name="label" xsi:type="string" translate="true">Back</item>
+            <item name="class" xsi:type="string">secondary</item>
+            <item name="url" xsi:type="string">inquirydetails/inquirypopup/index</item>
+            </item>
+        <item name="save" xsi:type="array">
+            <item name="name" xsi:type="string">save</item>
+            <item name="label" xsi:type="string" translate="true">Save</item>
+            <item name="class" xsi:type="string">primary</item>
+            <item name="url" xsi:type="string">inquirydetails/inquirypopup/save</item>
+        </item>
+        </item>
+        <!-- <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Codilar\AdminGrid\Block\Adminhtml\AdminGrid\Edit\BackButton</item>
+            <item name="save" xsi:type="string">Codilar\AdminGrid\Block\Adminhtml\AdminGrid\Edit\SaveButton</item>
+        </item>  -->
+    </argument>
+
+    <settings>
+        <namespace>inquirydetails_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>inquirydetails_form.inquirydetails_form_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="inquirydetails_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="inquirydetails/inquirypopup/save"/>
+        </settings>
+        <!-- <aclResource>Codilar_Demo::Customer_Details</aclResource> -->
+        <dataProvider class="Codilar\InquiryPopup\Ui\Component\EditDataProvider"
+                      name="inquirydetails_form_data_source">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="general">
+        <settings>
+            <label/>
+        </settings>
+
+    <field name="productname" formElement="input">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="source" xsi:type="string">InquiryPopup</item>
+             </item>
+        </argument>
+        <settings>
+            <validation>
+            <rule name="required-entry" xsi:type="boolean">true</rule>
+            </validation>
+            <dataType>text</dataType>
+            <label translate="true">Product Name</label>
+            <dataScope>productname</dataScope>
+        </settings>
+    </field>
+
+    <field name="customername" formElement="input">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="source" xsi:type="string">InquiryPopup</item>
+             </item>
+        </argument>
+        <settings>
+            <validation>
+            <rule name="required-entry" xsi:type="boolean">true</rule>
+            </validation>
+            <dataType>text</dataType>
+            <label translate="true">Customer Name</label>
+            <dataScope>customername</dataScope>
+        </settings>
+    </field>
+
+
+    <field name="email" formElement="input">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+            <item name="source" xsi:type="string">InquiryPopup</item>
+            <item name="formElement" xsi:type="string">textarea</item>
+            </item>
+        </argument>
+        <settings>
+            <validation>
+            <rule name="required-entry" xsi:type="boolean">true</rule>
+            </validation>
+            <dataType>text</dataType>
+            <label translate="true">Email</label>
+            <dataScope>email</dataScope>
+        </settings>
+    </field>
+
+    <field name="mobile" formElement="input">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+            <item name="source" xsi:type="string">InquiryPopup</item>
+            <item name="formElement" xsi:type="string">textarea</item>
+            </item>
+        </argument>
+        <settings>
+            <validation>
+                <rule name="required-entry" xsi:type="boolean">true</rule>
+            </validation>
+            <dataType>text</dataType>
+            <label translate="true">Mobile Number</label>
+            <dataScope>mobile</dataScope>
+        </settings>
+    </field>
+
+    <field name="description" formElement="input">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+            <item name="source" xsi:type="string">InquiryPopup</item>
+            <item name="formElement" xsi:type="string">textarea</item>
+            </item>
+        </argument>
+        <settings>
+        <validation>
+        <rule name="required-entry" xsi:type="boolean">true</rule>
+        </validation>
+        <dataType>text</dataType>
+        <label translate="true">Description</label>
+        <dataScope>description</dataScope>
+        </settings>
+    </field>
+</fieldset>
+</form>

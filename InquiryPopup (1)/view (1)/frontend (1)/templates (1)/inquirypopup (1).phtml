@@ -1,0 +1,90 @@
+<?php
+
+$data = $block->getFormUrl();
+?>
+
+<button type="button" class="btn btn-primary btn-lg" id="popupButton" data-toggle="modal"
+  data-target="#myModal"><?php echo __('InquiryPopup')?></button>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog" style="display:none;">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"><?php echo __('InquiryPopup')?></h4>
+        </div>
+        <div class="modal-body">
+
+
+
+        <form method="POST" data-mage-init='{"validation": {}}' id="forminquiry" action="<?php echo $block->getAddUrl()."inquirydetails/inquirypopup/save"?>" data-hasrequired="* Required Fields">
+
+      <div class="form-group">
+        <div>
+        <label for="productname"><?php echo __('Product Name');?>:</label>
+        <input type="text" class="form-control" id="productname" placeholder="<?php echo __('Enter Product name')?>" name="name">
+        </div>
+
+        <div class="field required">
+        <label for="customername"><?php echo __('Customer Name');?>:</label>
+        <input type="text" class="form-control" id="customername" placeholder="<?php echo __('Enter Customer name')?>" name="name">
+        </div>
+
+
+        <div class="field required">
+        <label for="email"><?php echo __('Email');?>:</label>
+        <input type="email" class="form-control" id="email" placeholder="<?php echo __('Enter email')?>" name="email" data-validate="{required:true, 'validate-email':true}"/>
+        </div>
+
+        <div>
+        <label for="mobile"><?php echo __('Mobile Number');?>:</label>
+        <input type="number" class="form-control" id="mobile" placeholder="<?php echo __('Enter mobile number')?>" name="mobile">
+        </div>
+
+        <div>
+        <label for="description"><?php echo __('Description') ?> :</label>
+        <textarea class="form-control" rows="5" id="description"></textarea>
+        </div>
+
+
+        <button type="submit" id="submitinquiry" ><?php echo __('Submit')?></button>
+      </div>
+    </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  require(['jquery', 'Codilar_InquiryPopup/js/mymodal-component','Magento_Ui/js/modal/modal'],
+  function(
+      $,
+      modal
+  ) {
+        $('#submitinquiry').on('click',function (event) {
+          event.preventDefault();
+          var productname = $("#productname").val();
+          var customername = $("#customername").val();
+          var emailID = $('#email').val();
+          var mobile = $('#mobile').val();
+          var description = $('#description').val();
+          jQuery.ajax({
+              url: "<?php echo $block->getAddUrl()."inquirydetails/inquirypopup/save"?>",
+              data: {productname: productname,customername:customername, email: emailID, mobile: mobile,description:description},
+              type: "POST",
+              dataType: "json",
+              showLoader: true,
+              success: function(resultJson) {
+                  if (resultJson == 'true') {
+                      document.getElementById("forminquiry").reset();
+                  }
+              }
+
+          });
+      });
+
+  }
+  );
+
+  </script>

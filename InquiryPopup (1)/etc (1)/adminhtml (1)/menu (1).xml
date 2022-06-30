@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        
+       
+        <add id="Codilar_InquiryPopup::Inquiry_Grid"
+             title="View grid details"
+             translate="title"
+             module="Codilar_InquiryPopup"
+             sortOrder="50"
+             resource="Codilar_InquiryPopup::Inquiry_Grid"
+        />
+        <add id="Codilar_InquiryPopup::Inquiry_Details"
+             title="View all inquiry grid details"
+             translate="title"
+             module="Codilar_InquiryPopup"
+             sortOrder="50"
+             resource="Codilar_InquiryPopup::Grid_Details"
+             parent="Codilar_InquiryPopup::Inquiry_Grid"
+             action="inquirydetails/inquirypopup/index"
+        />
+
+    </menu>
+</config>

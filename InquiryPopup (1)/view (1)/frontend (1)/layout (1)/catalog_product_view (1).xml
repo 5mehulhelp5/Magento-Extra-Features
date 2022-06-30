@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page layout="2columns-right" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<body>
+   <referenceContainer name="product.info.form.content">
+       <block class="Magento\Framework\View\Element\Template" 
+       template="Codilar_InquiryPopup::inquirypopup.phtml" 
+       name="codilar_inquirypopup_form" cacheable="false"
+           after="product.info.addtocart" />
+    </referenceContainer>
+</body>
+</page>
