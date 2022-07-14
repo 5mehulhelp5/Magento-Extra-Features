@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Lehan, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">student_listing.student_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="student/student/addNewStudent"/>
+                <class>primary</class>
+                <label translate="true">Add New Student</label>
+            </button>
+        </buttons>
+        <spinner>cms_block_columns</spinner>
+        <deps>
+            <dep>student_listing.student_listing_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="student_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">student_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <dataProvider class="Adobe\Student\Ui\Components\Student\Listing\DataProvider"
+                      name="student_listing_data_source">
+            <settings>
+                <requestFieldName>student_id</requestFieldName>
+                <primaryFieldName>student_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters">
+            <settings>
+                <templates>
+                    <filters>
+                        <select>
+                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+                        </select>
+                    </filters>
+                </templates>
+            </settings>
+        </filters>
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                </item>
+            </argument>
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="student/student/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+    <columns name="cms_block_columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>student_id</indexField>
+            </settings>
+        </selectionsColumn>
+
+        <column name="student_id" sortOrder="1">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Student Id</label>
+            </settings>
+        </column>
+
+        <column name="name" sortOrder="2">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Student Name</label>
+            </settings>
+        </column>
+
+        <column name="email" sortOrder="3">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Student Email</label>
+            </settings>
+        </column>
+
+        <column name="phone" sortOrder="4">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Student Phone</label>
+            </settings>
+        </column>
+
+        <column name="student_city" sortOrder="5">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Student City</label>
+            </settings>
+        </column>
+
+        <column name="student_address" sortOrder="6">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Student Address</label>
+            </settings>
+        </column>
+
+        <column name="student_marks" sortOrder="6">
+            <settings>
+                <filter>textRange</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Student Marks</label>
+            </settings>
+        </column>
+
+<!--        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date" sortOrder="8">-->
+<!--            <settings>-->
+<!--                <filter>dateRange</filter>-->
+<!--                <dataType>date</dataType>-->
+<!--                <label translate="true">Created at</label>-->
+<!--                <sorting>desc</sorting>-->
+<!--            </settings>-->
+<!--        </column>-->
+
+        <actionsColumn name="actions" class="Adobe\Student\Ui\Components\Student\Listing\Column\Actions"
+                       sortOrder="6">
+            <settings>
+                <indexField>student_id</indexField>
+                <label translate="true">Actions</label>
+            </settings>
+        </actionsColumn>
+
+    </columns>
+</listing>

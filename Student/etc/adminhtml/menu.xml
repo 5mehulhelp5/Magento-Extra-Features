@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+            id="Adobe_Student::Student"
+            title="Student"
+            module="Adobe_Student"
+            sortOrder="21"
+            resource="Adobe_Student::Student"
+        />
+        <add
+            id="Adobe_Student::Student_Details"
+            title="Student List"
+            module="Adobe_Student"
+            sortOrder="2"
+            action="student/student/index"
+            resource="Adobe_Student::Student_Details"
+            parent="Adobe_Student::Student"
+        />
+    </menu>
+</config>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Lehan, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Adobe\Student\Api\StudentRepositoryInterface" type="Adobe\Student\Model\StudentRepository"/>
+    <preference for="Adobe\Student\Api\Data\StudentInterface" type="Adobe\Student\Model\Student"/>
+    <preference for="Adobe\Student\Api\Data\StudentSearchResultInterface" type="Adobe\Student\Model\StudentSearchResult"/>
+    <type name="Adobe\Student\Api\StudentRepositoryInterface">
+        <plugin name="student_repository_plugin" type="Adobe\Student\Plugin\StudentRepositoryInterface" />
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="student_listing_data_source" xsi:type="string">
+                    Adobe\Student\Model\ResourceModel\Student\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

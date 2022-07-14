@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © Lehan, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/* @var \Adobe\Student\Block\StudentList $block */
+?>
+<label><?= __("Students from Bangalore with Marks > 75 ") ?></label>
+<?php echo '<br/>' ?>
+<?php echo '<br/>' ?>
+<table border="1px" cellpadding="4" cellspacing="50">
+    <tr>
+        <td><b>Name</b></td>
+        <td><b>City</b></td>
+        <td><b>Marks</b></td>
+    </tr>
+<?php foreach ($block->getText() as $student) { ?>
+    <tr>
+        <?php
+
+        $name  = $student['name'];
+        $city  = $student['student_city'];
+        $marks = $student['student_marks'];
+
+        echo "<td>$name</td>";
+        echo "<td>$city</td>";
+        echo "<td>$marks</td>";
+        ?>
+    </tr>
+<?php } ?>
+</table>

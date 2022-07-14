@@ -1,0 +1,16 @@
+{
+    "student_details": {
+        "column": {
+            "student_id": true,
+            "name": true,
+            "email": true,
+            "phone": true,
+            "student_address": true,
+            "student_city": true,
+            "student_marks": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

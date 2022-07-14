@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Lehan, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <!--Fetch the Data -->
+    <route url="/V1/adobe/student/:studentId" method="GET">
+        <service class="Adobe\Student\Api\StudentRepositoryInterface" method="getDataById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!--Delete the Data-->
+    <route url="/V1/adobe/student/:studentId" method="DELETE">
+        <service class="Adobe\Student\Api\StudentRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!--Update the Data-->
+    <route url="/V1/adobe/student/update" method="PUT">
+        <service class="Adobe\Student\Api\StudentRepositoryInterface" method="update"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- Save data-->
+    <route url="/V1/adobe/student/save" method="POST">
+        <service class="Adobe\Student\Api\StudentRepositoryInterface" method="update"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- Get student list data-->
+    <route url="/V1/adobe/student/" method="GET">
+        <service class="Adobe\Student\Api\StudentRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/adobe/saveStudents" method="POST">
+        <service class="Adobe\Student\Api\StudentRepositoryInterface" method="saveStudents"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+</routes>
