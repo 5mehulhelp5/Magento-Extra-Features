@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.social">
+            <block class="Magento\Catalog\Block\Product\View"  name="emi_section" template="Prajwal_Assignment8::emisection.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type = "object">Prajwal\Assignment8\ViewModel\EmiData</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,44 @@
+<?php
+/** @var \Task\Employee\Block\Employee $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$EmployeeData=$block->getUpdate();
+?>
+<form method="POST" action="<?= $escaper->escapeUrl($block->getSaveUrl())?>" >
+    <h3><?=$escaper->escapeHtml('Edit Employee Details')?></h3>
+    <?php if ($EmployeeData['id']):?>
+        <div>
+            <label>ID</label>
+            <input name="id" type="text" value="<?= $escaper->escapeHtml($EmployeeData['id']??null)?>" readonly/>
+        </div>
+    <?php endif;?>
+    <div>
+        <label>Is Active</label>
+        <input name="is_active" type="text" value="<?= $escaper->escapeHtml($EmployeeData['is_active']??null)?>"/>
+    </div>
+    <div>
+        <label>First Name</label>
+        <input name="first_name" type="text" value="<?= $escaper->escapeHtml($EmployeeData['first_name']??null)?>"/>
+    </div>
+    <div>
+        <label>Last Name</label>
+        <input name="last_name" type="text" value="<?= $escaper->escapeHtml($EmployeeData['last_name']??null)?>"/>
+    </div>
+    <div>
+        <label>Date of Birth</label>
+        <input name="dob" type="date" value="<?= $escaper->escapeHtml($EmployeeData['dob']??null)?>"/>
+    </div>
+    <div>
+        <label>Price</label>
+        <input name="price" type="text" value="<?= $escaper->escapeHtml($EmployeeData['price']??null)?>"/>
+    </div>
+    <div>
+        <label>Weight</label>
+        <input name="weight" type="text" value="<?= $escaper->escapeHtml($EmployeeData['weight']??null)?>"/>
+    </div>
+    <?php if ($EmployeeData['id']): ?>
+        <button><?=$escaper->escapeHtml('Update')?></button>
+    <?php else: ?>
+        <button><?=$escaper->escapeHtml('Save')?></button>
+    <?php endif; ?>
+</form>

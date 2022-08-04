@@ -1,0 +1,43 @@
+<?php
+/** @var \Task\Employee\Block\Employee $block */
+/** @var \Magento\Framework\Escaper $escaper */
+$employees=$block->getAllEmployees();
+?>
+<button><a href="<?= $escaper->escapeUrl($block->getEditUrl())?>"><?= $escaper->escapeHtml('Add Employee')?></a></button>
+<h2><?= $escaper->escapeHtml('Employee Details')?> </h2>
+<div class="employee-listing">
+    <?php if (count($employees) > 0):?>
+        <table>
+            <tr>
+                <th> <?= $escaper->escapeHtml('ID')?> </th>
+                <th> <?= $escaper->escapeHtml('IS Active')?> </th>
+                <th> <?= $escaper->escapeHtml('First Name')?> </th>
+                <th> <?= $escaper->escapeHtml('Last Name')?> </th>
+                <th> <?= $escaper->escapeHtml('DOB')?> </th>
+                <th> <?= $escaper->escapeHtml('Created At')?> </th>
+                <th> <?= $escaper->escapeHtml('Price')?> </th>
+                <th> <?= $escaper->escapeHtml('Weight')?> </th>
+            </tr>
+            <?php foreach ($block->getAllEmployees() as $employee): ?>
+                <tr>
+                    <td><?= $escaper->escapeHtml($employee->getId()) ?> </td>
+                    <td><?= $escaper->escapeHtml($employee->getIsActive()) ?> </td>
+                    <td><?= $escaper->escapeHtml($employee->getFirstName()) ?> </td>
+                    <td><?= $escaper->escapeHtml($employee->getLastName()) ?> </td>
+                    <td><?= $escaper->escapeHtml($employee->getDob()) ?> </td>
+                    <td><?= $escaper->escapeHtml($employee->getCreatedAt()) ?> </td>
+                    <td><?= $escaper->escapeHtml($employee->getPrice()) ?> </td>
+                    <td><?= $escaper->escapeHtml($employee->getWeight()) ?> </td>
+                    <td>
+                        <span>
+                            <button><a href="<?= $escaper->escapeUrl($block->getEditUrl().'id/'.$employee->getId())?>"><?= $escaper->escapeHtml('Edit')?></a></button>
+                            <button><a href="<?= $escaper->escapeUrl($block->getDeleteUrl().'id/'.$employee->getId())?>"><?= $escaper->escapeHtml('Delete')?></a></button>
+                        </span>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php else: ?>
+        <h3><?=$escaper->escapeHtml('Empty Employee List')?></h3>
+    <?php endif; ?>
+</div>

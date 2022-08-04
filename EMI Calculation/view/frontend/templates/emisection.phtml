@@ -1,0 +1,39 @@
+<?php
+/** @var  Magento\Catalog\Block\Product\View $block */
+$viewModel = $block->getData('view_model');
+$data = $viewModel->getEmidata();
+$customer=$viewModel->isCustomerloggedin();
+$currency=$viewModel->getCurrency();
+?>
+<div class="prajwal-emisection" data-bind="scope: 'section'">
+    <h3 data-bind="text: emisection().gender"></h3>
+</div>
+<?php if ($customer): ?>
+    <a class="emi-plan">EMI Plans</a>
+    <table id="emi-table" class="emi-table">
+        <tr>
+            <th>Emi Plan</th>
+            <th>Interest</th>
+            <th>Total Price</th>
+        </tr>
+    </table>
+<?php else: ?>
+    <p>Login to get EMI Plans</p>
+<?php endif;?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "section": {
+                        "component": "Prajwal_Assignment8/js/emisection",
+                        "templates": "Prajwal_Assignment8/emisection",
+                        "price": <?= $block->getProduct()->getFinalPrice() ?>,
+                        "data": <?= $data ?>,
+                        "currency": "<?= $currency ?>"
+                    }
+                }
+            }
+        }
+    }
+</script>

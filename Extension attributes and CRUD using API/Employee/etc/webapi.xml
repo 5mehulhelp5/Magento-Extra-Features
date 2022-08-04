@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!--Fetch the Data -->
+    <route url="/V1/task/employee/:Id" method="GET">
+        <service class="Task\Employee\Api\EmployeeRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/task/employeeaddress/:Id" method="GET">
+        <service class="Task\Employee\Api\EmployeeAddressRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <!-- Save The Data-->
+    <route url="/V1/task/employee/save/" method="POST">
+        <service class="Task\Employee\Api\EmployeeRepositoryInterface" method="saveData"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <!-- Edit The Data-->
+    <route url="/V1/task/employee/edit/" method="POST">
+        <service class="Task\Employee\Api\EmployeeRepositoryInterface" method="saveData"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <!-- Delete The Data-->
+    <route url="/V1/task/employee/delete/:Id" method="DELETE">
+        <service class="Task\Employee\Api\EmployeeRepositoryInterface" method="deleteData"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>
