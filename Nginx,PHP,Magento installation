@@ -116,6 +116,10 @@ sudo nano /etc/hosts
 
 bin/magento se:up && bin/magento se:di:com && bin/magento indexer:reindex && bin/magento c:c && chmod -R 777 var/ pub/ generated/
 
+php bin/magento admin:user:create --admin-user=admin --admin-password=admin123 --admin-email=prajwal.j@codilar.com --admin-firstname=prajwal --admin-lastname=joshi
+bin/magento config:set web/secure/use_in_adminhtml 0
+bin/magento config:set web/secure/use_in_frontend 0
+
 
 
 
