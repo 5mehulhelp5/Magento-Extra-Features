@@ -1,0 +1,9 @@
+app/code/Codilar/ExtendedSales/view/adminhtml/layout/adminhtml_order_shipment_new.xml   ------>  xml file
+app/code/Codilar/ExtendedSales/view/adminhtml/templates/create/items/renderer/default.phtml ----> phtml
+
+
+
+Homesrurs uae- sales delivery method
+
+Below 182(config limit) considered as acccesories and is cash on delivery enabled 
+above config limit it shud be furniture or mixed and cash on delivery shuld be disabled.
