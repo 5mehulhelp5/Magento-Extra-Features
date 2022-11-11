@@ -1,0 +1,29 @@
+git init
+
+
+# Generating the SSh key
+
+ssh-keygen
+ls /home/codilar/.ssh/id_rsa
+ls /home/codilar/.ssh
+cat /home/codilar/.ssh/id_rsa.pub
+
+git brach
+git checkout -b branch_name ---->(Creating New Brnach)
+git branch -D branch_name  ----> (Deleteing Branch name)
+
+#Creating PR
+
+git status
+git add file name
+git commit -m "this is my first project"
+git pull origin branc_name  ---> (Pull the code)
+git push origin current_branch_name  ----> (Push the code)
+
+#Rebasing the branch 
+
+git checkout my_branch_name  --->(No file changes )
+git pull --rebase
+git branch --set-upstream-to=origin/production my_branch_name
+git pull --rebase
+git push origin current_branch_name -f

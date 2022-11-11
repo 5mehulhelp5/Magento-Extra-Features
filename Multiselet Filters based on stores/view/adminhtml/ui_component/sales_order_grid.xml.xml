@@ -1,0 +1,17 @@
+<listingToolbar name="listing_top">
+    <filters name="listing_filters">
+        <filterSelect name="store_id" provider="${ $.parentName }">
+            <argument name="optionsProvider" xsi:type="configurableObject">
+                <argument name="class" xsi:type="string">Codilar\ExtendedSales\Ui\Component\Listing\Column\Store\Options</argument>
+            </argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                    <item name="template" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                    <item name="dataScope" xsi:type="string">store_id</item>
+                    <item name="label" xsi:type="string" translate="true">Purchase Point</item>
+                </item>
+            </argument>
+        </filterSelect>
+    </filters>
+    </listingToolbar>
