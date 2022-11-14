@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Codilar
+ * Copyright (C) 2020 Codilar <info@Codilar.com>
+ *
+ * @package Codilar_BuyNow
+ * @copyright Copyright (c) 2020 Codilar (http://www.Codilar.com/)
+ * @license http://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author Codilar <info@Codilar.com>
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.addtocart.bundle">
+            <block class="Magento\Catalog\Block\Product\View"
+                   name="product.buynow"
+                   template="Codilar_BuyNow::buynow-view.phtml"
+                   before="-" ifconfig="buynow/general/enable_view"/>
+        </referenceBlock>
+    </body>
+</page>

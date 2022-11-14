@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Codilar
+ * Copyright (C) 2020 Codilar <info@Codilar.com>
+ *
+ * @package Codilar_BuyNow
+ * @copyright Copyright (c) 2020 Codilar (http://www.Codilar.com/)
+ * @license http://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author Codilar <info@Codilar.com>
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Customer:etc/sections.xsd">
+    <action name="buynow/cart/add">
+        <section name="cart"/>
+    </action>
+</config>
