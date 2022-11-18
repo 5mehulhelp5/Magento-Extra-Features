@@ -1,0 +1,13 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="price-container">
+    <span class="price-wrapper" data-bind="html: price" ></span>
+    <!-- ko if: item.final_price!=item.regular_price -->
+    <span class="regular-price" style="text-decoration: line-through;" data-bind="html: item.regular_price"></span>
+    <!-- /ko -->
+</div>
+
