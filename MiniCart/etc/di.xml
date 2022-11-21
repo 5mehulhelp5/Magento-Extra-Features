@@ -2,4 +2,9 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Magento\Checkout\CustomerData\Cart" type="Codilar\MiniCart\CustomerData\Cart"/>
+    <type name="Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="custompluyg"
+                type="Codilar\MiniCart\Plugin\ConfigProviderPlugin"
+                sortOrder="100"/>
+    </type>
 </config>

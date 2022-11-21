@@ -2,8 +2,6 @@
 
 namespace Codilar\MiniCart\CustomerData;
 
-use Magento\Quote\Model\Quote\Item;
-
 class Cart extends \Magento\Checkout\CustomerData\Cart
 {
     /**
