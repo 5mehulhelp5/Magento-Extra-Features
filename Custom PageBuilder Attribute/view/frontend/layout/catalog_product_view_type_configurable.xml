@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.main">
+            <block class="Magento\Catalog\Block\Product\View" name="product.attribute.custom" template="Magento_Catalog::product/view/attribute.phtml">
+                <arguments>
+                    <argument name="at_call" xsi:type="string">getcustom</argument>
+                    <argument name="at_code" xsi:type="string">custom</argument>
+                    <argument name="at_label" xsi:type="string">cycu</argument>
+                    <argument name="css_class" xsi:type="string">description</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
