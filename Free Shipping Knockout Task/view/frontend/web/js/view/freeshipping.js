@@ -16,9 +16,13 @@ define(
                 var totals = quote.totals();
                 var subtotalAmount = (totals ? totals : quote)['subtotal'];
                 if(freeshippingminimumamount && freeshippingminimumamount - subtotalAmount >0){
+                    let width = (subtotalAmount/freeshippingminimumamount)*100;
+                    document.getElementById('freeshiping-progress-bar-item').style.width = width + '%';
                     return 'Shop '+ currency +(freeshippingminimumamount-subtotalAmount)+' More to Avail Free Shipping';
                 }
                 else {
+                    document.getElementById('freeshiping-progress-bar-item').style.width = '100%';
+                    document.getElementById('freeshiping-progress-bar-item').style.backgroundColor = 'green';
                     return 'Your Order is eligible for Free Shippping';
                 }
             },

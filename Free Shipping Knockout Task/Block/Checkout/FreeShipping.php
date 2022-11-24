@@ -7,6 +7,7 @@ use Magento\Framework\View\Element\Template;
 use Magento\Framework\Locale\CurrencyInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\View\Element\Template\Context;
+use Magento\Framework\Exception\NoSuchEntityException;
 
 class FreeShipping extends Template
 {
@@ -48,6 +49,12 @@ class FreeShipping extends Template
         $this->storeManager = $storeManager;
         $this->context = $context;
     }
+
+    /**
+     * Return the Config minimum free shipping amount
+     *
+     * @return int
+     */
     public function getFreeShippingMinimumAmount()
     {
         $enable = intval($this->scopeConfig->getValue(self::FREE_SHIPPING_ENABLE));
@@ -58,6 +65,13 @@ class FreeShipping extends Template
             return 0;
         }
     }
+
+    /**
+     * Return the currency symbol
+     *
+     * @return string
+     * @throws NoSuchEntityException
+     */
     public function getCurrency()
     {
         $currencycode = $this->storeManager->getStore()->getCurrentCurrencyCode();

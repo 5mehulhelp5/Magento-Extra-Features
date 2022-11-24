@@ -1,0 +1,14 @@
+.freeshiping-progress-bar {
+    height: 10px;
+    width: 470px;
+    background-color: #ccc;
+    border: 0 solid #ccc;
+    border-radius: 6px 6px 6px 6px;
+}
+.freeshiping-progress-bar-item{
+        height: 10px;
+        width: 470px;
+        background-color: #ff5501;
+        margin: 5px 0 10px;
+        border-radius: 6px 6px 6px 6px;
+}
