@@ -82,6 +82,11 @@ composer create-project --repository-url=https://repo.magento.com/ magento/proje
 sudo composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition:2.4.3-p1 .
 
 
+publick key: 7410fc7f5bde0238cdf16ca78e806cbd
+private key: d270eaa939ca62053847bf45e7a3daad
+
+
+
 bin/magento setup:install --base-url=http://magento.local/ --db-host=localhost  --db-name=magento2 --db-user=prajwal --db-password=P4ssw0rd@ --admin-firstname=prajwal --admin-lastname=joshi --admin-email=prajwal.j@codilar.com --admin-user=admin --admin-password=admin123 --language=en_US --currency=INR --timezone=Asia/Kolkata --use-rewrites=1 --search-engine=elasticsearch7 --elasticsearch-host=localhost --elasticsearch-port=9200
 
 sudo nano app/etc/env.php
