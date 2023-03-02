@@ -1,0 +1,22 @@
+{
+    "name": "Codilar/module-postloginhome",
+    "description": "",
+    "type": "magento2-module",
+    "license": "https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)",
+    "authors": [
+        {
+            "name": "Codilar Technologies",
+            "email": "info@codilar.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Codilar\\Postloginhome\\": ""
+        }
+    }
+}

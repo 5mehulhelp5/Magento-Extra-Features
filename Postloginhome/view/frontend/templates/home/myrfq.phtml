@@ -1,0 +1,130 @@
+<?php
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+?>
+<?php
+/** @var Codilar\Postloginhome\Block\Index\MyRfq $block
+ * @var $escaper Magento\Framework\Escaper
+ */
+
+$baseUrl = $block->getBaseUrl(); 
+$quoteData = $block->getRfqCollection();
+$statusData = $block->getStatusLabels();
+?>
+<?php if(count($quoteData)>0): ?>
+    <div class="my-order-container">
+        <div id="rfq_filter" class="multiselect">
+            <div id="checkboxes" class="flowers-wrap">
+                <input type="checkbox" class='chk-btn' id="status_all" name="status_arr" value="status_all"/>
+                <label for="status_all"><?= /* @escapeNotVerified */ __('All') ?></label>
+                <?php  /*foreach ($block->getStatusLabels() as $status => $label): ?>
+                    <input type="checkbox" class='chk-btn' id="<?= $status ?>" name="status_arr" value="<?= $status ?>"/>
+                    <label for="<?= $status ?>"><?= $label ?></label>
+                <?php endforeach;*/?>
+                <input type="checkbox" class='chk-btn' id="status_open" name="status_arr" value="status_open"/>
+                    <label for="status_open"><?= /* @escapeNotVerified */ __('Open') ?></label>
+                <input type="checkbox" class='chk-btn' id="status_recived" name="status_arr" value="status_recived"/>
+                    <label for="status_recived"><?= /* @escapeNotVerified */ __('Quote Received') ?></label>
+                <input type="checkbox" class='chk-btn' id="status_closed" name="status_arr" value="status_closed"/>
+                    <label for="status_closed"><?= /* @escapeNotVerified */ __('Closed') ?></label>
+            </div>
+        </div>
+        <?php  foreach ($quoteData as $negData): ?>
+            <?php    
+            if($statusData[$negData['rfqinfo']['status']]=='Closed'){
+                $status_class='status_closed';
+            }else if($statusData[$negData['rfqinfo']['status']]=='Quote Received'){
+                $status_class='status_recived';
+            }else{
+                $status_class='status_open';
+            }
+            ?>
+            <ul class="flower first" data-id="status" data-category="<?= $status_class ?> status_all"> 
+                <div class="order-top-container">
+                    <li class="a-center">
+                        <a class="Quote-name" href="<?= $baseUrl ?>negotiable_quote/quote/view/quote_id/<?= $negData['entity_id'];?>">
+                            <?= $negData['rfqinfo']['quote_name'];?>
+                            <?php if($negData['items_qty']>1): ?>
+                                <?= /* @escapeNotVerified */ __('('.(int)$negData['items_qty'].' Products)') ?>
+                            <?php else: ?>
+                                <?= /* @escapeNotVerified */ __('('.(int)$negData['items_qty'].' Product)') ?>
+                            <?php endif; ?>
+                        </a>
+                    </li>
+                    <li class="a-center status <?= $statusData[$negData['rfqinfo']['status']];?>"><?= $statusData[$negData['rfqinfo']['status']];?></li>
+                </div>
+                <div class="order-bottom-container">
+                    <li class="a-center">
+                    <span class="title"><?= /* @escapeNotVerified */ __('Quote Request ID:') ?></span>
+                        <?= $negData['entity_id'];?>
+                    </li>
+                    <li class="a-center">
+                    <span class="title"><?= /* @escapeNotVerified */ __('Created on:') ?></span>
+                        <?= $escaper->escapeHtml(date("d F Y", strtotime($negData['created_at']))) ?>
+                    </li>
+                    <li class="a-center">
+                    <span class="title"><?= /* @escapeNotVerified */ __('Expire on:') ?></span>
+                        <?php $expireDate = $negData['rfqinfo']['expiration_period'];?>
+                        <?php if($expireDate==''||$expireDate=='0000-00-00'):?>
+                            <?php $createDate = strtotime($negData['created_at']); ?>
+                            <?= $escaper->escapeHtml(date("d F Y", strtotime("+1 month",$createDate))) ?>
+                        <?php else: ?>
+                            <?= $escaper->escapeHtml(date("d F Y", strtotime($expireDate))) ?>
+                        <?php endif; ?>
+                    </li>
+                </div>
+            </ul>
+        <?php endforeach;?>
+    </div>
+
+    <script>
+        require([
+            "jquery",
+            "jquery/ui"
+        ], function($){
+            var expanded = true;
+            var $filterCheckboxes = $('input[type="checkbox"]');                             
+            var filterFunc = function() {
+                var selectedFilters = {};
+                $filterCheckboxes.filter(':checked').each(function() {
+                    if (!selectedFilters.hasOwnProperty(this.name)) {
+                        selectedFilters[this.name] = [];
+                    }
+                    selectedFilters[this.name].push(this.value);
+                });
+                // create a collection containing all of the filterable elements
+                var $filteredResults = $('.flower');
+
+                // loop over the selected filter name -> (array) values pairs
+                $.each(selectedFilters, function(name, filterValues) {
+                    // filter each .flower element
+                    $filteredResults = $filteredResults.filter(function() {
+                        var matched = false,
+                        currentFilterValues = $(this).data('category').split(' ');
+                        $.each(currentFilterValues, function(_, currentFilterValue) {
+                            if ($.inArray(currentFilterValue, filterValues) != -1) {
+                                matched = true;
+                                return false;
+                            }
+                        });
+                        return matched;
+                    });
+                });
+                $('.flower').hide().filter($filteredResults).show();
+            }
+            $filterCheckboxes.on('change', filterFunc);
+             $(document).ready(function(){
+                $("#status_all").click(function(){
+                    $("#rfq_filter #checkboxes input[type=checkbox]").prop('checked', $(this).prop('checked'));
+                });
+            });   
+        });
+    </script>
+<?php else: ?>
+    <?= $escaper->escapeHtml( __('You have no quote data')) ?>
+<?php endif;  ?>
+    

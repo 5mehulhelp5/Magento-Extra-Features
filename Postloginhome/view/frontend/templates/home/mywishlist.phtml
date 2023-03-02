@@ -1,0 +1,312 @@
+<?php
+/**
+ * @package   EGC Supply
+ * @author    Codilar Technologies
+ * @license   https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link      http://www.codilar.com/
+ */
+?>
+<?php
+use Magento\Framework\App\ActionInterface;
+/** @var Codilar\Postloginhome\Block\Index\MyWishlist $block
+ * @var $escaper Magento\Framework\Escaper
+ */
+?>
+<?php
+$baseUrl = $block->getBaseUrl();
+$customerId = $block->getCustomerId();
+$params = $block->getRequest()->getParams();
+$WishlistData = $block->getWishlists()->getData();
+if ($customerId)
+$activeWishlistId = $params['wishlist_id'] ?? $WishlistData[0]['wishlist_id'];
+?>
+<?php if($customerId):?>
+    <?php
+    $wishlistDefaultId = $block->getDefaultWishlist()->getWishlistId();
+    $wishlistName  = $block->getWishlists();
+    ?>
+    <div class="post-homepage-wishlist">
+        <div class="topbar-wishlist">
+            <?php if(count($wishlistName)): ?>
+                <div class="wishlist-select">
+                    <ul class="wishlist-select-items" data-target="dropdown" id="wishlists-select">
+                        <?php foreach ($block->getWishlists() as $wishlist) : ?>
+                            <?php if($activeWishlistId==$wishlist->getId()):
+                                $activeWishlistName = $wishlist->getName();
+                            endif; ?>
+                            <?php if ( $wishlist->getName() == 'Wish List'): ?>
+                                <li class="item">
+                                    <button type="button" id="<?= $escaper->escapeHtml($wishlist->getId()) ?>" class="<?= $wishlist->getId()==$activeWishlistId ?'active':''?>" title="<?= $escaper->escapeHtml($wishlist->getName()) ?>">
+                                        <?= $escaper->escapeHtml('Default') ?> (<?= count($block->getCustomerWishlist($wishlist->getId())) ?>)</button>
+                                </li>
+                            <?php else: ?>
+                                <li class="item">
+                                    <button type="button" id="<?= $escaper->escapeHtml($wishlist->getId()) ?>" class="<?= $wishlist->getId()==$activeWishlistId ?'active':''?>" title="<?= $escaper->escapeHtml($wishlist->getName()) ?>">
+                                        <?= $escaper->escapeHtml($wishlist->getName()) ?> (<?= count($block->getCustomerWishlist($wishlist->getId())) ?>)</button>
+                                </li>
+                            <?php endif; ?>
+                        <?php endforeach;?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+            <div class="search-container">
+                <?php if(count($wishlistName)): ?>
+                    <div class="wishlist-search">
+                        <label class="label"><?= $escaper->escapeHtml( __('Search')) ?><span><?= $escaper->escapeHtml( __('Wishlist')) ?></span></label>
+                        <input class="product-search" id="searchInput" type="text">
+                    </div>
+                    <div class="btn create-new-wishlist">
+                        <li class="item" id="create-new">
+                            <button>
+                            <span role="button" tabindex="0" class="action new" title="Create New Wish List">
+                                <span style="font-size: 24px;">+</span>
+                            </span>
+                            </button>
+                        </li>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <div class="customer-wishlist-container" id="customer_wishlist_container">
+            <div class="search-message" style="display:none;">
+                <?= $escaper->escapeHtml( __('No results found')) ?>
+            </div>
+            <?php
+            if(count($wishlistName)):
+            $wishlistNameData =$wishlistName->getData();
+            if(isset($params['wishlist_id'])) {
+                $wishlistId = $params['wishlist_id'];
+            } else {
+                $wishlistId = $wishlistNameData[0]['wishlist_id'];
+            }
+            $wishlistData  = $block->getCustomerWishlist($wishlistId);
+            ?>
+            <?php if(count($wishlistData)>0): ?>
+                <?php $wishCount = 0; ?>
+                <?php foreach ($wishlistData as $wishData): ?>
+                    <?php $wishCount++; ?>
+                    <div class="customer-wishlist-main-data <?= $wishCount == 6 ? 'show-more' : ''; ?>" id="wishlist_item_<?= $wishData['wishlist_item_id'] ?>">
+                        <div class="customer-wishlist-img">
+                            <img src="<?= $wishData['product']['thumbnail'];?>"
+                                 title="<?= $wishData['product']['name'];?>"
+                                 alt="<?= $wishData['product']['name'];?>">
+                        </div>
+                        <div class="customer-wishlist-id">
+                            <a href="<?= $block->getUrl($wishData['product']['request_path']);?>">
+                                <span class="name-search">
+                                    <?= $escaper->escapeHtml($wishData['product']['name'])?>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="customer-wishlist-brand">
+                            <div class="title"><?= $escaper->escapeHtml( __('Brand Name')) ?></div>
+                            <?php if(array_key_exists('brand_name', $wishData['product'])):?>
+                                <div class="value name-search">
+                                    <?= $escaper->escapeHtml($wishData['product']['brand_name'])?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="customer-wishlist-mfgpart">
+                            <div class="title"><?= $escaper->escapeHtml( __('MFG Part#')) ?></div>
+                            <?php if(array_key_exists('mfg_part', $wishData['product'])):?>
+                                <div class="value name-search">
+                                    <?= $escaper->escapeHtml($wishData['product']['mfg_part'])?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="customer-wishlist-sku">
+                            <div class="title"><?= $escaper->escapeHtml( __('SKU')) ?></div>
+                            <div class="value name-search">
+                                <?= $escaper->escapeHtml($wishData['product']['sku'])?>
+                            </div>
+                        </div>
+                        <div class="customer-wishlist-price">
+                            <div class="title"><?= $escaper->escapeHtml( __('Price')) ?></div>
+                            <span class="value">
+                                <?= ($wishData['final_price'] != $wishData['regular_price']) ?
+                                    $block->getFormattedPrice($wishData['final_price']) :
+                                    $block->getFormattedPrice($wishData['regular_price']) ?>
+                            </span>
+                            <?php if($wishData['final_price'] != $wishData['regular_price']): ?>
+                                <span class="regular_price"><?= $block->getFormattedPrice($wishData['regular_price']);?></span>
+                            <?php endif; ?>
+                        </div>
+                        <div class="customer-wishlist-qty">
+                            <div class="qty_wishlist">
+                                <label class="qty-label" for="qty[<?= $wishData['product_id']?>]">
+                                    <?= $escaper->escapeHtml( __('Qty')) ?>
+                                </label>
+                                <input type="number" data-role="qty" id="qty[<?= $wishData['product_id']?>]" class="input-text qty" data-validate="{'required-number':true,'validate-greater-than-zero':true, 'validate-item-quantity':{'minAllowed':10,'maxAllowed':10000}}" name="qty[<?= $wishData['product_id']?>]" value="<?php echo $wishData['qty']; ?>">
+                            </div>
+                        </div>
+                        <div class="actions-button">
+                            <div class="dropdown-toggle" id="dropdown-toggle">
+                                <?= $escaper->escapeHtml( __('Actions')) ?>
+                            </div>
+                        </div>
+                        <ul class="toggle-content" id="toggle-content<?= $wishData['wishlist_item_id'] ?>">
+                            <?php $postParams = $block->getAddToCartPostParams($wishData['product_id']); ?>
+                            <li class="addto-cart">
+                                <form data-role="tocart-form" action="<?php /* @escapeNotVerified */ echo $postParams['action']; ?>" method="post">
+                                    <input type="hidden" name="product" value="<?php /* @escapeNotVerified */ echo $postParams['data']['product']; ?>">
+                                    <input type="hidden" name="<?php /* @escapeNotVerified */ echo ActionInterface::PARAM_NAME_URL_ENCODED; ?>"
+                                           value="<?php /* @escapeNotVerified */ echo $postParams['data'][ActionInterface::PARAM_NAME_URL_ENCODED]; ?>">
+                                    <input type="hidden" name="return_url" class="return_url" value="<?= $block->getRedirectUrl($wishlistId) ?>" tabindex="0">
+                                    <input type="hidden" name="qty" value="<?= /* @escapeNotVerified */ $wishData['qty'] ?>">
+                                    <?php echo $block->getBlockHtml('formkey')?>
+                                    <button type="submit"
+                                            title="<?php echo $escaper->escapeHtml(__('Add to Cart')); ?>"
+                                            class="action tocart primary">
+                                        <span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
+                                    </button>
+                                </form>
+                            </li>
+                            <li class="remove">
+                                <div class="product-item-actions">
+                                    <div class="actions-primary">
+                                        <button type="button" data-role="tocart" class="action primary remove_btn"
+                                                id="remove_btn_<?= $wishData['wishlist_item_id'] ?>">
+                                            <span><?= $escaper->escapeHtml( __('Remove')) ?></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <a class="show-more-links" href="<?=  $block->getUrl('wishlist/index/index/') ?>">
+                            <?= $escaper->escapeHtml( __('See more')) ?>
+                        </a>
+                    </div>
+                <?php endforeach;?>
+            <?php else: ?>
+                <div class="No_wishlist_items">
+                    <div class="No_wishlist_items_img"><img src="<?php echo $this->getViewFileUrl('images/error.jpg'); ?>" alt="Demo"></div>
+                    <div class="No_wishlist_items_desc"><?= $escaper->escapeHtml( __('You have no items in your Wishlist')) ?></div>
+                    <div class="No_wishlist_items_btns">
+                        <div class="No_wishlist_items_product">
+                            <button><?= $escaper->escapeHtml(__('Add Products to wishlist')) ?></button>
+                        </div>
+                    </div>
+                </div>
+            <?php endif;  ?>
+        </div>
+        <?php else: ?>
+            <div class="No_wishlist_items">
+                <div class="No_wishlist_items_img"><img src="<?php echo $this->getViewFileUrl('images/error.jpg'); ?>" alt="Demo"></div>
+                <div class="No_wishlist_items_desc"><?= $escaper->escapeHtml( __('You have no Wishlist data')) ?></div>
+                <div class="No_wishlist_items_btns">
+                    <div class="btn create-new-wishlist">
+                        <div class="item" id="create-new">
+                            <button>
+                                <span role="button" tabindex="0" class="action new" title="Create New Wish List">
+                                    <span><?= $escaper->escapeHtml(__('Create new wishlist')) ?></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="No_wishlist_items_product">
+                        <button><?= $escaper->escapeHtml(__('Add Products to wishlist')) ?></button>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <?php if(count($wishlistName)): ?>
+        <div id = "modal-content-remove-wishlist" class="no-display">
+            <?= $escaper->escapeHtml( __('Are you sure you want to remove?')) ?>
+            <div>
+                <button id="ok_remove" class="action ok cancel">
+                    <span><?= $escaper->escapeHtml(__('OK')) ?></span>
+                </button>
+                <button id="cancel" class="action cancel" type="button">
+                    <span><?= $escaper->escapeHtml(__('Cancel')) ?></span>
+                </button>
+            </div>
+        </div>
+        <form class="wishlist-delete-form <?= ($WishlistData[0]['wishlist_id']==$wishlistId)?'default-wishlist-delete-form':''?>" id="wishlist-delete-form"
+              action="<?= $block->getUrl('wishlist/index/deletewishlist/wishlist_id/'.$wishlistId) ?>"
+              method="post" novalidate="novalidate">
+            <?php echo $block->getBlockHtml('formkey')?>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="button" id="btn-wishlist-delete-form" title="<?= $escaper->escapeHtml( __('Remove Favourite List')) ?>">
+                        <span><?= $escaper->escapeHtml( __('Remove Favourite List')) ?></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="wishlist-title">
+            <a href="#" data-wishlist-edit='{
+                    "url":"<?= $escaper->escapeUrl($block->getEditUrl($activeWishlistId)) ?>",
+                    "name":"<?= $escaper->escapeHtmlAttr($activeWishlistName) ?>",
+                    "title":"<?= $escaper->escapeHtmlAttr(__('Edit Wish List')) ?>",
+                    "isPublic":<?= /* @noEscape */ $wishlist->getVisibility() ? 'true' : 'false' ?>,
+                    "formKey": "<?= $escaper->escapeHtmlAttr($block->getFormkey()) ?>"
+                }' title="<?= $escaper->escapeHtmlAttr(__('Edit Wish List')) ?>" class="action edit">
+                <?= $escaper->escapeHtml(__('Edit Name')) ?>
+            </a>
+        </div>
+    <?php endif; ?>
+
+    <div id="create-wishlist-block-add-all" class="window wishlist popup active" style="display: none">
+        <div class="popup-actions-all">
+            <div class="secondary">
+                <button type="button"
+                        title="close"
+                        class="action-close"
+                        id="action_close_all"
+                        data-dismiss="popup">
+                    <span><?= $escaper->escapeHtml( __('Close')) ?></span>
+                </button>
+            </div>
+        </div>
+        <div class="popup-header modal-header">
+            <strong class="title" id="popup-title">
+                <span><?= $escaper->escapeHtml( __('Create New Wish List')) ?></span>
+            </strong>
+        </div>
+        <div class="popup-content modal-content" id="popup-content" >
+            <form id="create-wishlist-form-new" method="post" class="form wishlist" novalidate="novalidate"
+                  action="<?php echo $baseUrl.'wishlist/index/createwishlist'?>">
+                <?php echo $block->getBlockHtml('formkey')?>
+                <fieldset class="fieldset">
+                    <div class="field name">
+                        <label for="wishlist-name" class="label">
+                            <span><?= $escaper->escapeHtml( __('Wish List Name')) ?></span>
+                        </label>
+                        <div class="control">
+                            <input id="wishlist-name" class="input-text" data-role="prompt-field" data-validate="{required:true}" type="text" name="name" maxlength="255">
+                        </div>
+                    </div>
+                    <div class="field choice">
+                        <input id="wishlist-public" type="checkbox" name="visibility">
+                        <label for="wishlist-public" class="label">
+                            <span><?= $escaper->escapeHtml( __('Public Wish List')) ?></span>
+                        </label>
+                    </div>
+                    <div class="actions-toolbar">
+                        <div class="primary">
+                            <button class="action save-all primary" type="submit" title="Save">
+                                <span><?= $escaper->escapeHtml( __('Save')) ?></span>
+                            </button>
+                        </div>
+                        <div class="secondary">
+                            <button class="action cancel-all" data-role="closeBtn" type="button" title="Cancel">
+                                <span><?= $escaper->escapeHtml( __('Cancel')) ?></span>
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+   <script type="text/x-magento-init">
+        {
+            "*": {
+                "wishListJsComponent": {
+                    "wishlist_id" : "<?= $wishlistId; ?>"
+                }
+            }
+        }
+    </script>
+<?php endif; ?>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="rfqextended_form_listing_data_source" xsi:type="string">Codilar\RFQExtended\Model\ResourceModel\RFQExtendedForm\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Codilar\RFQExtended\Model\ResourceModel\RFQExtendedForm\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">egcsupply_rfqextended_form</argument>
+            <argument name="eventPrefix" xsi:type="string">codilar_rfqextended_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">codilar_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Codilar\RFQExtended\Model\ResourceModel\RFQExtendedForm</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="rfqExtendedFormGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Codilar\RFQExtended\Model\ResourceModel\RFQExtendedForm\Grid\Collection</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\NegotiableQuote\Model\Validator\Customer">
+        <plugin name="customer-negotiable-quote-validation" type="Codilar\RFQExtended\Plugin\Model\Validator\Customer" sortOrder="15"/>
+    </type>
+</config>

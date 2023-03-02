@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="egcsupply_rfqextended_form" resource="default" engine="innodb" comment="EGC Supply RFQ Extended Base Table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" identity="false" default="0" comment="Customer ID"/>
+        <constraint xsi:type="foreign" referenceId="EGCSUPPLY_RFQEXTENDED_FORM_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID"
+                    table="egcsupply_rfqextended_form" column="customer_id" referenceTable="customer_entity"
+                    referenceColumn="entity_id" onDelete="NO ACTION"/>
+        <column xsi:type="varchar" name="quote_name" nullable="true" length="255" comment="Quote Name"/>
+        <column xsi:type="int" name="state" nullable="false" default="0" comment="State"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+    </table>
+    <table name="egcsupply_rfqextended_items" resource="default" engine="innodb" comment="EGC Supply RFQ Extended Items Table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <column xsi:type="int" name="parent_id" unsigned="true" nullable="false" identity="false" comment="Parent ID"/>
+        <constraint xsi:type="foreign" referenceId="EGCSUPPLY_RFQEXTENDED_ITEMS_PARENT_ID_EGCSUPPLY_RFQEXTENDED_FORM_ENTITY_ID"
+                    table="egcsupply_rfqextended_items" column="parent_id" referenceTable="egcsupply_rfqextended_form"
+                    referenceColumn="entity_id" onDelete="NO ACTION"/>
+        <column xsi:type="int" name="known_manufacturer" nullable="false" default="1" comment="Manufacturer Known or not"/>
+        <column xsi:type="text" name="manufacture_name" nullable="true" comment="Manufacture's Name"/>
+        <column xsi:type="text" name="mfg_part" nullable="true" comment="Manufacture Part No."/>
+        <column xsi:type="text" name="product_name" nullable="true" comment="Product Name"/>
+        <column xsi:type="int" name="annual_usage" nullable="false" default="1" comment="Annual Usage"/>
+        <column xsi:type="int" name="requested_qty" nullable="false" default="1" comment="Requested Quantity"/>
+        <column xsi:type="text" name="description" nullable="true" comment="Description"/>
+        <column xsi:type="varchar" name="attachment" nullable="true" length="255" comment="Attachment"/>
+        <column xsi:type="varchar" name="sku" nullable="true" length="255" comment="SKU"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+    </table>
+</schema>

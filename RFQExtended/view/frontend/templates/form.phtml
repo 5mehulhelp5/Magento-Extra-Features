@@ -1,0 +1,201 @@
+<?php
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+
+/** @var $block Codilar\RFQExtended\Block\Form\Create */
+$isCustomerLoggedIn = $block->isCustomerLoggedIn();
+?>
+<?php /*
+<div class="rfqCustomFormContainer">
+    <form method="POST" action="<?= $block->escapeHtml($block->getFormAction()); ?>" class="form-inline" id="rfqExtendedCustomForm" data-mage-init='{"validation": {}}'>
+        <input type="hidden" name="count" id="count">
+        <input type="hidden" name="customer_id" id="customer_id" value="<?= $block->escapeHtml($block->getCustomerId()); ?>">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-25">
+                    <label for="quote_name">Quote Name</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="quote_name" id="quote_name" class="form-control m-input" autocomplete="off" data-validate='{"required":true}'/>
+                </div>
+            </div>
+        </div>
+        <div class="product_request_container">
+            <div class="form-group productRow">
+                <div class="row mb-5">
+                    <div class="col-25">
+                        <label for="quote_name">Manufacture</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="manufacture" name="manufacture_name[]" class="form-control m-input" autocomplete="off" data-validate='{"required":true}'>
+                            <option>Select Manufacture</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-25">
+                        <label>MFG Part Number</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" name="mfg_part[]" class="form-control m-input" autocomplete="off" data-validate='{"required":true}' />
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-25">
+                        <label>Annual Usage</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="number" name="annual_usage[]" class="form-control m-input" autocomplete="off" data-validate='{"required":true, "digits": true}' />
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-25">
+                        <label>Requested Quantity</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="number" name="requested_qty[]" class="form-control m-input" autocomplete="off" data-validate='{"required":true, "digits": true}' />
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-25">
+                        <label>Description</label>
+                    </div>
+                    <div class="col-75">
+                        <textarea class="form-control" name="description[]" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-25">
+                        <label>Attachment</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="file" name="attachment[]" class="form-control m-input"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="removeProductRow btn btn-primary mt-2">Remove Product</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="button" id="addNewProduct" class="btn btn-primary mt-2">Add New Product</button>
+            </div>
+            <div class="col">
+                <button type="button" id="submitRFQCustomForm" class="btn btn-primary mt-2">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    require(['jquery', 'select2'], function($) {
+        $(document).ready(function(){
+            $("#manufacture").select2();
+        });
+    });
+</script>
+ */ ?> <!-- Original Code -->
+
+<div class="Rfq-container">
+    <div class="page-title-wrapper">
+        <h1 class="page-title">
+            <span class="base" data-ui-id="page-title-wrapper">Request a Quote</span>
+            <p class="heading-para">Use this form to tell us about the products that you are interested in. We will get back to you with the best pricing possible.</p>
+        </h1>
+    </div>
+    <div class="content">
+        <div class="upper-container">
+            <form class="form form-rfq"
+                  action="<?= $block->escapeHtml($block->getFormAction()); ?>"
+                  method="post"
+                  id="rfqExtendedCustomForm"
+                  data-mage-init='{"validation": {}}'
+                  enctype="multipart/form-data">
+                <input type="hidden" name="count" id="count">
+                <input type="hidden" name="customer_id" id="customer_id" value="<?= $block->escapeHtml($block->getCustomerId()); ?>">
+                <fieldset class="fieldset rfq-upper" data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>">
+                    <div class="field rfq required">
+                        <label class="label <?= $block->escapeHtml($block->getUsername()) ? 'fix' : ''?>" for="rfq-name"><span><?= $block->escapeHtml(__('Name')) ?></span></label>
+                        <div class="control">
+                            <input name="quote_name"
+                                   id="rfq-name" type="text" class="input-text"
+                                   title="<?= $block->escapeHtml(__('Name')) ?>"
+                                   data-validate="{required:true}">
+                        </div>
+                    </div>
+                    <?php if (!$isCustomerLoggedIn) { ?>
+                    <div class="field rfq required">
+                        <label class="label <?= $block->escapeHtml($block->getUsername()) ? 'fix' : ''?>" for="rfq-name"><span><?= $block->escapeHtml(__('Customer First Name')) ?></span></label>
+                        <div class="control">
+                            <input name="customer_first_name"
+                                   id="rfq-customer-firstname" type="text" class="input-text"
+                                   title="<?= $block->escapeHtml(__('Customer First Name')) ?>">
+                        </div>
+                    </div>
+                    <div class="field rfq required">
+                        <label class="label <?= $block->escapeHtml($block->getUsername()) ? 'fix' : ''?>" for="rfq-name"><span><?= $block->escapeHtml(__('Customer Last Name')) ?></span></label>
+                        <div class="control">
+                            <input name="customer_last_name"
+                                   id="rfq-customer-lastname" type="text" class="input-text"
+                                   title="<?= $block->escapeHtml(__('Customer Last Name')) ?>">
+                        </div>
+                    </div>
+                    <div class="field rfq required">
+                        <label class="label <?= $block->escapeHtml($block->getUsername()) ? 'fix' : ''?>" for="rfq-name"><span><?= $block->escapeHtml(__('Customer Email')) ?></span></label>
+                        <div class="control">
+                            <input name="customer_email"
+                                   id="rfq-customer-email" type="text" class="input-text"
+                                   title="<?= $block->escapeHtml(__('Customer Email')) ?>"
+                                   data-mage-init='{"mage/trim-input":{}}'>
+                        </div>
+                    </div>
+                    <?php } ?>
+                </fieldset>
+                <div class="product_request_container">
+                    <?= $block->getChildHtml('rfq_custom_form_items') ?>
+                </div>
+                <div class="actions-toolbar">
+                    <div class="secondary">
+                        <button type="button" id="addNewProduct" class="action">
+                            <span><?= $block->escapeHtml(__('+  Add Item')) ?></span>
+                        </button>
+                    </div>
+                    <div class="primary">
+                        <button type="button" id="submitRFQCustomForm" class="action login primary">
+                            <span><?= $block->escapeHtml(__('Submit')) ?></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="guest-customer-confirm-popup" style="display:none;">
+                <form id="custom-registration-form" class="form" enctype="multipart/form-data" autocomplete="off" method="post">
+                    <fieldset class="fieldset">
+                        <div class="field field-number">
+                            <div class="label_control">
+                                <div class="control">
+                                    <div class="name-info">
+                                        <span id="checkout_message" class="checkoutMessage" data-validate="{required:true}"><?= $block->getPasswordPopupText() ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pass">
+                            <input id="guest_pass" type="password" name="guest_pass" data-validate="{required:true}" placeholder="Password">
+                            <input id="confirm_pass" type="password" name="confirm_pass" placeholder="Confirm Password">
+                        </div>
+                        <span id="wrong_pass_alert"></span>
+                    </fieldset>
+                    <button type="button" class="action" id="guest_place_order">
+                        <span data-bind="i18n: 'Submit'"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

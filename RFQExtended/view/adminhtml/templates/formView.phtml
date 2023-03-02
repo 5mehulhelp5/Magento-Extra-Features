@@ -1,0 +1,188 @@
+<?php
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+
+use Codilar\RFQExtended\Model\RFQExtendedForm;
+
+/** @var $block Codilar\RFQExtended\Block\Adminhtml\Form\View */
+$rfqForm = $block->getRFQExtendedFormData();
+$rfqItems = $block->getRFQExtendedItemsData();
+$manufactureOptions = $block->getManufactureOptions();
+
+?>
+
+<div class="rfqCustomFormContainer" xmlns="http://www.w3.org/1999/html">
+    <form class="form-inline" id="rfqExtendedCustomForm" action="<?= $block->getFormActionURl(); ?>">
+        <input type="hidden" name="count" id="count" value="<?= count($rfqItems); ?>">
+        <input type="hidden" name="entity_id" id="entity_id" value="<?= $rfqForm->getEntityId(); ?>">
+        <input type="hidden" name="customer_id" id="customer_id" value="<?= $rfqForm->getCustomerId(); ?>">
+
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    <span>Customer Name</span>
+                </th>
+                <td>
+                    <span><?= $block->getCustomerName($rfqForm->getCustomerId()); ?></span>
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <span>Quote Name</span>
+                </th>
+                <td>
+                    <span><?= $rfqForm->getQuoteName(); ?></span>
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <span>State</span>
+                </th>
+                <td>
+                    <span><?= $block->getRfqStatus($rfqForm->getState()); ?></span>
+                </td>
+            </tr>
+        </table>
+
+        <div class="product_request_container">
+            <table class="table table-borderless">
+                <?php foreach($rfqItems as $item) : ?>
+                    <tr>
+                        <th>
+                            <label>Product ---------------</label>
+                        </th>
+                    </tr>
+                    <input type="hidden" name="item_id[]" value="<?= $item->getEntityId();?>">
+
+                    <tr>
+                        <th>
+                            <label>Manufacturer not Known</label>
+                        </th>
+                        <td>
+                            <label>
+                                <input name="known_manufacturer[]" id="known_manufacturer" <?= $item->getKnownManufacturer() ? 'checked="checked"' : ''; ?> type="checkbox" title="<?= $block->escapeHtml(__('Manufacturer Known or not')) ?>" >
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <label>Product Name</label>
+                        </th>
+                        <td>
+                            <label>
+                                <input type="text" class="form-control" name="product_name[]" required="required" value="<?= $item->getProductName();?>" />
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <label>Requested Quantity</label>
+                        </th>
+                        <td>
+                            <label>
+                                <input type="number" name="requested_qty[]" class="form-control m-input" autocomplete="off" required="required" value="<?= $item->getRequestedQty(); ?>"/>
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <label>Annual Quantity</label>
+                        </th>
+                        <td>
+                            <label>
+                                <input type="number" name="annual_usage[]" class="form-control m-input" autocomplete="off" required="required" value="<?= $item->getAnnualUsage(); ?>"/>
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <label>Manufacturer Name</label>
+                        </th>
+                        <td>
+                            <label>
+                                <select name="manufacture_name[]" id="manufacturer" class="manufacturer" required="required">
+                                    <option value="">Select Manufacturer</option>
+                                    <?php foreach ($manufactureOptions as $manufactureOption) { ?>
+                                        <option value="<?= $manufactureOption['value'] ?>" <?= $manufactureOption['value'] == $item->getManufactureName()?'selected="selected"':''; ?> > <?= $manufactureOption['label'] ?> </option>
+                                    <?php } ?>
+                                </select>
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <label>MFG Part No.</label>
+                        </th>
+                        <td>
+                            <label>
+                                <input type="text" name="mfg_part[]" class="form-control m-input" autocomplete="off" value="<?= $item->getMfgPart(); ?>"/>
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <label>Description</label>
+                        </th>
+                        <td>
+                            <label>
+                                <textarea name="description[]" id="description" rows="3"><?= $item->getDescription(); ?></textarea>
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <label>Assigned SKU</label>
+                        </th>
+                        <td>
+                            <label>
+                                <input type="text" name="sku[]" class="form-control m-input" autocomplete="off" value="<?= $item->getSku(); ?>"/>
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <label>Attachment</label>
+                        </th>
+                        <td>
+                            <label>
+                                <?php if (!empty($item->getAttachment())) { ?>
+                                    <image src=<?= $this->helper('\Magento\Cms\Helper\Wysiwyg\Images')->getBaseUrl().'rfq/'.$item->getAttachment() ?> />
+                                <?php } ?>
+                            </label>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+
+            </table>
+            <table class="table table-borderless">
+                <tr class="action-row">
+                    <td>
+                        <input type="submit" name="action" value="<?= $block->getUpdateButtonTitle() ?>">
+                    </td>
+                    <?php if($rfqForm->getState() == RFQExtendedForm::FORM_STATE_PENDING_VALUE) :?>
+                        <td>
+                            <input type="submit" name="action" value="<?= $block->getConvertQuoteButtonTitle() ?>">
+                        </td>
+                        <td>
+                            <input type="submit" name="action" value="<?= $block->getRejectButtonTitle() ?>">
+                        </td>
+                    <?php endif; ?>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>

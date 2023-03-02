@@ -1,0 +1,102 @@
+<?php
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+
+/** @var $block Codilar\RFQExtended\Block\Form\Create */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var Magento\Framework\Escaper $escaper */
+$isCustomerLoggedIn = $block->isCustomerLoggedIn();
+$manufactureOptions = $block->getManufactureOptions();
+?>
+<div class="productRow">
+    <div class="product-container">
+        <h3 class="sub-heading">Product</h3>
+        <div class="field rfq required rfq-know-manufacturer">
+                <label class="label <?= $escaper->escapeHtml($block->getUsername()) ? 'fix' : ''?>" for="known_manufacturer"><span><?= $escaper->escapeHtml(__('Manufacturer not Known')) ?></span></label>
+                <div class="control">
+                    <input name="known_manufacturer[1]" class="known_manufacturer" id="known_manufacturer-1" type="checkbox" title="<?= $escaper->escapeHtml(__('Manufacturer Known or not')) ?>" >
+                </div>
+            </div>
+        <fieldset class="fieldset rfq-product" data-hasrequired="<?= $escaper->escapeHtml(__('* Required Fields')) ?>">        
+            <div class="field rfq required rfq-manufacture">
+                <label class="label <?= $escaper->escapeHtml($block->getUsername()) ? 'fix' : ''?>" for="manufacturer"><span><?= $escaper->escapeHtml(__('Manufacturer')) ?></span></label>
+                <div class="control">
+                    <select name="manufacture_name[1]" id="manufacturer-1" class="manufacturer" required="required">
+                        <option value=""> <?= $escaper->escapeHtml(__('Select Manufacture'))?> </option>
+                        <?php foreach ($manufactureOptions as $manufactureOption) { ?>
+                            <option value="<?= $manufactureOption['value'] ?>"> <?= $manufactureOption['label'] ?> </option>
+                        <?php } ?>
+                    </select>
+
+                </div>
+            </div>
+            <div class="field rfq required rfq-mfg-part">
+                <label class="label <?= $escaper->escapeHtml($block->getUsername()) ? 'fix' : ''?>" for="mfg_part"><span><?= $escaper->escapeHtml(__('MFG Part No.')) ?></span></label>
+                <div class="control">
+                    <input name="mfg_part[1]"
+                        type="text" class="input-text mfg_part"
+                        title="<?= $escaper->escapeHtml(__('MFG Part No')) ?>"
+                        required="required">
+                </div>
+            </div>
+            <div class="field rfq rfq-product-name">
+                <label class="label <?= $escaper->escapeHtml($block->getUsername()) ? 'fix' : ''?>" for="product_name"><span><?= $escaper->escapeHtml(__('Product Name')) ?></span></label>
+                <div class="control">
+                    <input name="product_name[1]"
+                        type="text" class="input-text product_name"
+                        title="<?= $escaper->escapeHtml(__('Product Name')) ?>">
+                </div>
+            </div>
+            <div class="field rfq required rfq-annual-qty">
+                <label class="label <?= $escaper->escapeHtml($block->getUsername()) ? 'fix' : ''?>" for="rfq-Annual"><span><?= $escaper->escapeHtml(__('Annual Usage')) ?></span></label>
+                <div class="control">
+                    <input name="annual_usage[1]"
+                        id="rfq-Annual" type="number" class="input-text"
+                        title="<?= $escaper->escapeHtml(__('Annual Usage')) ?>"
+                        required="required">
+                </div>
+            </div>
+            <div class="field rfq required rfq-req-qty qty1">
+                <label class="label <?= $escaper->escapeHtml($block->getUsername()) ? 'fix' : ''?>"><span><?= $escaper->escapeHtml(__('Req. Qty')) ?></span></label>
+                <div class="control">
+                    <input name="requested_qty[1]"
+                        id="rfq-Qty" type="number" class="input-text"
+                        title="<?= $escaper->escapeHtml(__('Req. Qty')) ?>"
+                        required="required"'>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="fieldset descreption-container">
+            <div class="field rfq rfq-description">
+                <label class="label <?= $escaper->escapeHtml($block->getUsername()) ? 'fix' : ''?>" for="rfq-description"><span><?= $escaper->escapeHtml(__('Description')) ?></span></label>
+                <div class="control">
+                    <textarea name="description[1]" class="input-text rfq-description" title="<?= $escaper->escapeHtml(__('Description')) ?>"></textarea>
+                </div>
+            </div>
+        </fieldset>
+        <div class="box box-upload">
+            <fieldset class="fieldset">
+                <div class="field upload skus">
+                    <label class="label" for="customer_sku_csv"></label>
+                    <div class="control">
+                        <div class="upload-container">
+                            <div class="file-upload"><?= $escaper->escapeHtml(__('Choose File')) ?></div>
+                            <div class="container">
+                                <div class="label-for-Sku-input">
+                                    <h3 class="heading"><?= $escaper->escapeHtml(__('Upload image (Optional)')) ?></h3>
+                                    <p class="Sub-heading"><?= $escaper->escapeHtml(__('in jpg, png, jpeg format only')) ?></p>
+                                    <span class="filename"></span>
+                                    <input id="customer_sku_csv" type="file" data-reset="true" class="action-upload" name="attachment[1]">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

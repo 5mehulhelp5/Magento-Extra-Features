@@ -1,0 +1,77 @@
+<?php
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+/** @var Codilar\RFQExtended\Block\MyQuotes\View $block */
+/** @var Magento\Framework\Escaper $escaper */
+?>
+<?php
+$activeState = 'all';
+$myQuotesData = $block->getMyQuotes($activeState);
+?>
+<div class="quote-status-select">
+    <ul class="quote-state-items" data-target="dropdown" id="quote-state">
+        <?php foreach ($block->getAllQuoteState() as $state) : ?>
+            <?php if($state['label']=='All'):
+                $activeState = $state['label'];
+            endif; ?>
+            <li class="item">
+                <button type="button" id="<?= $escaper->escapeHtml($state['value']) ?>" class="<?= $state['label'] == $activeState ?'active':''?>" value="<?= $escaper->escapeHtml($state['value']) ?>">
+                    <?= $escaper->escapeHtml($state['label']) ?></button>
+            </li>
+        <?php endforeach;?>
+    </ul>
+</div>
+<div class="my-quotes" id="my-quotes">
+    <div class="my-quotes-content content" id="my-quotes-content">
+        <div class="quote-items">
+            <?php if(count($myQuotesData)): ?>
+                <?php foreach ($myQuotesData as $quoteData): ?>
+                    <div class="quote-item">
+                        <div class = "top-content">
+                            <div class="quote-name">
+                                <div class="title"><?= $escaper->escapeHtml( __('Quote Name:')) ?></div>
+                                <div class="value">
+                                    <a href="<?= $block->getUrl($block->getQuoteItemUrl(),['quote_id'=>$quoteData->getEntityId()])?>" >
+                                        <?= $escaper->escapeHtml(__($quoteData->getQuoteName()));?>
+                                        <?= $escaper->escapeHtml('('.count($block->getQuoteItems($quoteData->getEntityId())).' Products)'); ?>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- <div class="item-count"> -->
+                                <!-- <?= $escaper->escapeHtml('count:'.count($block->getQuoteItems($quoteData->getEntityId()))); ?> -->
+                            <!-- </div> -->
+                            <div class="quote-state <?= $escaper->escapeHtml(__($block->getRfqStatus($quoteData->getState())));?>">
+                                <div class="title"><?= $escaper->escapeHtml( __('Quote State:')) ?></div>
+                                <div class="value">
+                                    <?= $escaper->escapeHtml(__($block->getRfqStatus($quoteData->getState())));?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bottom-content">
+                            <div class="quote-id">
+                                <div class="title"><?= $escaper->escapeHtml( __('Quote Request Id:')) ?></div>
+                                <div class="value">
+                                    <?= $escaper->escapeHtml(__($quoteData->getEntityId()));?>
+                                </div>
+                            </div>
+
+                            <div class="created-at">
+                                <div class="title"><?= $escaper->escapeHtml( __('Created On')) ?></div>
+                                <div class="value">
+                                    <?= $escaper->escapeHtml(__($block->formatDate($quoteData->getCreatedAt(),1,false)));?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach;
+            else: ?>
+                <div class="empty-quote"><?= $escaper->escapeHtml(__('There is No quote'))?></div>
+            <?php endif ?>
+        </div>
+    </div>
+</div>

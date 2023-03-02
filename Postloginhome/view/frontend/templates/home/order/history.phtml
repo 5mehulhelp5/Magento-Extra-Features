@@ -1,0 +1,103 @@
+<?php
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+/** @var \WeSupply\Toolbox\Block\Order\History $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<?php
+$weSupplyHelper = $this->helper('WeSupply\Toolbox\Helper\Data');
+$orderViewType = $weSupplyHelper->getOrdersViewType();
+$_orders = $orderViewType !== 'ws_order_list' ? $block->getOrders() : $weSupplyHelper->getWsOrders();
+$generatedOrdersLink = $orderViewType === 'ws_order_list' || $orderViewType === 'ws_order_view' ?
+    $weSupplyHelper->getGenerateOrderMap($_orders, true) : false;
+$_allOrders = $block->getOpenOrders();
+?>
+<?= $block->getChildHtml('info') ?>
+<div class="order-history product data items">
+    <div id="tab-open-orders" class="item content" data-role="content">
+        <?php if ($_allOrders && count($_allOrders)): ?>
+            <div class="table-wrapper orders-history">
+                <table class="data table table-order-items history" id="my-orders-table">
+                    <caption class="table-caption"><?= /* @escapeNotVerified */ __('Orders') ?></caption>
+                    <tbody>
+                    <?php foreach ($_allOrders as $_order): ?>
+                        <tr>
+                            <td class="col id">
+                                <span><?= /* @escapeNotVerified */ __('Order no:') ?></span>
+                                <strong><?= /* @escapeNotVerified */ $_order->getRealOrderId() ?></strong>
+                            </td>
+                            <td class="col date">
+                                <span><?= /* @escapeNotVerified */ __('Ordered on') ?></span>
+                                <strong><?= $escaper->escapeHtml(date("d F Y", strtotime($_order->getCreatedAt()))) ?></strong>
+                            </td>
+                            <td class="col qty">
+                                <?php
+                                $totalOrderQty =0;
+                                $orderItems = $_order->getAllItems();
+                                foreach ($orderItems as $item) {
+                                    $totalOrderQty = $totalOrderQty + $item->getQtyOrdered();
+                                }
+                                ?>
+                                <span><?= /* @escapeNotVerified */ __('Total Qty') ?></span>
+                                <strong><?= /* @escapeNotVerified */ $totalOrderQty ?></strong>
+                            </td>
+                            <?php $formattedPrice = $orderViewType === 'ws_order_list' ? $_order->getFormattedGrandTotal() : $_order->formatPrice($_order->getGrandTotal()) ?>
+                            <td class="col total">
+                                <?= /* @escapeNotVerified */ __('Total Cost') ?><br>
+                                <?= /* @escapeNotVerified */ $formattedPrice ?>
+                            </td>
+                            <td class="col status">
+                                <span><?= /* @escapeNotVerified */ __('Status') ?></span>
+                                <strong><?= /* @escapeNotVerified */ $_order->getStatusLabel() ?></strong>
+                            </td>
+                            <td class="col actions">
+                                <?php if (is_array($generatedOrdersLink) && array_key_exists($_order->getIncrementId(),$generatedOrdersLink)): ?>
+                                    <?php if ($orderViewType !== 'ws_order_list'): ?>
+                                        <?php $printableOptions = $weSupplyHelper->generateAllPrintableOptionsForOrder($_order); ?>
+                                        <?php if (count($printableOptions) > 0): ?>
+                                            <select class="wesupply_options" <?php echo count($printableOptions) == 1 ? 'disabled="disabled"' : ''; ?> onchange="javascript:location.href = this.value;">
+                                                <?php foreach ($printableOptions as $key => $values): ?>
+                                                <option value="<?= /* @escapeNotVerified */ $values['url']; ?>"><?= /* @escapeNotVerified */ __($values['label']) ?>
+                                                    <?php endforeach; ?>
+                                            </select>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                    <?php if (($orderViewType === 'ws_order_view' && $weSupplyHelper->orderViewModalEnabled()) || $orderViewType === 'ws_order_list'): ?>
+                                        <?php $linkHtml = $this->getLayout()
+                                            ->createBlock('Magento\Framework\View\Element\Template')
+                                            ->setOrderLink($generatedOrdersLink[$_order->getIncrementId()])
+                                            ->setTemplate('WeSupply_Toolbox::embedded/orders/view_order_link.phtml');
+                                        ?>
+                                        <?php echo $linkHtml->toHtml(); ?>
+                                    <?php else: ?>
+                                        <a href="<?= /* @escapeNotVerified */ $generatedOrdersLink[$_order->getIncrementId()] ?>" class="action view" target="_blank">
+                                            <span><?= /* @escapeNotVerified */ __('Order Details') ?></span>
+                                        </a>
+                                    <?php endif; ?>
+                                <?php else: ?>
+                                    <a href="<?= /* @escapeNotVerified */ $block->getViewUrl($_order) ?>" class="action view">
+                                        <span><?= /* @escapeNotVerified */ __('Order Details') ?></span>
+                                    </a>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php if ($block->getPagerHtml() && $orderViewType !== 'ws_order_list'): ?>
+                <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+            <?php endif ?>
+            <?php echo $this->getChildHtml('view_order_modal'); ?>
+        <?php else: ?>
+            <div class="message info empty"><span><?= /* @escapeNotVerified */ __('You have placed no orders.') ?></span></div>
+        <?php endif ?>
+    </div>
+</div>
+
+
+

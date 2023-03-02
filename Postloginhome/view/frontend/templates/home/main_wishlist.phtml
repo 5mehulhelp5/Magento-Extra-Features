@@ -1,0 +1,145 @@
+<?php
+/**
+ * @package   EGC Supply
+ * @author    Codilar Technologies
+ * @license   https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link      http://www.codilar.com/
+ */
+?>
+<?php
+use Magento\Framework\App\ActionInterface;
+/** @var Codilar\Postloginhome\Block\Index\MyWishlist $block
+ * @var $escaper Magento\Framework\Escaper
+ */
+?>
+<?php
+$baseUrl = $block->getBaseUrl();
+$customerId = $block->getCustomerId();
+$params = $block->getRequest()->getParams();
+?>
+<?php if($customerId):?>
+    <?php
+    $wishlistDefaultId = $block->getDefaultWishlist()->getWishlistId();
+    $wishlistName  = $block->getWishlists();
+    $wishlistId = $params['wishlistId'];
+    $wishlistData  = $block->getCustomerWishlist($wishlistId);
+    ?>
+    <?php if(count($wishlistData)>0): ?>
+        <div class="search-message" style="display:none;">
+            <?= $escaper->escapeHtml( __('No results found')) ?>
+        </div>
+        <?php $wishCount=0; ?>
+        <?php foreach ($wishlistData as $wishData): ?>
+            <?php $wishCount++; ?>
+            <div class="customer-wishlist-main-data <?= $wishCount == 6 ? 'show-more' : ''; ?>" id="wishlist_item_<?= $wishData['wishlist_item_id'] ?>">
+                <div class="customer-wishlist-img">
+                    <img src="<?= $wishData['product']['thumbnail'];?>"
+                        title="<?= $wishData['product']['name'];?>"
+                        alt="<?= $wishData['product']['name'];?>">
+                </div>
+                <div class="customer-wishlist-id">
+                    <a href="<?= $block->getUrl($wishData['product']['request_path']);?>">
+                      <span class="name-search">
+                          <?= $escaper->escapeHtml($wishData['product']['name'])?>
+                      </span>
+                    </a>
+                </div>
+                <div class="customer-wishlist-brand">
+                    <div class="title"><?= $escaper->escapeHtml( __('Brand Name')) ?></div>
+                    <?php if(array_key_exists('brand_name', $wishData['product'])):?>
+                        <div class="value name-search">
+                            <?= $escaper->escapeHtml($wishData['product']['brand_name'])?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="customer-wishlist-mfgpart">
+                    <div class="title"><?= $escaper->escapeHtml( __('MFG Part#')) ?></div>
+                    <?php if(array_key_exists('mfg_part', $wishData['product'])):?>
+                        <div class="value name-search">
+                            <?= $escaper->escapeHtml($wishData['product']['mfg_part'])?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="customer-wishlist-sku">
+                    <div class="title"><?= $escaper->escapeHtml( __('SKU')) ?></div>
+                    <div class="value name-search">
+                        <?= $escaper->escapeHtml($wishData['product']['sku'])?>
+                    </div>
+                </div>
+                <div class="customer-wishlist-price">
+                    <div class="title"><?= $escaper->escapeHtml( __('Price')) ?></div>
+                    <span class="value">
+                        <?= ($wishData['final_price'] != $wishData['regular_price']) ?
+                            $block->getFormattedPrice($wishData['final_price']) :
+                            $block->getFormattedPrice($wishData['regular_price']) ?>
+                    </span>
+                    <?php if($wishData['final_price'] != $wishData['regular_price']): ?>
+                            <span class="regular_price"><?= $block->getFormattedPrice($wishData['regular_price']);?></span>
+                        <?php endif; ?>
+                    </div>
+                <div class="customer-wishlist-qty">
+                    <label class="qty-label" for="qty[<?= $wishData['product_id']?>]">
+                        <?= $escaper->escapeHtml( __('Qty')) ?>
+                    </label>
+                    <input type="number" data-role="qty" id="qty[<?= $wishData['product_id']?>]" class="input-text qty" data-validate="{'required-number':true,'validate-greater-than-zero':true, 'validate-item-quantity':{'minAllowed':10,'maxAllowed':10000}}" name="qty[<?= $wishData['product_id']?>]" value="<?php echo $wishData['qty']; ?>">
+                </div>
+                <div class="actions-button">
+                    <div class="dropdown-toggle" id="dropdown-toggle"><?= $escaper->escapeHtml( __('Actions')) ?></div>
+                </div>
+                <ul class="toggle-content" id="toggle-content<?= $wishData['wishlist_item_id'] ?>">
+                    <?php $postParams = $block->getAddToCartPostParams($wishData['product_id']); ?>
+                    <li class="addto-cart">
+                        <form data-role="tocart-form" action="<?php /* @escapeNotVerified */ echo $postParams['action']; ?>" method="post">
+                            <input type="hidden" name="product" value="<?php /* @escapeNotVerified */ echo $postParams['data']['product']; ?>">
+                            <input type="hidden" name="<?php /* @escapeNotVerified */ echo ActionInterface::PARAM_NAME_URL_ENCODED; ?>"
+                                   value="<?php /* @escapeNotVerified */ echo $postParams['data'][ActionInterface::PARAM_NAME_URL_ENCODED]; ?>">
+                            <input type="hidden" name="return_url" class="return_url" value="<?= $block->getRedirectUrl($wishlistId) ?>" tabindex="0">
+                                <input type="hidden" name="qty" value="<?= /* @escapeNotVerified */ $wishData['qty'] ?>">
+                            <?php echo $block->getBlockHtml('formkey')?>
+                            <button type="submit"
+                                    title="<?php echo $escaper->escapeHtml(__('Add to Cart')); ?>"
+                                    class="action tocart primary">
+                                <span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
+                            </button>
+                        </form>
+                    </li>
+                    <li class="remove">
+                        <div class="product-item-actions">
+                            <div class="actions-primary">
+                                <button type="button" data-role="tocart" class="action primary remove_btn"
+                                        id="remove_btn_<?= $wishData['wishlist_item_id'] ?>">
+                                    <span><?= $escaper->escapeHtml( __('Remove')) ?></span>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <a class="show-more-links" href="<?=  $block->getUrl('wishlist/index/index/') ?>">
+                    <?= $escaper->escapeHtml( __('See more')) ?>
+                </a>
+            </div>
+        <?php endforeach;?>
+    <?php else: ?>
+        <div class="No_wishlist_items">
+            <div class="No_wishlist_items_img"><img src="<?php echo $this->getViewFileUrl('images/error.jpg'); ?>" alt="Demo"></div>
+            <div class="No_wishlist_items_desc"><?= $escaper->escapeHtml( __('You have No Favourite Data')) ?></div>
+            <div class="No_wishlist_items_btns">
+                <div class="No_wishlist_items_product">
+                    <button><?= $escaper->escapeHtml(__('Add Products to wishlist'))?></button>
+                </div>
+            </div>
+        </div>
+    <?php endif;  ?>
+<?php endif; ?>
+
+<script type="text/javascript">
+    require([
+        'jquery', 'jquery/ui'
+    ], function($){
+        let currentUrl = window.location.href;
+        if(!currentUrl.includes('wishlist/index/index'))
+        {
+            $('.return_url').val(currentUrl);
+        }
+    });
+</script>

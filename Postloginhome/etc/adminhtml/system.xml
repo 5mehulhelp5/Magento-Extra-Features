@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="sales" translate="label" sortOrder="400">
+            <label>Sales</label>
+        </tab>
+        <section id="sales" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Sales</label>
+            <tab>sales</tab>
+            <resource>Magento_Sales::config_sales</resource>
+<!--            Day Filter Option in Order History Page-->
+            <group id="order_history_Filter" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Order History Filter</label>
+                <field id="day_filter" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Day Filter Options</label>
+                    <comment>Enter the Day Filter Option with comma separate</comment>
+                </field>
+                <field id="status_filter" translate="label" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Order Filter Options</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

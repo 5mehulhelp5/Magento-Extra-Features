@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <script src="Codilar_Postloginhome/js/home/data.js"/>
+        <script src="Codilar_RFQExtended/js/myquotes.js"/>
+    </head>
+    <body>
+		<referenceContainer name="content">
+			<container htmlTag="section" htmlClass="widget block postloginhome" after="-">
+				<block class="Codilar\Postloginhome\Block\Index\Index" name="postlogin.homedata" template="Codilar_Postloginhome::home/data.phtml" cacheable="false">
+				</block>
+			</container>
+		</referenceContainer>
+    </body>
+</page>

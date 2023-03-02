@@ -1,0 +1,540 @@
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+
+//
+//Common
+//
+@color-gray_background: rgba(232, 232, 232, 0.25);
+@upload-border: rgba(20, 73, 135, 0.5);
+@upload-background: #F7F9FB;
+& when (@media-common =true) {
+    .rfqextended-quote-request{
+        .page-title-wrapper{
+            display: none;
+        }
+        .page-main{
+            max-width: 100%;
+            padding: 0;
+        }
+    }
+    .Rfq-container {
+        max-width: 100%;
+        width: 100%;
+        .page-title-wrapper {
+            padding: 0 20px;
+            display: block;
+            max-width: 1280px;
+            margin: 40px auto 0;
+            h1{
+                padding-bottom: 10px;
+                span{
+                    .lib-font-size(20);
+                    margin-bottom: 20px;
+                    color: @color-black;
+                    font-weight: 600;
+                }
+            }
+            .heading-para {
+                font-size: 14px;
+                font-weight: 400;
+                margin-top: 20px;
+                margin-bottom: 0;
+            }
+        }
+        .required{
+            label{
+                &:after{
+                    content: '*';
+                    color: #e02b27;
+                    font-size: 1.2rem;
+                    margin: 0 0 0 5px;
+                }
+            }
+        }
+        .content {
+            .upper-container {
+                margin-top: 20px;
+                .form {
+                    .fieldset.rfq-upper{
+                        max-width: 1280px;
+                        margin: 0 auto;
+                        padding: 0 20px;   
+                        input{
+                            &#rfq-name{
+                                max-width: 274px;
+                            }
+                        }                     
+                    }
+                    .product_request_container{
+                        float: left;
+                        width: 100%;
+                    }
+                    .productRow{
+                        float: left;
+                        width: 100%;
+                        padding: 40px 0 0;
+                        &:nth-child(even){
+                            background: @color-gray_background;
+                            .field {
+                                .control {
+                                    input,
+                                    textarea{
+                                        background: transparent;
+                                    }
+                                    .select2-container--default {
+                                        .select2-selection--single{
+                                            background: transparent;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .product-container{
+                            max-width: 1280px;
+                            width: 100%;
+                            margin: 0 auto;
+                            padding: 0 20px;
+                        }
+                       .sub-heading{
+                            float: left;
+                            font-size: 20px;
+                            width: 100%;
+                            margin: 0 0 16px;
+                            font-weight: 600;
+                        }
+                        .rfq-know-manufacturer{
+                            float: left;
+                            width: 100%;
+                            margin: 0 0 16px;
+                            .control{
+                                height: auto;
+                                width: auto;
+                                vertical-align: middle;
+                                float: left;
+                                margin-right: 5px;
+                                input{
+                                    height: auto;
+                                    &#rfq-name{
+                                        max-width: 274px;
+                                    }
+                                }
+                            }
+                        }
+                        .primary{
+                            float: right;
+                            margin-top: -19px;
+                            button{
+                                text-align: center;
+                                font-size: 16px;
+                                font-weight: 600;
+                                border-radius: 4px;
+                                border: 1px solid #144987;
+                                background: #ffffff;
+                                color: #144987;
+                                padding: 10px 40px;
+                                display: inline-block;
+                                border-radius: 4px;
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                    .field {
+                        position: relative;
+                        .control {
+                            width: 100%;
+                            position: relative;
+                            .password-strength-meter {
+                                display: none;
+                            }
+
+                            input {
+                                height: 48px;
+                                border-radius: 4px;
+                            }
+
+                            .hidden-class {
+                                position: absolute;
+                                right: 30px;
+                                height: 20px;
+                                top: -5px;
+
+                                input {
+                                    visibility: hidden;
+                                    height: 0;
+                                    &:checked {
+                                        + .label{
+                                            &:after {
+                                                content: "";
+                                                width: 2px;
+                                                height: 22px;
+                                                border-left: 2px solid #7d7d7d;
+                                                transform: rotate(-45deg);
+                                                display: block;
+                                                visibility: visible;
+                                                position: absolute;
+                                                left: 10px;
+                                                top: 18px;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .label {
+                                    display: block;
+
+                                    span {
+                                        display: none;
+                                    }
+
+                                    &::before {
+                                        content: "";
+                                        background-image: url('../images/visibility.svg');
+                                        background-size: 20px;
+                                        background-position: center;
+                                        background-repeat: no-repeat;
+                                        width: 20px;
+                                        height: 20px;
+                                        display: inline-block;
+                                        opacity: 0.5;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .fieldset {
+                        .field.note {
+                            padding: 0 100px;
+                            text-align: center;
+                            color: @color-black;
+                        }
+
+                        &::after {
+                            display: none;
+                        }
+                    }
+
+                    .fieldset>.field:not(.choice).label-value>.label,
+                    .fieldset>.fields>.control>.field:not(.choice).label-value>.label,
+                    .fieldset>.field:not(.choice).field-value>.label,
+                    .fieldset>.fields>.control>.field:not(.choice).field-value>.label,
+                    .fieldset>.field:not(.choice):focus-within>.label,
+                    .fieldset>.fields>.control>.field:not(.choice):focus-within>.label {
+                        top: -7px;
+                        background-color: @color-white;
+                        .lib-font-size(12);
+
+                    }
+
+                    .fieldset>.field:not(.choice).field-bordered.label-value>.label,
+                    .fieldset>.fields>.control>.field:not(.choice).field-bordered.label-value>.label,
+                    .fieldset>.field.choice.field-bordered.field-value>.label,
+                    .fieldset>.fields>.control>.field:not(.choice).field-bordered.field-value>.label,
+                    .fieldset>.field:not(.choice).field-bordered:focus-within>.label,
+                    .fieldset>.fields>.control>.field:not(.choice).field-bordered:focus-within>.label {
+                        top: -7px;
+                        .lib-font-size(12);
+                    }
+
+                    .fieldset>.field:not(.choice).field-bordered>label,
+                    .fieldset>.fields>.control>.field:not(.choice).field-bordered>.label {
+                        top: 10px;
+                        left: 7px;
+                        background-color: @color-white;
+                    }
+
+                    .fieldset>.field:not(.choice)>label,
+                    .fieldset>.fields>.control>.field:not(.choice)>label {
+                        position: absolute;
+                        top: 14px;
+                        left: 9px;
+                        margin: 0;
+                        z-index: 1;
+                        width: auto;
+                        padding: 0;
+                       .lib-font-size(13);
+                        color: @primary__color__lighter;
+                        -webkit-transition: all .3s ease-out;
+                        -moz-transition: all .3s ease-out;
+                        -o-transition: all .3s ease-out;
+                        -ms-transition: all .3s ease-out;
+                        transition: all .3s ease-out;
+                        font-weight: 400;
+                        &.fix {
+                            position: absolute;
+                            .lib-font-size(12);
+                            top: -7px;
+                            background: @color-white;
+                        }
+
+                    }
+                    .rfq-product {
+                        margin: 0 0 28px;
+                        display: flex;
+                        .field.rfq {
+                            margin-bottom: 0;
+                            width: 25.5%;
+                            margin-right: 20px;
+                            float: left;
+                            &.rfq-annual-qty,
+                            &.rfq-req-qty{
+                                width: 8.9%;
+                                min-width: 109px;
+                            }
+                            &.rfq-req-qty{
+                                margin-right: 0;
+                            }
+                            select{
+                                height: 48px;
+                            }
+                            &.rfq-manufacture{
+                                .label{
+                                    top: -7px;
+                                    .lib-font-size(12);
+                                    background: @color-white;
+                                }
+                            }
+                        }
+                        .rfq-qty>.control>.field:not(.choice)>label {
+                            left:2px;
+                            font-size: 12px;
+                        }
+                        .select2-container {
+                            max-width: 100%;
+                            .select2-selection--single{
+                                height: 48px;
+                                .select2-selection__rendered{
+                                    line-height: 48px;
+                                }
+                                .select2-selection__arrow{
+                                    height: 46px;
+                                }
+                            }
+                        }                        
+                    }
+                    .descreption-container{
+                        margin-bottom: 0;
+                        .rfq-description {
+                            margin-bottom: 28px;
+                            .control {
+                                max-width: 100%;
+                                input {
+                                    height: 80px;
+                                    width: 100%;
+                                    max-width: 100%;
+                                    border: 1px solid #c2c2c2;
+                                }
+                            }
+                            .rfq-description{
+                                margin-bottom: 0;
+                                height: 80px;
+                                border-radius: 4px;
+
+                            }
+                        }
+                    }
+
+                    .rfq-document {
+                        .rfq-file {
+                            .document-label {
+                                border: 1px dotted #144768
+                            }
+                        }
+                    }
+
+                    .box.box-upload {
+                        order: 1;
+                        width: 100%;
+
+                        .fieldset {
+                            width: 100%;
+                            margin: 0;
+                            .field {
+                                .label {
+                                    display: none;
+                                }
+                                .pre-heading {
+                                    color: #000;
+                                    font-size: 14px;
+                                    text-align: center;
+                                }
+                                .control {
+                                    width: 100%;
+                                    .upload-container {
+                                        width: 100%;
+                                        position: relative;
+                                        padding-bottom: 40px;
+                                        .file-upload {
+                                            display: none;
+                                        }
+                                        .container {
+                                            border: 2px dashed @upload-border;
+                                            display: flex;
+                                            justify-content: center;
+                                            padding: 20px;
+                                            background: @upload-background;
+                                            .label-image {
+                                                margin-right: 10px;
+                                            }
+                                            .label-for-Sku-input {
+                                                position: relative;
+                                                text-align: center;
+                                                .heading {
+                                                    font-size: 16px;
+                                                    font-weight: 500;
+                                                    color: #144987;
+                                                    margin: 0;
+                                                }
+                                                .Sub-heading {
+                                                    font-size: 14px;
+                                                    color: #14498766;
+                                                }
+                                            }
+                                        }
+                                        input {
+                                            position: absolute;
+                                            top: 0;
+                                            left: 0;
+                                            right:0; 
+                                            bottom: 0;
+                                            width: 100%;
+                                            height: 100%;
+                                            opacity: 0;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .create.account {
+                        margin-bottom: 0;
+                    }
+
+                    .create.info {
+                        display: flex;
+                        column-gap: 20px;
+                        max-width: 500px;
+                        width: 100%;
+                        margin-bottom: 0;
+
+                        .field {
+                            width: 100%;
+
+                            .label{
+                                left:16px;
+                            }
+
+                            .control {
+                                padding: 0;
+                            }
+                        }
+                    }
+                    .additional_info {
+                        margin: 0;
+                    }
+
+                    .actions-toolbar {
+                        margin-left: 0px;
+                        max-width: 1280px;
+                        padding: 40px 20px 100px;
+                        margin: 0 auto;
+                        clear: both;
+                        text-align: right;
+                        .secondary {
+                            float: none;
+                            margin-right: 20px;
+                            display: inline-block;
+                            #addNewProduct {
+                                text-align: center;
+                                font-size: 16px;
+                                font-weight: 600;
+                                border-radius: 4px;
+                                border: 1px solid #144987;
+                                background: #ffffff;
+                                color: #144987;
+                                padding: 14px 40px;
+                                display: inline-block;
+                                border-radius: 4px;
+                                text-decoration: none;
+                                width: auto;
+                            }
+                        }
+                        .primary {
+                            float: none;
+                            display: inline-block;
+                           #submitRFQCustomForm{
+                                text-align: center;
+                                font-size: 16px;
+                                font-weight: 600;
+                                border-radius: 4px;
+                                background: #144987;
+                                color: #ffffff;
+                                padding: 14px 40px;
+                                display: inline-block;
+                                border-radius: 4px;
+                                text-decoration: none;
+                                margin: 0;
+                                width: auto;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Mobile
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .Rfq-container {
+        .content {
+            .upper-container {
+                .form {
+                    .rfq-product{
+                        flex-wrap: wrap;
+                        gap: 20px;
+                        .field.rfq{
+                            width: 48%;
+                            margin-right: 0;
+                            &.rfq-annual-qty,
+                            &.rfq-req-qty{
+                                width: 48%;
+                            }
+                            .select2-container{
+                                min-width: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }    
+}
+
+// Mobile
+@media only screen and (max-width: 600px){
+    .rfqextended-quote-request{
+        .Rfq-container {
+            .content {
+                .upper-container {
+                    .form {
+                        .rfq-product{                       
+                            .field.rfq{
+                                width: 100%;
+                                margin-right: 0;
+                                &.rfq-annual-qty,
+                                &.rfq-req-qty{
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } 
+    }   
+}

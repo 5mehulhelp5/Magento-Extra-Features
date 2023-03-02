@@ -1,0 +1,83 @@
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+.rfqCustomFormContainer {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.rfqCustomFormContainer .col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+.rfqCustomFormContainer .col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+.rfqCustomFormContainer .row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.rfqCustomFormContainer input[type=text], .rfqCustomFormContainer textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.rfqCustomFormContainer label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+.rfqCustomFormContainer button {
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.rfqCustomFormContainer button:hover {
+    color: #fff;
+    border: none;
+}
+.rfqCustomFormContainer button#addNewProduct {
+    background-color: #17a2b8;
+    float: left;
+}
+.rfqCustomFormContainer button#submitRFQCustomForm {
+    clear: both;
+    background-color: #28a745;
+    float: right;
+}
+.rfqCustomFormContainer button.removeProductRow {
+    clear: both;
+    background-color: #e0a800;
+    float: right;
+}
+.rfqCustomFormContainer .productRow {
+    margin: 30px 0;
+}
+.rfqCustomFormContainer .form-group {
+    padding: 15px;
+    border: 2px solid lightgray;
+    margin-bottom: 15px;
+}
+
+@media screen and (max-width: 600px) {
+    .rfqCustomFormContainer .col-25, .rfqCustomFormContainer .col-75, .rfqCustomFormContainer button {
+        width: 100%;
+        margin-top: 0;
+    }
+    .rfqCustomFormContainer button {
+        margin: 10px 0;
+    }
+}

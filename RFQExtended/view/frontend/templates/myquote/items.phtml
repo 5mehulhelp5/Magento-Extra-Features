@@ -1,0 +1,92 @@
+<?php
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+/** @var Codilar\RFQExtended\Block\MyQuotes\Items $block */
+/** @var Magento\Framework\Escaper $escaper */
+?>
+<?php
+$quoteId = $block->getRequest()->getParam('quote_id');
+$quoteItems = $block->getQuoteItems($quoteId);
+$quoteData = $block->getQuoteData($quoteId);
+?>
+<div class="quote-data">
+    <div class="quote-name">
+        <div><?= $escaper->escapeHtml($quoteData->getQuoteName());?></div>
+    </div>
+    <div class="quote-id">
+        <div class="title"><?= $escaper->escapeHtml( __('Quote Id')) ?></div>
+        <div class="value">
+            <?= $escaper->escapeHtml(__($quoteData->getEntityId()));?>
+        </div>
+    </div>
+    <div class="quote-status <?= $escaper->escapeHtml(__($block->getRfqStatus($quoteData->getState())));?>">
+        <div class="title"><?= $escaper->escapeHtml( __('Status')) ?></div>
+        <div class="value">
+            <?= $escaper->escapeHtml(__($block->getRfqStatus($quoteData->getState())));?>
+        </div>
+    </div>
+    <div class="quot-product-count">
+        <div class="title"><?= $escaper->escapeHtml( __('No. of products')) ?></div>
+        <div class="value">
+            <?= $escaper->escapeHtml(__(count($quoteItems)));?>
+        </div>
+    </div>
+    <div class="quote-created-at">
+        <div class="title"><?= $escaper->escapeHtml( __('Created on')) ?></div>
+        <div class="value">
+            <?= $escaper->escapeHtml(__($block->formatDate($quoteData->getCreatedAt(),1,false)));?>
+        </div>
+    </div>
+</div>
+<div class="quote-items">
+    <?php foreach ($quoteItems as $quoteItem): ?>
+    <div class="quote-item">
+        <div class="quote-image">
+            <div class="image">
+                <div class="title"><?= $escaper->escapeHtml( __('Image:')) ?></div>
+                <div class="value">
+                    <img src="<?= $escaper->escapeHtml(__($quoteItem->getAttachment()?$this->helper('\Magento\Cms\Helper\Wysiwyg\Images')->getBaseUrl().'rfq/'.$quoteItem->getAttachment():''));?>" alt=""/>
+                </div>
+            </div>
+        </div>
+        <div class="custom-content">
+            <div class="manufacture-name">
+                <div class="title"><?= $escaper->escapeHtml( __('Manufacture name:')) ?></div>
+                <div class="value">
+                    <?= $escaper->escapeHtml(__($block->getManufacturerLabel($quoteItem->getManufactureName())));?>
+                </div>
+            </div>
+            <div class="mfg-part">
+                <div class="title"><?= $escaper->escapeHtml( __('MFG Part# ')) ?></div>
+                <div class="value">
+                    <?= $escaper->escapeHtml(__($quoteItem->getMfgPart()));?>
+                </div>
+            </div>
+            <div class="product-name">
+                    <div class="title"><?= $escaper->escapeHtml( __('Product Name:')) ?></div>
+                    <div class="value">
+                        <?= $escaper->escapeHtml(__($quoteItem->getProductName()));?>
+                    </div>
+                </div>
+            <div class="product-sku">
+                <div class="title"><?= $escaper->escapeHtml( __('Product sku:')) ?></div>
+                <div class="value">
+                    <?= $escaper->escapeHtml(__($quoteItem->getSku()));?>
+                </div>
+            </div>
+            <div class="requested-qty">
+                <div class="title"><?= $escaper->escapeHtml( __('Req.Qty')) ?></div>
+                <div class="value">
+                    <?= $escaper->escapeHtml(__($quoteItem->getRequestedQty()));?>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <?php endforeach; ?>
+</div>

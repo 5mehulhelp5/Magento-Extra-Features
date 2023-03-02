@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <!-- Products viewed by Peers Main Table -->
+    <table name="company_viewed_products" resource="default" engine="innodb" comment="Products Peers Viewed Table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" identity="false" default="0" comment="Customer ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="Product Id"/>
+        <constraint xsi:type="foreign" referenceId="PEER_PRODUCTS_PRODUCT_ID_PRODUCT_ENTITY_ID" table="company_viewed_products"
+                    column="product_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <column xsi:type="int" name="company_id" unsigned="true" nullable="false" identity="false" default="0" comment="Company ID"/>
+        <constraint xsi:type="foreign" referenceId="PEER_PRODUCTS_COMPANY_ID_COMPANY_ENTITY_ID" table="company_viewed_products"
+                    column="company_id" referenceTable="company" referenceColumn="entity_id" onDelete="NO ACTION"/>
+        <column xsi:type="varchar" name="division_id" nullable="true" length="255" comment="Division Unique Id"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+    </table>
+    <!-- Recently viewed Product By Customer -->
+    <table name="recently_viewed_products" resource="default" engine="innodb" comment="Recently Viewed Product Table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" identity="false" default="0" comment="Customer ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="Product Id"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="RECENTLY_VIEWED_PRODUCTS_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID" table="recently_viewed_products"
+                    column="product_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+    </table>
+</schema>

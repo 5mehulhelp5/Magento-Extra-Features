@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <!--<body>
+        <referenceContainer name="content">
+            <uiComponent name="rfqextended_form"/>
+        </referenceContainer>
+    </body>-->
+
+    <head>
+        <css src="Codilar_RFQExtended::css/rfqExtendedStyle.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Codilar\RFQExtended\Block\Adminhtml\Form\View" template="Codilar_RFQExtended::formView.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,66 @@
+<?php
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+?>
+<?php
+/** @var Codilar\Postloginhome\Block\Index\Index $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+
+<?php $baseUrl = $block->getBaseUrl(); ?>
+<?php $customerId = $block->getCustomerId();?>
+<?php  if ($block->isCustomerLogin()): ?>
+    <div class="customer-id" data-customer-id="<?= $customerId;?>"></div>
+    <div id="post_homepage_cont"></div>
+    <div class="post-homepage-tab">
+        <div class="product data items"
+             data-mage-init='{"mage/tabs": {"openedState": "active", "animate": {"duration": 100}, "disabledState": "disabled"}}'>
+            <div class="item title" data-role="collapsible" id="tab_favourite_data">
+                <a class="switch" data-toggle="trigger" href="#tab-favourites"><?php echo __('My Favorites');?></a>
+            </div>
+            <div id="tab-favourites" class="item content" data-role="content">
+                <div class="No_wishlist_items">
+                    <div class="No_wishlist_items_img"><img src="<?php echo $this->getViewFileUrl('images/error.jpg'); ?>" alt="Demo"></div>
+                    <div class="No_wishlist_items_desc"><?= $escaper->escapeHtml( __('You have No Favourite Data')) ?></div>
+                    <div class="No_wishlist_items_btns">
+                        <div class="No_wishlist_items_product">
+                            <button><?= $escaper->escapeHtml(__('Add Products to wishlist')) ?> </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item title" data-role="collapsible" id="tab_order_data">
+                <a class="switch" data-toggle="trigger" href="#tab-order"><?php echo __('My Orders');?></a>
+            </div>
+            <div id="tab-order" class="item content" data-role="content"><?php echo __('Place order to view open orders here');?></div>
+
+            <div class="item title" data-role="collapsible" id="tab_quotes_data">
+                <a class="switch" data-toggle="trigger" href="#tab-quotes"><?php echo __('My Quotes');?></a>
+            </div>
+            <div id="tab-quotes" class="item content" data-role="content"><?php echo __('There is no Quotes');?></div>
+        </div>
+    </div>
+
+    <div class="recent">
+        <?= $block->getRecentlyViewedBlock() ?>
+    </div>
+    <div class="recommended-for-you">
+        <?= $block->getRecommendedForYou() ?>
+    </div>
+    <div class="peers-slider">
+        <?= $block->getPeerViewedProductsBlock()?>
+    </div>
+<?php else :?>
+    <?php
+    echo $this->getLayout()
+        ->createBlock('Magento\Cms\Block\Block')
+        ->setBlockId('pre-login-homepage')
+        ->toHtml();
+    ?>
+
+<?php endif; ?>
