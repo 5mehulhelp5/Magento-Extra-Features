@@ -1,0 +1,18 @@
+<!--
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+-->
+<div class="widget block block-static-block" if="recs().length">
+    <div class="block widget block-products-list grid">
+        <div class="block-content">
+            <div class="products wrapper grid products-recommendation-grid">
+                <div class="recommendation-slider"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear" data-bind="afterRender: productRecommendationSlickInit"></div>

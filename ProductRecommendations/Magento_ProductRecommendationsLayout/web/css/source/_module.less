@@ -1,0 +1,77 @@
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+ @blue-color: #1E7589;
+ @light-blue: #6DA4B1;
+ @gray: #EFF0F2;
+ @light-gray: #bfc2c6;
+ & when (@media-common = true) {
+     .block-static-block{
+        .products-recommendation-grid{
+            margin: 0 -20px !important; // To override already written css with important
+            .amslider-header-container{
+                float: left;
+                width: 100%;
+                padding: 60px 20px 15px;
+                background:  @blue-color;
+                margin: 0;
+                color: @color-white;
+                font-weight: 600;
+                span{
+                    background:  @blue-color; 
+                    padding: 0 20px 0 0;  
+                }
+                &::after{
+                    background:  @light-blue;
+                    left: 20px;
+                    top: 70%;
+                }
+            }
+            .amslider-header-container + .slider-container {
+                background:  @blue-color;  
+                width: 100%;
+                float: left;
+                padding-bottom: 45px;
+                .slider-common{
+                    margin-top: 0;
+                }
+            }
+            .amslider-header-container + .slider-container + script + .amslider-header-container{              
+                background:  @gray;
+                color: @color-black;
+                span{
+                    background:  @gray;  
+                }
+                &::after{
+                    background:  @light-gray;
+                }
+            }
+            .amslider-header-container + .slider-container +  script + .amslider-header-container + .slider-container{
+                background:  @gray;  
+                margin-bottom: 15px;
+            }
+        }
+    }
+ }
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum ='max') and (@break =@screen__m) {
+    .block-static-block {
+        .products-recommendation-grid {
+            .amslider-header-container{
+                span{
+                    .lib-font-size(20);
+                }
+            }
+            .amslider-header-container + .slider-container{
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+    }
+}
