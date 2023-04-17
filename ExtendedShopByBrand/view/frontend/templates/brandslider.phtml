@@ -1,0 +1,102 @@
+<?php
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+/** @var \Codilar\ExtendedShopByBrand\Block\Brand\BrandSlider $block */
+/** @var \Magento\Framework\Escaper  $escaper */
+?>
+<?php
+$timeId = time();
+$featureBrands = $block->getFeaturedBrand();
+$style = $block->getStyleDisplayFeature();
+?>
+<?php if (!empty($featureBrands)) : ?>
+    <?= /** @noEscape */ $block->includeCssLib() ?>
+    <div class="block-brand-feature widget">
+        <div class="amslider-header-container">
+            <span>
+                <?= $escaper->escapeHtml(__($block->getFeatureTitle())) ?>
+            </span>
+        </div>
+        <div class="block-content">
+            <?php if (!empty($featureBrands) &&
+            $style === \Meetanshi\ShopbyBrand\Model\Config\Source\FeaturedBrandStyle::SLIDER_VIEW && sizeof($featureBrands) >= 5 ): ?>
+            <div class="owl-carousel owl-theme brand-carousel"
+                 id="feature-brand-carousel-<?= /** @noEscape */ $timeId ?>"
+                 data-mage-init='{"meetanshibrandSlider": {}}'>
+                <?php endif; ?>
+                <?php foreach ($featureBrands as $brand) : ?>
+                <?php if ($style === \Meetanshi\ShopbyBrand\Model\Config\Source\FeaturedBrandStyle::SLIDER_VIEW && sizeof($featureBrands) >= 5) : ?>
+                <div class="relate-content item">
+                    <div class="discount-section">20% off</div>
+                    <a  class="brand-link" data-id="<?= $brand->getId() ?>" data-name="<?= $brand->getValue() ?>">
+                        <img class="img-responsive brand-image"
+                             src="<?= /** @noEscape */ $block->helper()->getBrandImageUrl($brand) ?>"
+                             width="<?= /** @noEscape */ $block->getLogoWidth() ?>"
+                             height="<?= /** @noEscape */ $block->getLogoHeight() ?>"
+                             alt="<?= /** @noEscape */ $brand->getValue() ?>">
+                        <?php if ($block->showLabel()) : ?>
+                            <span><?= /** @noEscape */ $brand->getValue() ?></span>
+                        <?php endif; ?>
+                    </a>
+                    <?php else : ?>
+                    <div class="relate-content item meetanshi-2 meetanshi-sm-4 meetanshi-xs-6 col-meetanshi" style="float: left; padding: 5px 0;">
+                        <div class="discount-section">20% off</div>
+                        <a class="brand-link" data-id="<?= $brand->getId() ?>" data-name="<?= $brand->getValue() ?>">
+                            <img class="img-responsive brand-image"
+                                 src="<?= /** @noEscape */ $block->helper()->getBrandImageUrl($brand) ?>"
+                                 alt="<?= /** @noEscape */ $brand->getValue() ?>" style="width: <?= /** @noEscape */ $block->getLogoWidth() ?>px; height:<?= /** @noEscape */ $block->getLogoHeight() ?>px;">
+                            <?php if ($block->showLabel()) : ?>
+                                <span><?= /** @noEscape */ $brand->getValue() ?></span>
+                            <?php endif; ?>
+                        </a>
+                        <?php endif; ?>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+<div style="clear: both"></div>
+<div class="brand-slider-product-container"></div>
+<script>
+    require([
+        "jquery",
+        "mage/url",
+        "jquery/ui"
+    ], function($,url) {
+
+
+        let brandId = $('.brand-link:first').attr('data-id');
+        let brandName = $('.brand-link:first').attr('data-name');
+
+        $(document).ready(function () {
+            makeAjaxRequest(brandId,brandName);
+        });
+
+        $(".brand-link").click(function () {
+            let brandId = $(this).attr('data-id');
+            let brandName = $(this).attr('data-name');
+            makeAjaxRequest(brandId,brandName);
+        });
+
+        // ajax for brand product-slider
+
+        function makeAjaxRequest(brandId,brandName) {
+            $.ajax({
+                url: url.build('brands/brand/brandslider'),
+                type: "POST",
+                dataType: "json",
+                data: { brandId: brandId ,brandName:brandName},
+                success: function(resultJson) {
+                    $(".brand-slider-product-container").html(resultJson.sliderdata);
+                }
+            });
+        }
+    });
+</script>
+
