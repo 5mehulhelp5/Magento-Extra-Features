@@ -1,0 +1,26 @@
+<?php
+/**
+ * @package     Codilar Technologies
+ * @author      Prajwal Joshi
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+
+/* @var $block \Codilar\ExtraFeatures\Block\System\Config\Form */
+
+?>
+<input type="hidden" class="ajax-url" value="<?= $block->getAjaxUrl()?>">
+<?php echo $block->getButtonHtml() ?>
+<span class="collect-indicator" id="collect_span">
+    <img class="processing sign" hidden="hidden" alt="Collecting" style="margin:0 5px" src="<?php echo $block->getViewFileUrl('images/process_spinner.gif') ?>"/>
+    <img class="success sign" hidden="hidden" alt="success" style="margin:-3px 5px" src="<?php echo $block->getViewFileUrl('images/rule_component_apply.gif') ?>"/>
+    <img class="fail sign" hidden="hidden" alt="fail" style="margin:-3px 5px" src="<?php echo $block->getViewFileUrl('images/rule_component_remove.gif') ?>"/>
+    <span id="collect_message_span"></span>
+</span>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Codilar_ExtraFeatures/js/categry_image": {}
+        }
+    }
+</script>
