@@ -1,0 +1,230 @@
+#PHP INSTALLING
+
+sudo apt-get update
+sudo apt -y install software-properties-common
+sudo add-apt-repository ppa:ondrej/php
+sudo apt-get update
+sudo apt -y install php8.1
+
+
+
+
+sudo update-alternatives --config php
+
+
+
+#Mysql
+
+sudo apt update
+sudo apt install mysql-server
+sudo mysql_secure_installation
+CREATE USER 'magento'@'localhost' IDENTIFIED BY 'magento';
+GRANT ALL PRIVILEGES ON * . * TO 'magento'@'localhost';
+
+
+
+
+
+#NGINX 
+
+sudo apt install nginx
+
+
+#nginx configuration
+
+ upstream fastcgi_backend {
+     server  unix:/run/php/php8.1-fpm.sock;
+ }
+server {
+    listen 80;
+    server_name local-egc-integration;
+    set $MAGE_ROOT /var/www/html/egc-stagging;
+    include /var/www/html/egc-stagging/nginx.conf.sample;
+}
+
+
+#Composer Commands
+wget https://getcomposer.org/download/2.5.8/composer.phar
+sudo mv composer.phar /usr/local/bin/composer
+cd  /usr/local/bin/composer
+cd  /usr/local/bin
+ls -al
+sudo mv compose composer
+
+
+
+
+
+#magento installation commands
+
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php --version=1.10.22
+php -r "unlink('composer-setup.php');"
+
+
+sudo cp composer.phar /usr/bin/composer
+mysql --version
+
+update-alternatives --config php
+mysql --version
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+sudo apt-get install apt-transport-https
+echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-7.x.list
+sudo apt-get update 
+sudo apt-get install elasticsearch
+/etc/init.d/elasticsearch status
+/etc/init.d/elasticsearch start
+ curl -XGET 'localhost:9200'
+ cd /var/www/html
+mkdir magento
+cd magento/
+
+sudo apt install php8.1 libapache2-mod-php8.1 php8.1-common php8.1-gmp php8.1-curl php8.1-soap php8.1-bcmath php8.1-intl php8.1-mbstring php8.1-xmlrpc php8.1-mcrypt php8.1-mysql php8.1-gd php8.1-xml php8.1-cli
+
+sudo apt-get install -y php8.1 libapache2-mod-php8.1 php8.1-common php8.1-gd php8.1-mysql php8.1-curl php8.1-intl php8.1-xsl php8.1-mbstring php8.1-zip php8.1-bcmath php8.1-iconv php8.1-soap php8.1-fpm
+
+apt install php8.1-fpm
+/etc/init.d/php8.1-fpm restart
+
+
+composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition:2.4.2 .
+sudo composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition:2.4.3-p1 .
+composer create-project --repository=https://repo.magento.com/ magento/project-enterprise-edition:2.4.5-p2 .
+
+"username": "8883da7e20b490d12f30264219af7546",
+"password": "a3fc5bd20ea0c6f40cac77f62c30d779"
+
+
+
+bin/magento setup:install --base-url=http://venila.local/ --db-host=localhost  --db-name=venila --db-user=magento --db-password=magento --admin-firstname=prajwal --admin-lastname=joshi --admin-email=prajwal.j@codilar.com --admin-user=admin --admin-password=admin123 --language=en_US --currency=INR --timezone=Asia/Kolkata --use-rewrites=1 --search-engine=elasticsearch7 --elasticsearch-host=localhost --elasticsearch-port=9200
+
+sudo nano app/etc/env.php
+
+
+
+## link nginx
+
+
+cd /etc/nginx/sites-available
+sudo nano magento
+
+    upstream fastcgi_backend {
+  server  unix:/run/php/php8.1-fpm.sock;
+}
+
+server {
+
+  listen 80;
+  server_name egc.local;
+  set $MAGE_ROOT /home/codilar/Desktop/egc;
+  include /home/codilar/Desktop/egc/nginx.conf.sample;
+}	
+
+
+sudo ln -s /etc/nginx/sites-available/egc /etc/nginx/sites-enabled/
+sudo unlink /etc/nginx/sites-enabled/default 
+sudo /etc/init.d/nginx restart
+sudo /etc/init.d/nginx start
+sudo nano /etc/hosts
+    127.0.0.1		venila.local
+    
+
+bin/magento se:up && bin/magento se:di:com && bin/magento indexer:reindex && bin/magento c:c && chmod -R 777 var/ pub/ generated/
+
+php bin/magento admin:user:create --admin-user=admin --admin-password=admin123 --admin-email=prajwal.j@codilar.com --admin-firstname=prajwal --admin-lastname=joshi
+bin/magento config:set web/secure/use_in_adminhtml 0
+bin/magento config:set web/secure/use_in_frontend 0
+
+
+#db export/import
+
+mysqldump -u prajwal -p db_name > wantedsqlfile.sql -----> export
+mysqldump -u magento -p venila | gzip > 2.4.5-p5.sql.gz  --> export
+mysql -u prajwal -p db_name < wantedsqlfile.sql  -----> import
+zcat integration.25.June.2023.sql.gz | mysql -u magento -p integration ----> import
+pv egc_m1_prod_sales_tables.sql.gz | zcat | mysql -u magento -pmagento egc_stg
+mysqldump -u magento -pmagento EGC_M2 | pv | gzip > EGC_M2_MAY_26.sql.gz
+
+#Docker Export 
+docker-compose exec mysql mysqldump -u root -pcodilar egc_int_sept_22 | gzip > egc_int_sept_22m.sql.gz
+docker-compose exec app mysqldump -u root -pcodilar -h mysql egc_int_sept_22 | gzip > egc_int_sept_22A.sql.gz
+
+
+git config core.filemode false
+
+
+#  RABBITMQ installation
+sudo apt install -y rabbitmq-server
+/etc/init.d/rabbitmq-server start
+
+http://opensearch.internal
+app/etc/env.php
+'queue' => [
+   'amqp' => [
+       'host' => '127.0.0.1',
+       'port' => '5672',
+       'user' => 'codilar',
+       'password' => 'codilar',
+       'virtualhost' => '/',
+       'ssl' => false
+   ]
+]
+
+# Git ignore 
+git config core.fileMode false
+
+
+sudo -i
+cd /etc/rabbitmq/
+sudo nano rabbitmq-env.conf
+
+# Defaults to rabbit. This can be useful if you want to run more than one node
+# per machine - RABBITMQ_NODENAME should be unique per erlang-node-and-machine
+# combination. See the clustering on a single machine guide for details:
+# http://www.rabbitmq.com/clustering.html#single-machine
+NODENAME=rabbit
+
+# By default RabbitMQ will bind to all interfaces, on IPv4 and IPv6 if
+# available. Set this if you only want to bind to one network interface or#
+# address family.
+NODE_IP_ADDRESS=127.0.0.1
+
+# Defaults to 5672.
+NODE_PORT=5672
+
+# Default rabbitmq-server wait timeout.
+RABBITMQ_STARTUP_TIMEOUT=600
+
+
+
+rabbitmq-plugins list
+rabbitmq-plugins enable rabbitmq_management
+systemctl restart rabbitmq-server.service
+netstat -tulpn
+
+# Mysql Import High Configuration
+sudo nano /etc/mysql/mysql.conf.d/mysql.cnf
+
+[mysqld]
+innodb_buffer_pool_size = 4G
+innodb_log_buffer_size = 256M
+innodb_log_file_size = 1G
+innodb_write_io_threads = 16
+innodb_flush_log_at_trx_commit = 0
+
+sudo systemctl restart mysql.service
+
+
+cd /usr/share/elasticsearch
+bin/elasticsearch-plugin install analysis-phonetic
+bin/elasticsearch-plugin install analysis-icu
+sudo service elasticsearch restart
+composer install
+
+
+
+scp -r /var/www/html/React/demo/ codilar@192.168.29.171:/var/www/html/
+mysqldump -uhcgpx6hxwzycg_stg2 -pEMLJVH2GVkZsIkW -h 127.0.0.1 hcgpx6hxwzycg_stg2 | gzip > /app/hcgpx6hxwzycg_stg2/pub/media/sqls/kalyan_staging_27_02_2025.sql.gz
+
+

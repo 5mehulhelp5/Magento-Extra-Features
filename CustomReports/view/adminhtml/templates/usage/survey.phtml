@@ -1,0 +1,448 @@
+<?php
+/**
+ * Candere Software
+ *
+ * @category Codilar
+ * @package  CustomReports
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+/** @var \Codilar\CustomReports\Block\Adminhtml\Usage\Survey $block */
+?>
+<div id="page:main-container" class="page-columns">
+    <div class="admin__old">
+        <div id="container" class="main-col">
+            <div class="reports-content">
+                <div class="entry-edit form-inline">
+                    <form id="filter_form" action="" method="get" novalidate="novalidate" name="date-form">
+                        <div></div>
+                        <fieldset class="fieldset admin__fieldset " id="sales_report_base_fieldset">
+                            <legend class="admin__legend legend">
+                                <span></span>
+                            </legend><br>
+
+                            <div class="messages">
+                            </div>
+                            <div class="admin__field field field-from admin__field-small required _required"
+                            data-ui-id="grid-filter-form-fieldset-element-form-field-from">
+                                <label class="label admin__field-label" for="sales_report_from"
+                                data-ui-id="grid-filter-form-fieldset-element-text-from-label">
+                                <span>From</span></label>
+                                <div class="admin__field-control control">
+                                    <input name="from" id="sales_report_from" value="" title="From"
+                                    class="admin__control-text required-entry _required admin__control-text input-text "
+                                    type="text" aria-required="true" autocomplete="off">
+                                    <button type="button" class="ui-datepicker-trigger "></button>
+                                </div>
+                            </div>
+
+                            <div class="admin__field field field-to admin__field-small required _required"
+                            data-ui-id="grid-filter-form-fieldset-element-form-field-to">
+                                <label class="label admin__field-label" for="sales_report_to"
+                                data-ui-id="grid-filter-form-fieldset-element-text-to-label">
+                                <span>To</span></label>
+                                <div class="admin__field-control control">
+                                    <input name="to" id="sales_report_to" value="" title="To"
+                                    class="admin__control-text required-entry _required admin__control-text input-text"
+                                    type="text" aria-required="true" autocomplete="off" onchange="TDate()">
+                                    <button type="button" class="ui-datepicker-trigger v-middle"></button>
+                                </div>
+                            </div>
+
+
+                            <div class="admin__field field">
+                                <label class="label admin__field-label">
+
+                                </label>
+                                <div class="admin__field-control control">
+                                    <button id="savelist" name="submit" class="primary"type="submit"
+                                    onClick="checkDate()"><span>Submit</span></button>
+                                </div>
+                            </div>
+
+
+
+
+                        </fieldset>
+
+
+
+                    </form>
+                </div>
+
+
+                <script>
+                    require(['mage/adminhtml/form'], function() {
+                        new FormElementDependenceController({
+                            "sales_report_order_statuses": {
+                                "sales_report_show_order_statuses": {
+                                    "values": ["1"],
+                                    "negative": false
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </div>
+
+
+            <div id="id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJs" data-grid-id="id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJs">
+                <div class="admin__data-grid-header admin__data-grid-toolbar">
+                    <div class="admin__data-grid-header-row">
+                        <div class="admin__data-grid-export">
+                            <a id="downloadLink" onclick="exportF(this)"><button>Export to excel</button></a>
+                        </div>
+                    </div>
+
+                    <div class="admin__data-grid-header-row ">
+
+
+                    </div>
+                </div>
+
+                <div class="admin__data-grid-wrap admin__data-grid-wrap-static">
+                    <table class="data-grid wp-list-table widefat striped posts" id="pager" border="1">
+
+                        <tr>
+                            <th class="data-grid-th col-period no-link col-period">
+                                <span>Sr No.</span></th>
+                            <th class="data-grid-th col-orders no-link col-orders_count">
+                                <span>Customer Id</span></th>
+                            <th class="data-grid-th col-sales-items no-link col-total_qty_ordered">
+                                <span>Name</span></th>
+                            <th class="data-grid-th col-sales-total no-link col-total_income_amount">
+                                <span>Email Id</span></th>
+                            <th class="data-grid-th col-invoiced no-link col-total_invoiced_amount">
+                                <span>Q. 1</span></th>
+                            <th class="data-grid-th col-invoiced no-link col-total_invoiced_amount">
+                                <span>Q. 2</span></th>
+                            <th class="data-grid-th col-invoiced no-link col-total_invoiced_amount">
+                                <span>Q. 3</span></th>
+                            <th class="data-grid-th col-invoiced no-link col-total_invoiced_amount">
+                                <span>Q. 4</span></th>
+                            <th class="data-grid-th col-invoiced no-link col-total_invoiced_amount">
+                                <span>Q. 5</span></th>
+                            <th class="data-grid-th col-invoiced no-link col-total_invoiced_amount">
+                                <span>Q. 6</span></th>
+                            <th class="data-grid-th col-canceled no-link col-total_canceled_amount">
+                                <span>Date</span></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                            <?php
+                            $result_display = $block->getSurveyquestions();
+                            $surveycount = count($result_display);
+                            $serialno = 1;
+                            if ($surveycount > 0) {
+                                foreach ($result_display as $value) {
+
+                                    if ($value['survey_answers'] != "") {
+
+                                        $q1 = $q2 = $q3 = $q4 = $q5 = $q6 = null;
+                                        $result1 = [];
+
+                                        $customerId = $value['user_id'];
+
+                                        $result1 = $block->getprimaryAnswersQuery($customerId);
+
+                                        $primaryAnswers = $result1['primary_answers'];
+
+                                        list($q1, $q2, $q3) = explode(",", $primaryAnswers);
+
+                                        if ($q1 == 'M') {
+                                            $q1 = 'Male';
+                                        } else {
+                                            $q1 = 'Female';
+                                        }
+
+                                        $q2 = date("d-m-Y", strtotime($q2));
+
+                                        if ($q3 == 'Unmarried') {
+                                            $q3 = 'Unmarried';
+                                        } else {
+                                            // phpcs:ignore
+                                            $q3 = date("d-m-Y", strtotime($q3));;
+                                        }
+
+                                        $surveyAnswers = $value['survey_answers'];
+                                        list($q4, $q5, $q6) = explode(",", $surveyAnswers);
+
+                                        if ($q4 == 'Young Aspirant') {
+                                            $q4 = 'Young Aspirant';
+                                        }
+                                        if ($q4 == 'Proud Parents') {
+                                            $q4 = 'Proud Parents';
+                                        }
+                                        if ($q4 == 'Modern Women') {
+                                            $q4 = 'Modern Women';
+                                        }
+                                        if ($q4 == 'Smart investors') {
+                                            $q4 = 'Smart investors';
+                                        }
+
+                                        $customer = $block->getcustomerData($customerId);
+                                        $email = $customer->getEmail();
+
+                                        $fullName = null;
+                                        $customerFirstname = $customer->getFirstname();
+                                        $customerLastname = $customer->getLastname();
+
+                                        if ($customer->getPrimaryBillingAddress()) {
+                                            $customerFname = $customer->getPrimaryBillingAddress()->getFirstname();
+                                            $customerLname = $customer->getPrimaryBillingAddress()->getLastname();
+                                            $fullName = $customerFname . ' ' . $customerLname;
+                                        } else {
+                                            $fullName = $customerFirstname . ' ' . $customerLastname;
+                                        }
+
+                                        $fullName = mb_strimwidth($fullName, 0, 23, "...");
+
+                                        $answersDate = date("d-m-Y h:i a", strtotime($value['created_date']));
+                                        ?>
+                                        <tr>
+                                            <td><?= $block->escapeHtml($serialno); ?></td>
+                                            <td><?= $block->escapeHtml($value['user_id']); ?></td>
+                                            <td><?= $block->escapeHtml($fullName); ?></td>
+                                            <td><?= $block->escapeHtml($email); ?></td>
+                                            <td><?= $block->escapeHtml($q1); ?></td>
+                                            <td><?= $block->escapeHtml($q2); ?></td>
+                                            <td><?= $block->escapeHtml($q3); ?></td>
+                                            <td><?= $block->escapeHtml($q4); ?></td>
+                                            <td><?= $block->escapeHtml($q5); ?></td>
+                                            <td><?= $block->escapeHtml($q6); ?></td>
+                                            <td><?= $block->escapeHtml($answersDate); ?></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                    $serialno++;
+                                }
+                            } else {
+                                ?>
+                                <tr class="data-grid-tr-no-data even">
+                                    <td class="empty-text" colspan="44">We couldn't find any records.</td>
+                                </tr>
+                                <?php
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                    <div id="pageNavPosition" class="pager-nav"></div>
+
+                </div>
+            </div>
+            <script>
+                var deps = [];
+
+
+
+                deps.push('mage/adminhtml/grid');
+
+
+                require(deps, function() {
+
+                    //<![CDATA[
+                    id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJsJsObject = new varienGrid(
+                        "id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJs",
+                        'http\u003A\u002F\u002F127.0.0.1\u002Fcandere\u002Fadmin\u002Freports\u002Freport_sales'
+                        +'\u002Fsales\u002Fkey'
+                        +'\u002Ff6b4f573c129ff00cf7d18a1de6ee1cffd801f08b5a1ddf59b48303f4cada1de\u002F',
+                        'page',
+                        'sort',
+                        'dir',
+                        'filter'
+                    );
+                    id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJsJsObject.useAjax = '';
+                    id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJsJsObject.rowClickCallback = openGridRow;
+                });
+            </script>
+            <script>
+                require([
+                    'jquery',
+                    'mage/backend/validation',
+                    "prototype"
+                ], function(jQuery) {
+
+                    //<![CDATA[
+                    jQuery('#filter_form').mage('validation', {
+                        errorClass: 'mage-error'
+                    });
+
+                    function filterFormSubmit() {
+                        var filters = $$('#filter_form input', '#filter_form select'),
+                            elements = [];
+
+                        for (var i in filters) {
+                            if (filters[i].value && filters[i].value.length && !filters[i].disabled) {
+                                elements.push(filters[i]);
+                            }
+                        }
+
+                        if (jQuery('#filter_form').valid()) {
+                            setLocation('http\u003A\u002F\u002F127.0.0.1\u002Fcandere\u002Fadmin\u002Freports'
+                            +'\u002Freport_sales\u002Fsales\u002Fkey'
+                            +'\u002Ff6b4f573c129ff00cf7d18a1de6ee1cffd801f08b5a1ddf59b48303f4cada1de'
+                            +'\u002Ffilter/' + Base64.encode(Form.serializeElements(elements)) + '/');
+                        }
+                    }
+                    //]]>
+                    window.filterFormSubmit = filterFormSubmit;
+                });
+            </script>
+        </div>
+    </div>
+</div>
+<!-- date picker -->
+<script>
+    require(["jquery", "mage/calendar"], function($) {
+        $("#sales_report_from").datepicker({
+            showMonthAfterYear: false,
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '2000:2021',
+        })
+    });
+</script>
+
+<script>
+    require(["jquery", "mage/calendar"], function($) {
+        $("#sales_report_to").datepicker({
+            showMonthAfterYear: false,
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '2000:2021',
+        })
+    });
+</script>
+
+<script>
+    function checkDate() {
+        var dateForm = document.forms['date-form'];
+        var startDate = new Date(dateForm['from'].value);
+        var endDate = new Date(dateForm['to'].value);
+        var date = endDate - startDate;
+        var diff = (date / 86400000);
+
+        if (startDate >= endDate) {
+            alert("Date from should be less than date to");
+        } else if (diff > 30) {
+            alert("Only 30 days Records are allowed. Please try it again");
+        } else if ((startDate == '') && (endDate == '')) {
+            alert("Please select Start Date and To date");
+        }
+    }
+</script>
+<!-- end date picker -->
+<script>
+    function exportF(elem) {
+        var table = document.getElementById("pager");
+        var html = table.outerHTML;
+        var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+        elem.setAttribute("href", url);
+        elem.setAttribute("download", "Surveyreport.xls"); // Choose the file name
+        return false;
+    }
+</script>
+<script>
+    /* eslint-env browser */
+    /* global document */
+
+    function Pager(tableName, itemsPerPage) {
+        'use strict';
+
+        this.tableName = tableName;
+        this.itemsPerPage = itemsPerPage;
+        this.currentPage = 1;
+        this.pages = 0;
+        this.inited = false;
+
+        this.showRecords = function(from, to) {
+            let rows = document.getElementById(tableName).rows;
+
+            // i starts from 1 to skip table header row
+            for (let i = 1; i < rows.length; i++) {
+                if (i < from || i > to) {
+                    rows[i].style.display = 'none';
+                } else {
+                    rows[i].style.display = '';
+                }
+            }
+        };
+
+        this.showPage = function(pageNumber) {
+            if (!this.inited) {
+                // Not initialized
+                return;
+            }
+
+            let oldPageAnchor = document.getElementById('pg' + this.currentPage);
+            oldPageAnchor.className = 'pg-normal';
+
+            this.currentPage = pageNumber;
+            let newPageAnchor = document.getElementById('pg' + this.currentPage);
+            newPageAnchor.className = 'pg-selected';
+
+            let from = (pageNumber - 1) * itemsPerPage + 1;
+            let to = from + itemsPerPage - 1;
+            this.showRecords(from, to);
+
+            let pgNext = document.querySelector('.pg-next'),
+                pgPrev = document.querySelector('.pg-prev');
+
+            if (this.currentPage == this.pages) {
+                pgNext.style.display = 'none';
+            } else {
+                pgNext.style.display = '';
+            }
+
+            if (this.currentPage === 1) {
+                pgPrev.style.display = 'none';
+            } else {
+                pgPrev.style.display = '';
+            }
+        };
+
+        this.prev = function() {
+            if (this.currentPage > 1) {
+                this.showPage(this.currentPage - 1);
+            }
+        };
+
+        this.next = function() {
+            if (this.currentPage < this.pages) {
+                this.showPage(this.currentPage + 1);
+            }
+        };
+
+        this.init = function() {
+            let rows = document.getElementById(tableName).rows;
+            let records = (rows.length - 1);
+
+            this.pages = Math.ceil(records / itemsPerPage);
+            this.inited = true;
+        };
+
+        this.showPageNav = function(pagerName, positionId) {
+            if (!this.inited) {
+                // Not initialized
+                return;
+            }
+
+            let element = document.getElementById(positionId),
+                pagerHtml = '<span onclick="' + pagerName + '.prev();" class="pg-normal pg-prev">&#171;</span>';
+
+            for (let page = 1; page <= this.pages; page++) {
+                pagerHtml += '<span id="pg' + page + '" class="pg-normal pg-next" onclick="' + pagerName
+                + '.showPage(' + page + ');">' + page + '</span>';
+            }
+            pagerHtml += '<span onclick="' + pagerName + '.next();" class="pg-normal">&#187;</span>';
+            element.innerHTML = pagerHtml;
+        };
+    }
+    let pager = new Pager('pager', 10);
+    pager.init();
+    pager.showPageNav('pager', 'pageNavPosition');
+    pager.showPage(1);
+</script>

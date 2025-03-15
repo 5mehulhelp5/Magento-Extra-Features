@@ -1,0 +1,192 @@
+<?php
+/**
+ * customer address template
+ *
+ * @var $block \Magento\Customer\Block\Address\Edit
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+/**
+ * @var \Magento\Customer\Helper\Address $addressHelper
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$addressHelper = $block->getData('addressHelper');
+$requiredAttributesPrechecked = $block->getData('required_attributes_prechecked');
+$displayAllRegions = $block->getConfig('general/region/display_all');
+
+$validateMaxLength = 'validate-length maximum-length-100';
+$validateNumber = 'validate-number';
+
+/** @var \Magento\Directory\Helper\Data $directoryHelper */
+$directoryHelper = $block->getData('directoryHelper');
+?>
+<section class="sec">
+    <div class="sec-inr">
+        <form class="form-address-edit"
+              action="<?=  /* @noEscape */$escaper->escapeUrl($block->getSaveUrl()) ?>"
+              method="post"
+              id="form-validate"
+              enctype="multipart/form-data"
+              data-hasrequired="<?=  /* @noEscape */$escaper->escapeHtmlAttr(__('* Required Fields')) ?>">
+            <?=  /* @noEscape */$block->getBlockHtml('formkey') ?>
+            <input type="hidden" name="sku" value="<?=  /* @noEscape */$escaper->escapeUrl($block->getProductSku()) ?>"/>
+            <?=  /* @noEscape */$block->getNameBlockHtml() ?>
+            <div class="dataInput">
+                <div class="dataInput-inr dataInput-2col-pc">
+                    <div class="dataInput-col email">
+                        <span class="dataInput-title"><?=  /* @noEscape */$escaper->escapeHtml(__('Mail Address')) ?></span>
+                        <sup class="cl-red-1">*</sup>
+                        <p><?=  /* @noEscape */$escaper->escapeHtmlAttr($block->getCustomer()->getEmail()) ?></p>
+                    </div>
+                </div>
+            </div>
+            <div class="dataInput">
+                <div class="dataInput-inr dataInput-2col-pc">
+                    <div class="dataInput-col telephone">
+                        <?php $requiredPhone = in_array('telephone', $requiredAttributesPrechecked)?>
+                        <p class="dataInput-title"><?=  /* @noEscape */$escaper->escapeHtml(__('Phone Number')) ?><?php if ($requiredPhone):?><sup class="cl-red-1">*</sup><?php endif?></p>
+                        <?php $phoneValidationClass = $addressHelper->getAttributeValidationClass('telephone'); ?>
+                        <input type="text"
+                               name="telephone"
+                               value="<?=  /* @noEscape */$escaper->escapeHtmlAttr($block->getAddress()->getTelephone()) ?>"
+                               title="<?=  /* @noEscape */$escaper->escapeHtmlAttr(__('Phone Number')) ?>"
+                               class="dataInput-input validate-number casio-validate-phone-number <?=  /* @noEscape */
+                                $phoneValidationClass . ' ' . $validateMaxLength ?>"
+                               id="telephone"/>
+                    </div>
+                    <div class="dataInput-col zip">
+                        <p class="dataInput-title"><?=  /* @noEscape */$escaper->escapeHtml(__('Postal Code')) ?><sup class="cl-red-1">*</sup></p>
+                        <?php $postCodeValidationClass = $addressHelper->getAttributeValidationClass('postcode'); ?>
+                        <input type="text"
+                               name="postcode"
+                               value="<?=  /* @noEscape */$escaper->escapeHtml($block->getAddress()->getPostcode()) ?>"
+                               title="<?=  /* @noEscape */ __('Postal Code') ?>"
+                               id="zip"
+                               class="dataInput-input validate-zip-international <?=  /* @noEscape */ $postCodeValidationClass . ' ' . $validateMaxLength . ' ' . $validateNumber ?>"/>
+                        <div role="alert" class="message warning">
+                            <span></span>
+                        </div>
+                        <?=  /* @noEscape */
+                        $secureRenderer->renderTag(
+                            'style',
+                            [],
+                            'div.zip .message.warning { display:none; }',
+                            false
+                        ); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="dataInput">
+                <div class="dataInput-inr dataInput-2col-pc">
+                    <div class="dataInput-col">
+                        <span class="dataInput-title"><?=  /* @noEscape */__('State') ?></span>
+                        <sup class="cl-red-1">*</sup>
+                        <div class="select-wrapper">
+                            <select id="region_id"
+                                    name="region_id"
+                                    title="<?=  /* @noEscape */$escaper->escapeHtmlAttr($block->getAttributeData()->getFrontendLabel('region')) ?>"
+                                    class="dataInput-input validate-select region_id"
+                                <?=  /* @noEscape */(!$displayAllRegions) ? ' disabled="disabled"' : ''; ?>>
+                                <option value="">
+                                    <?=  /* @noEscape */$escaper->escapeHtml(__('Please select a prefectures')) ?>
+                                </option>
+                            </select>
+                            <input type="text"
+                                   id="region"
+                                   name="region"
+                                   value="<?=  /* @noEscape */$escaper->escapeHtmlAttr($block->getRegion()) ?>"
+                                   title="<?=  /* @noEscape */$escaper->escapeHtmlAttr($block->getAttributeData()->getFrontendLabel('region')) ?>"
+                                   class="input-text <?=  /* @noEscape */$escaper->escapeHtmlAttr($addressHelper->getAttributeValidationClass('region')) . ' ' . $validateMaxLength ?>"
+                                <?=  /* @noEscape */(!$displayAllRegions) ? ' disabled="disabled"' : ''; ?>/>
+                        </div>
+                    </div>
+                    <div class="dataInput-col country">
+                        <span class="dataInput-title"><?=  /* @noEscape */$escaper->escapeHtml($block->getAttributeData()->getFrontendLabel('city'))?></span>
+                        <sup class="cl-red-1">*</sup>
+                        <input type="text"
+                               name="city"
+                               value="<?=  /* @noEscape */$escaper->escapeHtmlAttr($block->getAddress()->getCity()) ?>"
+                               title="<?=  /* @noEscape */$escaper->escapeHtmlAttr($block->getAttributeData()->getFrontendLabel('city'))?>"
+                               class="dataInput-input <?=  /* @noEscape */$escaper->escapeHtmlAttr($addressHelper->getAttributeValidationClass('city')) . ' ' . $validateMaxLength ?>"
+                               id="city"/>
+                    </div>
+                </div>
+            </div>
+            <div class="dataInput country">
+                <div class="dataInput-inr">
+                    <div class="dataInput-col">
+                        <p class="dataInput-title"><?=  /* @noEscape */$escaper->escapeHtml($block->getAttributeData()->getFrontendLabel('country_id'))?><sup class="cl-red-1">*</sup></p>
+                        <?=  /* @noEscape */$block->getCountryHtmlSelect() ?>
+                    </div>
+                </div>
+            </div>
+            <div class="dataInput">
+                <div class="dataInput-inr">
+                    <div class="dataInput-col">
+                        <?php $_streetValidationClass = $addressHelper->getAttributeValidationClass('street'); ?>
+                        <p class="dataInput-title"><?=  /* @noEscape */$escaper->escapeHtml(__('Street Address'))?><sup class="cl-red-1">*</sup></p>
+                        <input type="text"
+                               name="street[0]"
+                               value="<?=  /* @noEscape */$escaper->escapeHtmlAttr($block->getStreetLine(1)) ?>"
+                               title="<?=  /* @noEscape */$escaper->escapeHtmlAttr(__('Street Address')) ?>"
+                               id="street_1"
+                               class="dataInput-input <?=  /* @noEscape */
+                                $_streetValidationClass . ' ' . $validateMaxLength ?>"/>
+                    </div>
+                </div>
+            </div>
+            <div class="dataInput">
+                <div class="dataInput-inr">
+                    <div class="dataInput-col">
+                        <p class="dataInput-title"><?=  /* @noEscape */$escaper->escapeHtml(__('Building name, Room number'))?></p>
+                        <input type="text"
+                               name="street[1]"
+                               value="<?=  /* @noEscape */$escaper->escapeHtml($block->getStreetLine(2)) ?>"
+                               title="<?=  /* @noEscape */$escaper->escapeHtml(__('Building name, Room number')) ?>"
+                               class="dataInput-input <?=  /* @noEscape */
+                                str_replace('required-entry', '', $_streetValidationClass) . ' ' . $validateMaxLength ?>"
+                               id="street_2"/>
+                    </div>
+                </div>
+            </div>
+
+            <?php $userDefinedAttributes = $block->getLayout()->getBlock('customer_form_address_user_attributes'); ?>
+            <?php if ($userDefinedAttributes): ?>
+                <?=  /* @noEscape */$userDefinedAttributes->setShowContainer(false)->toHtml() ?>
+            <?php endif; ?>
+            <div class="dataInput">
+                <div class="dataInput-inr">
+                    <?=  /* @noEscape */$block->getChildHtml('casio.lottery_sale.additional_information') ?>
+                </div>
+            </div>
+            <div class="btns">
+                <button type="submit"
+                        class="btn btn-l is-submit"
+                        data-action="save-address"
+                        title="<?=  /* @noEscape */$escaper->escapeHtmlAttr(__('Complete the application')) ?>">
+                    <span><?=  /* @noEscape */$escaper->escapeHtml(__('Complete the application')) ?></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+<script type="text/x-magento-init">
+{
+    "#form-validate": {
+        "addressValidation": {
+            "postCodes": <?=  /* @noEscape */ $block->getPostCodeConfig()->getSerializedPostCodes(); ?>
+        }
+    },
+    "#country": {
+        "regionUpdater": {
+            "optionalRegionAllowed": <?=  /* @noEscape */ ($displayAllRegions ? 'true' : 'false') ?>,
+            "regionListId": "#region_id",
+            "regionInputId": "#region",
+            "postcodeId": "#zip",
+            "form": "#form-validate",
+            "regionJson": <?=  /* @noEscape */ $directoryHelper->getRegionJson() ?>,
+            "defaultRegion": "<?=  /* @noEscape */ $block->getRegionId() ?>",
+            "countriesWithOptionalZip": <?=  /* @noEscape */ $directoryHelper->getCountriesWithOptionalZip(true) ?>
+        }
+    }
+}
+</script>

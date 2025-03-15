@@ -1,0 +1,152 @@
+<?php
+/**
+ * @var \Casio\LotterySale\Block\Customer\ApplicationHistory $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+use Casio\LotterySale\Helper\Data;
+
+$lotterySaleList = $block->getCustomerLotteryApplication();
+$now = $block->getCurrentTime();
+$i = 0;
+$pageSize = 6;
+/** @var \Casio\LotterySale\ViewModel\LotteryApplication $viewModel */
+$viewModel = $block->getViewModel();
+$statusOptions = $viewModel->getStatusOptions();
+?>
+<div class="dataItem-wrapper is-acc-target" data-bind="scope: 'casio-lottery-draw-index'"
+     id="history-items" >
+    <div class="is-acc-target-inr lottery-history-wrapper">
+        <?php if ($lotterySaleList->getTotalCount() < 1):?>
+            <div class="dataItem history-dataItem is-withoutArw">
+                <div class="dataItem-inr">
+                    <div class="dataItem-txt">
+                        <p class="pt-xl pb-xl"><?=  /* @noEscape */ __('There is no lottery application history') ?></p>
+                    </div>
+                </div>
+            </div>
+        <?php else:?>
+            <?php foreach ($lotterySaleList->getItems() as $item):?>
+                <?php $i ++; $currentPage = (int)($i/$pageSize) ?>
+                <?php $product = $block->getProduct($item->getProductId())?>
+                <?php $isExpiredDeadline = $block->isExpiredDeadline($item, $now)?>
+                <div class="dataItem history-dataItem is-withoutArw lottery-data-item <?=  /* @noEscape */'block-' . $i ?> <?=  /* @noEscape */$currentPage < 1 ? 'active' : '' ?>"
+                     data-id="<?=  /* @noEscape */ $i ?>">
+                    <div class="dataItem-inr">
+                        <div class="dataItem-txt">
+                            <p class="is-status fw-bold dsp-ib pl-xs pr-xs mb-xxs
+                                <?php if ($item->getStatus() == Data::STATUS_APPLYING):?>
+                                    <?=  /* @noEscape */ 'bd-blk-1 bg-wht-1'?>
+                                <?php elseif ($item->getStatus() == Data::STATUS_WINNING &&
+                                    !$isExpiredDeadline &&
+                                    !$item->getOrdered()):?>
+                                <?=  /* @noEscape */ 'bg-red-1'?>
+                                <?php else:?>
+                                    <?=  /* @noEscape */ 'bg-gry-4'?>
+                                <?php endif;?>
+                            ">
+                                <?=  /* @noEscape */ $statusOptions[$item->getStatus()] ?? ""?>
+                                <?php if ($item->getStatus() == Data::STATUS_WINNING && $isExpiredDeadline):?>
+                                    <?=  /* @noEscape */ __('(End of purchase deadline)')?>
+                                <?php elseif ($item->getStatus() == Data::STATUS_WINNING && $item->getOrdered()):?>
+                                    <?=  /* @noEscape */ __('(Purchased)')?>
+                                <?php else: ?>
+                                    <?=  /* @noEscape */ '' ?>
+                                <?php endif;?>
+                            </p>
+                            <table class="dataItem-table">
+                                <tbody><tr>
+                                    <th class="dataItem-th"><?=  /* @noEscape */ __('Lottery code:') ?></th>
+                                    <td class="dataItem-td"><?=  /* @noEscape */ $item->getLotterySalesCode()?></td>
+                                </tr>
+                                <tr>
+                                    <th class="dataItem-th"><?=  /* @noEscape */ __('Lottery Product:') ?></th>
+                                    <td class="dataItem-td"><?=  /* @noEscape */ $product->getName() ?></td>
+                                </tr>
+                                <tr>
+                                    <th class="dataItem-th">
+                                        <?=  /* @noEscape */ __('Scheduled winning announcement date:')?>
+                                    </th>
+                                    <td class="dataItem-td">
+                                        <?=  /* @noEscape */ $item->getLotteryDate() ?>
+                                    </td>
+                                </tr>
+                                <?php if ($item->getStatus() == Data::STATUS_WINNING):?>
+                                <tr>
+                                    <th class="dataItem-th
+                                    <?= /* @noEscape */ (!$isExpiredDeadline && !$item->getOrdered())? 'cl-red-1 fw-bold' : '' ?>">
+                                        <?=  /* @noEscape */ __('Purchase deadline:')?>
+                                    </th>
+                                    <td class="dataItem-td
+                                    <?= /* @noEscape */ (!$isExpiredDeadline && !$item->getOrdered())? 'cl-red-1 fw-bold' : '' ?>">
+                                        <?php $purchaseDeadLine = $block->convertDateTime($item->getPurchaseDeadline()) ?>
+                                        <?=  /* @noEscape */ __(
+                                            '%1 Year %2 Month %3 Day',
+                                            $purchaseDeadLine->format('Y'),
+                                            $purchaseDeadLine->format('n'),
+                                            $purchaseDeadLine->format('j')
+                                        ) . ' ' . $purchaseDeadLine->format('H:i') ?>
+                                    </td>
+                                </tr>
+                                <?php endif;?>
+                                </tbody>
+                            </table>
+                            <?php if ($item->getStatus() == Data::STATUS_WINNING &&
+                                !$isExpiredDeadline &&
+                                !$item->getOrdered()):?>
+                                <div class="dataItem-winning mt-m">
+                                    <h2 class="title-2 ta-c mb-m cl-red-1">
+                                        <span class="ws-nowrap"><?=  /* @noEscape */ __('Congratulations on winning!')?></span>
+                                    <div class="dataItem-2col">
+                                        <div class="dataItem-img">
+                                            <a class="product-item-link"
+                                               href="<?=  /* @noEscape */ $escaper->escapeUrl($product->getProductUrl()) ?>">
+                                                <img class="product-image-photo"
+                                                     src="<?=  /* @noEscape */ $block->getProductImageUrl($product)?>"
+                                                     alt="<?=  $product->getName() ?>">
+                                            </a>
+
+                                        </div>
+                                        <div class="dataItem-txt">
+                                            <?php $addToCartUrl =  $block->getAddToCartUrl($product); ?>
+
+                                            <form data-role="tocart-form" action="<?=  /* @noEscape */ $addToCartUrl; ?>" method="post">
+
+                                                <?=  /* @noEscape */ $block->getBlockHtml('formkey')?>
+                                                <input type="hidden" id="pp-checkout-url" name="return_url"
+                                                       value="<?=  /* @noEscape */ $block->getCartUrl() ?>"/>
+                                                <button type="submit" class="btn add-to-cart action primary"><?=  /* @noEscape */ __('Add to bag')?></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif;?>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+    <?php if ($lotterySaleList->getTotalCount() >= $pageSize):?>
+        <div class="btns bd-t-gry-1 mt-none pt-m">
+            <button class="btn btn-l bg-wht-1 dataItem-more is-acc-btn"
+                    data-target="#history-items" data-target-child=".dataItem" data-min-items="3"
+                    data-count="<?=  /* @noEscape */ $i ?>"
+                    data-bind="click: loadMore">
+                <span class="icon icon-arw-b-blk-1"></span>
+            </button>
+        </div>
+    <?php endif;?>
+</div>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "casio-lottery-draw-index": {
+                    "component": "Casio_LotterySale/js/lottery-sale"
+                }
+            }
+        }
+    }
+}
+</script>

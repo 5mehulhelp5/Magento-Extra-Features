@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Candere Software
+ *
+ * @category Codilar
+ * @package  CustomReports
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order" resource="sales" engine="innodb" comment="Sales Order">
+        <column xsi:type="varchar" name="affiliate_source" nullable="true" length="255" comment="Affiliate Source"/>
+        <column xsi:type="varchar" name="affiliate_medium" nullable="true" length="255" comment="Affiliate Medium"/>
+        <column xsi:type="varchar" name="affiliate_id" nullable="true" length="255" comment="Affiliate Id"/>
+        <column xsi:type="varchar" name="device" nullable="true" length="50" comment="Device"/>
+        <column xsi:type="varchar" name="is_ga_pass" nullable="true" length="50" comment="Is Ga Pass"/>
+        <column xsi:type="varchar" name="is_other_pass" nullable="true" length="50" comment="Is Other Pass"/>
+        <column xsi:type="varchar" name="purchase_source" nullable="true" length="50" comment="Purchase Source"/>
+        <column xsi:type="varchar" name="agent_name" nullable="true" length="50" comment="Agent Name"/>
+        <column xsi:type="varchar" name="is_admin_created" nullable="true" length="50" comment="Is Admin Created"/>
+    </table>
+    <table name="sales_order_item" resource="sales" engine="innodb" comment="Sales Order Item">
+        <column xsi:type="int" name="is_priority_shipping" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Is Priority Shipping"/>
+    </table>
+</schema>

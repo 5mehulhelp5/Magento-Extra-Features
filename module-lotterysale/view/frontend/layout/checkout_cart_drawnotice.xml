@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="checkout_cart_draw_title"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Casio\LotterySale\Block\Draw" name="casio_lottery_sale_notice"
+                   template="Casio_LotterySale::checkout/cart/draw_notice.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Casio\LotterySale\ViewModel\LotteryApplication
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

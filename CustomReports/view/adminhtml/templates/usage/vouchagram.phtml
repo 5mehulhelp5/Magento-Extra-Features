@@ -1,0 +1,460 @@
+<?php
+/**
+ * Candere Software
+ *
+ * @category Codilar
+ * @package  CustomReports
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+
+$redeemInfo = [];
+$redeemInfo = $block->getRedeeminfo();
+$request = $block->getRequest();
+?>
+
+<div id="page:main-container" class="page-columns">
+    <div class="admin__old">
+        <div id="container" class="main-col">
+
+            <div class="reports-content">
+                <div class="entry-edit form-inline">
+                    <form id="filter_form" action="" method="get" novalidate="novalidate" name="date-form">
+                        <div></div>
+
+                        <fieldset class="fieldset admin__fieldset " id="sales_report_base_fieldset">
+                            <legend class="admin__legend legend">
+                                <span></span>
+                            </legend><br>
+
+                            <div class="messages">
+                            </div>
+
+                            <div class="admin__field field field-from admin__field-small"
+                            data-ui-id="grid-filter-form-fieldset-element-form-field-from">
+                                <label class="label admin__field-label" for="sales_report_from"
+                                data-ui-id="grid-filter-form-fieldset-element-text-from-label"><span>From</span></label>
+                                <div class="admin__field-control control">
+                                    <input name="from" id="sales_report_from"
+                                    value="<?php if (isset($request['from'])
+                                        && $request['from'] != "") { echo $block->escapeHtml($request['from']); } ?>"
+                                    title="From" class="admin__control-text _required admin__control-text input-text"
+                                    type="text" aria-required="true" autocomplete="off">
+                                    <button type="button" class="ui-datepicker-trigger "></button>
+                                </div>
+                            </div>
+
+                            <div class="admin__field field field-to admin__field-small"
+                            data-ui-id="grid-filter-form-fieldset-element-form-field-to">
+                                <label class="label admin__field-label" for="sales_report_to"
+                                data-ui-id="grid-filter-form-fieldset-element-text-to-label">
+                                <span>To</span></label>
+                                <div class="admin__field-control control">
+                                    <input name="to" id="sales_report_to"
+                                    value="<?php if (isset($request['to'])
+                                    && $request['to'] != "") { echo $block->escapeHtml($request['to']); } ?>"
+                                    title="To" class="admin__control-text _required admin__control-text input-text "
+                                    type="text" aria-required="true" autocomplete="off" onchange="TDate()">
+                                    <button type="button" class="ui-datepicker-trigger v-middle"></button>
+                                </div>
+                            </div>
+                            <div class="admin__field field field-to admin__field-small"
+                            data-ui-id="grid-filter-form-fieldset-element-form-field-to">
+                                <label class="label admin__field-label" for="voucher_code"
+                                data-ui-id="grid-filter-form-fieldset-element-text-to-label">
+                                <span>Search by GyFTR Code</span></label>
+                                <div class="admin__field-control control">
+                                    <input id="voucher_code" name="voucher_code"
+                                    value="<?php if (!empty($request['voucher_code'])) {
+                                        echo $block->escapeHtml($request['voucher_code']);}?>"
+                                    title="Search by GyFTR Code" class="admin__control-text input-text "
+                                    type="text" aria-required="true" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="admin__field field field-to admin__field-small"
+                                data-ui-id="grid-filter-form-fieldset-element-form-field-to">
+                                <label class="label admin__field-label" for="email_id"
+                                data-ui-id="grid-filter-form-fieldset-element-text-to-label">
+                                <span>Search by Email Id</span></label>
+                                <div class="admin__field-control control">
+                                    <input id="email_id" name="email_id"
+                                    value="<?php if (isset($request['email_id'])
+                                    && $request['email_id'] != "") { echo $block->escapeHtml($request['email_id']);} ?>"
+                                    title="Search by Email ID" class="admin__control-text input-text " type="text"
+                                    aria-required="true" autocomplete="off">
+                                </div>
+                            </div>
+
+
+                            <div class="admin__field field">
+                                <label class="label admin__field-label">
+
+                                </label>
+                                <div class="admin__field-control control">
+                                    <button id="savelist" name="submit" class="primary" type="submit"
+                                    onClick="checkDate()"><span>Submit</span></button>
+                                    <button id="resetvouchagramform" name="resetvouchagramform" class="primary"
+                                    type="button" onClick="resetVouchagramForm()"><span>Reset</span></button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <script>
+                    require(['mage/adminhtml/form'], function() {
+                        new FormElementDependenceController({
+                            "sales_report_order_statuses": {
+                                "sales_report_show_order_statuses": {
+                                    "values": ["1"],
+                                    "negative": false
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </div>
+            <div id="id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJs" data-grid-id="id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJs">
+                <div class="admin__data-grid-header admin__data-grid-toolbar">
+                    <div class="admin__data-grid-header-row">
+                        <div class="admin__data-grid-export">
+                            <label class="admin__control-support-text"
+                            for="id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJs_export">Export to:</label>
+                            <select name="id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJs_export"
+                            id="id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJs_export" class="admin__control-select">
+                            <option value="http://127.0.0.1/candere/admin/reports/report_sales/exportSalesExcel/key/
+                            98fafb6fa25d1003c03d9af85149b030c41b45a2147f89e94a298752ab16e453/">
+                                    Excel XML</option>
+                            </select>
+
+                            <a id="downloadLink" onclick="exportF(this)"><button>Export to excel</button></a>
+                        </div>
+                    </div>
+
+                    <div class="admin__data-grid-header-row ">
+
+                    </div>
+                </div>
+
+                <div class="admin__data-grid-wrap admin__data-grid-wrap-static">
+                    <?php if (!empty($redeemInfo)) { ?>
+                        <table class="data-grid wp-list-table widefat striped posts" id="pager" border="1">
+                            <!-- <thead> -->
+                            <tr>
+                                <th class="data-grid-th col-period no-link col-period"><span>Sr. No.</span></th>
+                                <th class="data-grid-th col-orders no-link col-orders_count"><span>Order Id</span></th>
+                                <th class="data-grid-th col-period no-link col-period"><span>Product Type</span></th>
+                                <th class="data-grid-th col-period no-link col-period"><span>User Name</span></th>
+                                <th class="data-grid-th col-period no-link col-period"><span>Email Id</span></th>
+                                <th class="data-grid-th col-period no-link col-period"><span>Mobile No</span></th>
+                                <th class="data-grid-th col-period no-link col-period"><span>Voucher Number</span></th>
+                                <th class="data-grid-th col-period no-link col-period"><span>Order Amount</span></th>
+                                <th class="data-grid-th col-period no-link col-period"><span>Voucher Amount</span></th>
+                                <th class="data-grid-th col-period no-link col-period"><span>Order Date</span></th>
+                                <th class="data-grid-th col-period no-link col-period"><span>Refund</span></th>
+                                <th class="data-grid-th col-period no-link col-period"><span>Status</span></th>
+
+                            </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <?php $i = count($redeemInfo);
+                                foreach ($redeemInfo as $key => $value) {
+
+                                    $refund = $value['refund'] == 1 ? 'Yes' : 'No';
+
+                                    $orderId = $value['order_id'];
+                                    $orderDetails = $block->getOrderByIncrementId($orderId);
+
+                                    $vouchagramAmount = $orderDetails['vouchagram_amount'];
+
+                                    $productIdsArr = $orderDetails['product_id'];
+                                    $productTypeArr = [];
+                                    $productType = null;
+                                    if (!empty($productIdsArr)) {
+                                        foreach ($productIdsArr as $productId) {
+                                            $_product = $block->getProductDetails($productId);
+                                            if ($_product) {
+                                                $product_type = $_product->getAttributeText('candere_product_type')
+                                                    ? $_product->getAttributeText('candere_product_type') : "";
+
+                                                $product_material = null;
+                                                if ($_product->getResource()->getAttribute('material_type')) {
+                                                    $product_material = $_product->getResource()
+                                                    ->getAttribute('material_type')->getFrontend()->getValue($_product);
+                                                }
+
+                                                $productTypeAndMaterial = $product_type;
+                                                if ($product_material != "") {
+                                                    $productTypeAndMaterial .= " (" . $product_material . ")";
+                                                }
+                                                $productTypeArr[] = $productTypeAndMaterial;
+                                                unset($_product);
+                                            }
+                                        }
+                                        $productType = implode(", ", $productTypeArr);
+                                        $productType = mb_strimwidth($productType, 0, 40, "...");
+                                    }
+
+                                    $customerEmail = $block->getCustomerEmail($value['user_id']);
+
+                                    $orderAmount = $orderGrandTotal = 0;
+                                    if ($vouchagramAmount < 0) {
+                                        $orderGrandTotal = $orderDetails['base_grand_total'] - $vouchagramAmount;
+                                    } else {
+                                        $orderGrandTotal = $orderDetails['base_grand_total'];
+                                    }
+                                    $orderAmount = number_format($orderGrandTotal);
+                                    $voucherAmount = number_format($value['amount_in_rupees']);
+
+                                    $voucherNumber = str_replace(",", ",<br/>", $value['voucher_number']);
+                                    $orderDate = date("d-m-Y h:i a", strtotime($value['order_date']));
+                                    ?>
+                                    <tr>
+                                        <td><?= $block->escapeHtml($i); ?></td>
+                                        <td><?= $block->escapeHtml($value['order_id']); ?></td>
+                                        <td><?= $block->escapeHtml($productType); ?></td>
+                                        <td><?= $block->escapeHtml($value['user_name']); ?></td>
+                                        <td><?= $block->escapeHtml($customerEmail); ?></td>
+                                        <td><?= $block->escapeHtml($value['mobile_no']); ?></td>
+                                        <td><?= /* @noEscape */ $voucherNumber; ?></td>
+                                        <td><?= $block->escapeHtml($orderAmount); ?></td>
+                                        <td><?= $block->escapeHtml($voucherAmount); ?></td>
+                                        <td><?= $block->escapeHtml($orderDate); ?></td>
+                                        <td><?= $block->escapeHtml($refund); ?></td>
+                                        <td><?= $block->escapeHtml($value['redeem_status']); ?></td>
+                                    </tr>
+                                    <?php unset($_order);
+                                    $i--;
+                                } ?>
+
+                            </tbody>
+                        </table>
+                        <div id="pageNavPosition" class="pager-nav"></div>
+                    <?php } else { ?>
+                        <div class="data-grid-tr-no-data even">
+                            <div class="empty-text">We couldn't find any records.</div>
+                        </div>
+
+                    <?php } ?>
+                </div>
+            </div>
+
+            <script>
+                var deps = [];
+                deps.push('mage/adminhtml/grid');
+                require(deps, function() {
+                    //<![CDATA[
+                    id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJsJsObject = new varienGrid(
+                        "id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJs",
+                        'http\u003A\u002F\u002F127.0.0.1\u002Fcandere\u002Fadmin\u002Freports\u002Freport_sales'
+                        +'\u002Fsales\u002Fkey\u002Ff6b4f573c129ff00cf7d18a1de6ee1cffd801f08b5a1ddf59b48303f4cada1de'
+                        +'\u002F',
+                        'page',
+                        'sort',
+                        'dir',
+                        'filter'
+                    );
+                    id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJsJsObject.useAjax = '';
+                    id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJsJsObject.rowClickCallback = openGridRow;
+                    //]]>
+                });
+            </script>
+            <script>
+                require([
+                    'jquery',
+                    'mage/backend/validation',
+                    "prototype"
+                ], function(jQuery) {
+
+                    //<![CDATA[
+                    jQuery('#filter_form').mage('validation', {
+                        errorClass: 'mage-error'
+                    });
+
+                    function filterFormSubmit() {
+                        var filters = $$('#filter_form input', '#filter_form select'),
+                            elements = [];
+
+                        for (var i in filters) {
+                            if (filters[i].value && filters[i].value.length && !filters[i].disabled) {
+                                elements.push(filters[i]);
+                            }
+                        }
+
+                        if (jQuery('#filter_form').valid()) {
+                            setLocation('http\u003A\u002F\u002F127.0.0.1\u002Fcandere\u002Fadmin\u002Freports'
+                            +'\u002Freport_sales\u002Fsales\u002Fkey'
+                            +'\u002Ff6b4f573c129ff00cf7d18a1de6ee1cffd801f08b5a1ddf59b48303f4cada1de'
+                            +'\u002Ffilter/' + Base64.encode(Form.serializeElements(elements)) + '/');
+                        }
+                    }
+                    //]]>
+                    window.filterFormSubmit = filterFormSubmit;
+                });
+            </script>
+        </div>
+    </div>
+</div>
+<script>
+    require(["jquery", "mage/calendar"], function($) {
+        $("#sales_report_from").datepicker({
+            showMonthAfterYear: false,
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '2017:2030',
+        })
+    });
+
+
+    require(["jquery", "mage/calendar"], function($) {
+        $("#sales_report_to").datepicker({
+            showMonthAfterYear: false,
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '2017:2030',
+        })
+    });
+
+    function checkDate() {
+        var dateForm = document.forms['date-form'];
+        var startDate = new Date(dateForm['from'].value);
+        var endDate = new Date(dateForm['to'].value);
+        var date = endDate - startDate;
+        var diff = (date / 86400000);
+
+        if (startDate >= endDate) {
+            alert("Date FROM should be less than date TO");
+        } else if ((startDate == '') && (endDate == '')) {
+            alert("Please select Start Date and To date");
+        }
+    }
+
+    function getPathFromUrl(url) {
+        return url.split("?")[0];
+    }
+
+    function resetVouchagramForm() {
+        var resetpageurl = jQuery(location).attr("href");
+        resetpageurl = getPathFromUrl(resetpageurl);
+        window.location.href = resetpageurl;
+    }
+
+    function exportF(elem) {
+        var table = document.getElementById("pager");
+        var html = table.outerHTML;
+        var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url
+        elem.setAttribute("href", url);
+        elem.setAttribute("download", "VouchagramInfo.xls"); // Choose the file name
+        return false;
+    }
+</script>
+
+
+<script>
+    /* eslint-env browser */
+    /* global document */
+
+    function Pager(tableName, itemsPerPage) {
+        'use strict';
+
+        this.tableName = tableName;
+        this.itemsPerPage = itemsPerPage;
+        this.currentPage = 1;
+        this.pages = 0;
+        this.inited = false;
+
+        this.showRecords = function(from, to) {
+            let rows = document.getElementById(tableName).rows;
+
+            // i starts from 1 to skip table header row
+            for (let i = 1; i < rows.length; i++) {
+                if (i < from || i > to) {
+                    rows[i].style.display = 'none';
+                } else {
+                    rows[i].style.display = '';
+                }
+            }
+        };
+
+        this.showPage = function(pageNumber) {
+            if (!this.inited) {
+                // Not initialized
+                return;
+            }
+
+            let oldPageAnchor = document.getElementById('pg' + this.currentPage);
+            oldPageAnchor.className = 'pg-normal';
+
+            this.currentPage = pageNumber;
+            let newPageAnchor = document.getElementById('pg' + this.currentPage);
+            newPageAnchor.className = 'pg-selected';
+
+            let from = (pageNumber - 1) * itemsPerPage + 1;
+            let to = from + itemsPerPage - 1;
+            this.showRecords(from, to);
+
+            let pgNext = document.querySelector('.pg-next'),
+                pgPrev = document.querySelector('.pg-prev');
+
+            if (this.currentPage == this.pages) {
+                pgNext.style.display = 'none';
+            } else {
+                pgNext.style.display = '';
+            }
+
+            if (this.currentPage === 1) {
+                pgPrev.style.display = 'none';
+            } else {
+                pgPrev.style.display = '';
+            }
+        };
+
+        this.prev = function() {
+            if (this.currentPage > 1) {
+                this.showPage(this.currentPage - 1);
+            }
+        };
+
+        this.next = function() {
+            if (this.currentPage < this.pages) {
+                this.showPage(this.currentPage + 1);
+            }
+        };
+
+        this.init = function() {
+            let rows = document.getElementById(tableName).rows;
+            let records = (rows.length - 1);
+
+            this.pages = Math.ceil(records / itemsPerPage);
+            this.inited = true;
+        };
+
+        this.showPageNav = function(pagerName, positionId) {
+            if (!this.inited) {
+                // Not initialized
+                return;
+            }
+
+            let element = document.getElementById(positionId),
+                pagerHtml = '<span onclick="' + pagerName + '.prev();" class="pg-normal pg-prev">&#171;</span>';
+
+            for (let page = 1; page <= this.pages; page++) {
+                pagerHtml += '<span id="pg' + page + '" class="pg-normal pg-next" onclick="' + pagerName
+                + '.showPage(' + page + ');">' + page + '</span>';
+            }
+
+            pagerHtml += '<span onclick="' + pagerName + '.next();" class="pg-normal">&#187;</span>';
+
+            element.innerHTML = pagerHtml;
+        };
+    }
+    //
+    let pager = new Pager('pager', 10);
+
+    pager.init();
+    pager.showPageNav('pager', 'pageNavPosition');
+    pager.showPage(1);
+</script>

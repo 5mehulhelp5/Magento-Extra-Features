@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="page.main.title">
+            <arguments>
+                <argument name="css_class" xsi:type="string">casio-lottery-title</argument>
+                <argument name="page_title" translate="true"  xsi:type="string">Lottery sales application</argument>
+            </arguments>
+            <block class="Casio\LotterySale\Block\Draw" name="casio_lottery_sale_title"
+                   template="Casio_LotterySale::checkout/cart/draw/title.phtml" cacheable="false">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Casio\LotterySale\ViewModel\LotteryApplication</argument>
+                </arguments>
+                <block class="Casio\LotterySale\Block\Draw\ApplicationPeriod" name="casio.lottery_sale.application_period" as="application_period"/>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,22 @@
+<?php
+/**
+ * @var \Casio\LotterySale\Block\Draw\ApplicationPeriod $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$from = $block->getApplicationPeriod();
+$to = $block->getApplicationPeriod(false);
+$applicationPeriodHtml = __(
+        '%1 Year %2 Month %3 Day',
+        $from->format('Y'),
+        $from->format('n'),
+        $from->format('j')
+    ) . '（' . __($from->format('D')) . '）' . $from->format('H:i') . '～' .
+    __(
+        '%1 Year %2 Month %3 Day',
+        $to->format('Y'),
+        $to->format('n'),
+        $to->format('j')
+    ) . '（' . __($to->format('D')) . '）' . $to->format('H:i');
+?>
+<?=  /* @noEscape */$escaper->escapeHtml($applicationPeriodHtml) ?>
+

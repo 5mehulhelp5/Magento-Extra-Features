@@ -1,0 +1,135 @@
+<!--@subject 【CASIO オンラインストア】 {{var sku}} ご当選のお知らせ 【抽選番号: {{var lottery_number}}】 @-->
+<!--@vars {
+"var sku":"sku",
+"var price":"price",
+"var product_image":"Product Image",
+"var purchase_deadline":"Purchase Deadline",
+"var lottery_number":"Lottery Number",
+"var product_url":"Product Url",
+"var draw_history_url":"My Draw History"
+} @-->
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+</head>
+
+<body style="font-family: 'Noto Sans JP', sans-serif; line-height: 1.8; font-weight: 700; background: #f7f8fa; margin: -8px 0;">
+<table style="width: 100%; text-align: center; background: #fff; font-weight: 700;">
+    <tr>
+        <td style="border-bottom: 1px solid #e5e5e5; text-align: center;">
+            <h1 style="margin:1em 0 0.8em;"><img src="https://www.e-casio.co.jp/img/new_mail/1/logo.png" alt="CASIO">
+            </h1>
+        </td>
+    </tr>
+</table>
+<table style="margin: 2em auto; max-width: 750px; font-weight: 700;">
+    <tr>
+        <td style="text-align: center; padding: 0 3%;">
+            <p style="font-size: 1.6rem; white-space: nowrap;">ご当選おめでとうございます!</p>
+            <p>厳正なる抽選の結果<br>{{var sku}}の抽選に当選しました。</p>
+        </td>
+    </tr>
+</table>
+<table style="margin: 0 auto; width: 100%; max-width: 750px; padding: 0 3%; font-weight: 700;">
+    <tr>
+        <td style="text-align: center; ">
+            <img src="{{var product_image}}"
+                 alt="" style="width: 70%;">
+            <div style="background: #fff; width: 100%; margin-top: -50%; padding-top: 50%; margin-bottom: -5%;">
+                <span style="display: none;">Casio</span>
+            </div>
+        </td>
+    </tr>
+</table>
+<table style="padding: 0 3%; width: 100%; max-width: 750px; margin: 0 auto; font-weight: 700;">
+    <tr>
+        <td>
+            <table style="width: 100%; max-width: 750px; background: #fff; text-align: center; font-weight: 700;">
+                <tr>
+                    <td>
+                        <p style="margin-top: 1em;">{{var sku}}<br>{{var price}}
+                            <span style="font-size: 0.5rem;">(税込)</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-bottom: 3em;">
+                        <div style=" margin: 1em auto 0; background: #000; width: 50%; padding: 1em 0; font-weight: 100;">
+                            <a href="{{var draw_history_url}}" target="_blank"
+                               style="display: block; color: #fff; text-decoration: none;">
+                                購入手続きに進む&nbsp;&nbsp;<img
+                                src="https://www.e-casio.co.jp/img/new_mail/2/btn_icon.png" alt=""
+                                style="vertical-align: middle; width: 15px; -webkit-backface-visibility: hidden;">
+                            </a>
+                        </div>
+                        <p style="color: #606060; font-size: 0.5rem; font-weight: 100;">マイページからバッグに追加しご購入ください。
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table style="width: 100%; max-width: 750px; background: #fff; text-align: center; font-weight: 700;">
+                <tr>
+                    <td style="padding: 3em 0;">
+                        <img src="https://www.e-casio.co.jp/img/new_mail/2/limit_icon.png" alt="">
+                        <p>ご購入期限：{{var purchase_deadline}}</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table style="width: 100%; max-width: 750px; background: #fff; text-align: center; font-weight: 700;">
+                <tr>
+                    <td style="padding: 3em 0;">
+                        <img src="https://www.e-casio.co.jp/img/new_mail/2/note_icon.png" alt="">
+                        <ul style="list-style: none; padding: 0 3%; font-size: 0.9rem;">
+                            <li>※ご当選者本人様のみのご購入とさせていただきます。</li>
+                            <li>※当選メールの再送は致しません。必ず大切に保管ください。</li>
+                            <li>※ご購入期限を過ぎてのご購入はできませんのでご了承ください。</li>
+                            <li>※転売目的のご購入と判断した場合は、販売をお断りさせていただきます。</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table style="width: 100%; max-width: 750px; text-align: center; margin: 3rem 0; font-weight: 700;">
+                <tr>
+                    <td>
+                        <p style="font-size: 0.5rem; color: #9d9d9e; font-weight: 100;">
+                            本メールはニュースレター配信を希望されていない方にもお送りしています。<br>
+                            本メールの再配信・ホームページ等への掲載はご遠慮ください。<br>
+                            本コンテンツは日本国内向けの情報です。<br>
+                            このメールはシステムより自動送信しております。ご返信いただいてもお答えできません。
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top: 3em;">
+                        <img src="https://www.e-casio.co.jp/img/new_mail/1/logo2.png">
+                        <p style="font-size: 0.5rem;">
+                            &copy; 2021 CASIO COMPUTER CO., LTD., CASIO Marketing Advance CO., LTD.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

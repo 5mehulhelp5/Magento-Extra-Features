@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_ImportExport:etc/export.xsd">
+<!--    <entity name="codilar_products" label="Product Data Extract"-->
+<!--            model="Codilar\Exports\Model\Export\Product\Product"-->
+<!--            entityAttributeFilterType="codilar_products"/>-->
+    <entity name="contracted_products" label="Customer Specific Pricing"
+            model="Codilar\Exports\Model\Export\ContractedProducts\ContractedProducts"
+            entityAttributeFilterType="contracted_products"/>
+    <entity name="master_manufactures" label="Manufacturer Master"
+            model="Codilar\Exports\Model\Export\Manufactures\Manufactures"
+            entityAttributeFilterType="master_manufactures"/>
+</config>

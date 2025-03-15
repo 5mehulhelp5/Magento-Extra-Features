@@ -1,0 +1,63 @@
+"Cannot purchase because the purchase deadline has expired","無法購買（已超過購買期限）"
+"Cannot be purchased because it is a lottery product that has already been purchased","無法購買（您已完成購買）"
+"Cannot be purchased because it is an unwinned lottery product","無法購買（未中籤）"
+"Lottery application history","登記抽籤記錄"
+"Applying","登記中"
+"Lottery code:","抽籤序號："
+"Lottery Product:","商品型號："
+"Scheduled winning announcement date:","結果預計公布日："
+"Winning","中籤"
+"Lost","未中籤"
+"Purchase deadline:","購買期限："
+"Add to bag","放入購物車"
+"Congratulations on winning!","恭喜您已獲得購買資格！"
+"(Purchased)","（完成購買）"
+"(End of purchase deadline)","（超過購買期限）"
+"There is no lottery application history","沒有登記記錄"
+"Winning","中籤"
+"Congrats","恭喜"
+"There is!","獲得購買資格！"
+"Product image","商品照片"
+"Number of Winner","中籤人數上限"
+"The number of winners has not reached the upper limit","中籤人數未達上限"
+"Total winner is greater than Number of Winner","中籤人數超過上限"
+"Contains non-existent users","包含不存在的會員"
+"Casio Lottery Title","活動名稱"
+"User Name (Kana)","名前（カナ）"
+"Telephone","電話號碼（如：0912345678。勿輸入符號)"
+"Prefecture","縣市行政區"
+"Building","建築物名稱"
+"Applicated Date","登記日期",
+"Casio Lottery Management","抽籤活動一覽",
+"Lottery Application Management","抽籤報名一覽",
+"Casio Lottery Applicated Count","抽籤商品登記次數",
+"Casio Lottery Win Count","抽籤商品中籤次數"
+"Lottery sales application","抽籤登記表"
+"Application period: ","登記期間："
+"Precautions regarding application","登記相關注意事項"
+"Agree and apply","我同意，開始登記"
+"Agree and register as a new member","我同意，開始登錄會員"
+"The application is closed.","登記結束"
+"I have already applied.","您已完成登記"
+"Continue shopping","繼續購物"
+"Accepted application","已經收到您的登記"
+"Lottery number:","抽籤序號："
+"Scheduled winning announcement date:","結果預計公布日："
+"Around","左右"
+"Mail Address","電子信箱"
+"Complete the application","登記完成"
+Mon,週一
+Tue,週二
+Wed,週三
+Thu,週四
+Fri,週五
+Sat,週六
+Sun,週日
+"Missing required data in column:  lottery_number","包含無效的抽籤序號（N, N, N)"
+Lottery No,抽籤序號
+Email,電子信箱
+Contains non-existent lottery number,包含無效的抽籤序號
+Contains non-existent website,包含無效的網址
+"%1 Year %2 Month %3 Day","%1年%2月%3日"
+"Postcode","郵遞區號"
+"Town name & street number","地址"

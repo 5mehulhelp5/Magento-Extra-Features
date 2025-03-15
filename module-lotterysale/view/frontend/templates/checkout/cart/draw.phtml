@@ -1,0 +1,29 @@
+<?php
+/**
+ * @var \Casio\LotterySale\Block\Draw $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$product = $block->getProduct();
+
+/** @var \Casio\LotterySale\ViewModel\LotteryApplication $viewModel */
+$viewModel = $block->getViewModel();
+$catalogHelperImage = $viewModel->getCatalogHelperImage();
+?>
+<div class="mb-3 mt-3">
+    <div class="mb-3 mt-3">
+        <div class="mb-3 mt-3">
+            <div class="mb-3 mt-3">
+                <div class="product-item d-flex mb-3">
+                    <div class="product-image mr-3">
+                        <img class="product-image-photo" src="<?=  /* @noEscape */$escaper->escapeUrl($catalogHelperImage->init($product, 'product_thumbnail_image')->getUrl()) ?>"
+                             alt="<?=  /* @noEscape */$escaper->escapeUrl($product->getSku()) ?>" width="165" height="165">
+                    </div>
+                    <div class="product-info">
+                        <p><?=  /* @noEscape */$escaper->escapeHtml($product->getName()) ?></p>
+                        <p><?=  /* @noEscape */ $block->getPrice() ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

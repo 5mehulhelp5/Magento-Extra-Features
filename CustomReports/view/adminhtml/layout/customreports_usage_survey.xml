@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Candere Software
+ *
+ * @category Codilar
+ * @package  CustomReports
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+  <head>
+  <css src="Codilar_CustomReports::css/styles.css"/>
+  </head>
+  <body>
+    <referenceBlock name="navigation.sections" remove="true" />
+    <referenceContainer name="content">
+      <block class="Codilar\CustomReports\Block\Adminhtml\Usage\Survey"
+             name="customreports.usage.survey"
+             template="Codilar_CustomReports::usage/survey.phtml" />
+    </referenceContainer>
+  </body>
+</page>

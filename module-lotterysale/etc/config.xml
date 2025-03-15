@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <lottery_sale>
+            <general>
+                <enabled>0</enabled>
+            </general>
+            <reception_email>
+                <template>lottery_reception_email_template</template>
+                <sender>general</sender>
+            </reception_email>
+            <win_email>
+                <template>lottery_application_winner_email_template</template>
+                <sender>general</sender>
+            </win_email>
+        </lottery_sale>
+    </default>
+</config>

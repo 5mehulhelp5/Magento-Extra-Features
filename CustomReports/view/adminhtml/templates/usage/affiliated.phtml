@@ -1,0 +1,620 @@
+<?php
+/**
+ * Candere Software
+ *
+ * @category Codilar
+ * @package  CustomReports
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+/** @var \Codilar\CustomReports\Block\Adminhtml\Usage\Affiliated $block */
+?>
+<div id="page:main-container" class="page-columns">
+    <div class="admin__old">
+        <div id="container" class="main-col">
+            <div class="reports-content">
+                <div class="entry-edit form-inline">
+                    <form id="filter_form" action="" method="get" novalidate="novalidate" name="date-form">
+                        <div></div>
+                        <fieldset class="fieldset admin__fieldset " id="sales_report_base_fieldset">
+                            <legend class="admin__legend legend">
+                                <span></span>
+                            </legend><br>
+
+                            <div class="messages">
+                            </div>
+                            <div class="admin__field field field-report_type  with-note"
+                            data-ui-id="grid-filter-form-fieldset-element-form-field-report-type">
+                                <label class="label admin__field-label" for="sales_report_report_type"
+                                data-ui-id="grid-filter-form-fieldset-element-select-report-type-label">
+                                <span>Status</span></label>
+                                <div class="admin__field-control control">
+                                    <select id="sales_report_report_type" name="order_status[]"
+                                    class=" select admin__control-select"
+                                    data-ui-id="grid-filter-form-fieldset-element-select-report-type" multiple>
+
+                                        <?php $dropdownstatus = $block->getAllOrderStatusList();
+                                        foreach ($dropdownstatus as $dropdown) {
+                                            ?>
+                                            <option value="<?= $block->escapeHtml($dropdown['state']); ?>">
+                                            <?= $block->escapeHtml($dropdown['state']); ?></option>
+                                            <?php
+                                        }
+                                        ?>
+
+                                        <?php
+                                        foreach ($dropdownstatus as $states) {
+                                            $select = '';
+                                            if (isset($order_status) && !empty($order_status)) {
+                                                if (in_array($states['state'], $order_status)) {
+                                                    $select = 'selected';
+                                                }
+                                            } else {
+                                                if ($states['state'] == 'complete'
+                                                    || $states['state'] == 'processing') {
+                                                    $select = 'selected';
+                                                }
+                                            }
+                                            ?>
+                                            <option value="<?= $block->escapeHtml($states['state']); ?>"
+                                            <?= $block->escapeHtml($select); ?>>
+                                            <?= $block->escapeHtml(ucwords(str_replace('_', ' ', $states['state']))); ?>
+                                        </option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="admin__field field field-from admin__field-small required _required"
+                            data-ui-id="grid-filter-form-fieldset-element-form-field-from">
+                                <label class="label admin__field-label" for="sales_report_from"
+                                data-ui-id="grid-filter-form-fieldset-element-text-from-label">
+                                <span>From</span></label>
+                                <div class="admin__field-control control">
+                                    <input name="from" id="sales_report_from" value="" title="From"
+                                    class="admin__control-text required-entry _required admin__control-text input-text "
+                                    type="text" aria-required="true" autocomplete="off">
+                                    <button type="button" class="ui-datepicker-trigger "></button>
+                                </div>
+                            </div>
+
+                            <div class="admin__field field field-to admin__field-small required _required"
+                            data-ui-id="grid-filter-form-fieldset-element-form-field-to">
+                                <label class="label admin__field-label" for="sales_report_to"
+                                data-ui-id="grid-filter-form-fieldset-element-text-to-label">
+                                <span>To</span></label>
+                                <div class="admin__field-control control">
+                                    <input name="to" id="sales_report_to" value="" title="To"
+                                    class="admin__control-text required-entry _required admin__control-text input-text "
+                                    type="text" aria-required="true" autocomplete="off" onchange="TDate()">
+                                <button type="button" class="ui-datepicker-trigger v-middle"></button>
+                                </div>
+                            </div>
+                            <div class="admin__field field field-show_empty_rows "
+                            data-ui-id="grid-filter-form-fieldset-element-form-field-show-empty-rows">
+                                <label class="label admin__field-label" for="sales_report_show_empty_rows"
+                                data-ui-id="grid-filter-form-fieldset-element-select-show-empty-rows-label">
+                                <span>Source</span></label>
+                                <div class="admin__field-control control">
+                                    <select id="sales_report_show_empty_rows" name="last_source" title="Empty Rows"
+                                    class=" select admin__control-select"
+                                    data-ui-id="grid-filter-form-fieldset-element-select-show-empty-rows">
+                                        <option value="" selected>select source</option>
+                                        <?php
+                                        $order_source = $block->getSourceList();
+                                        $count = count($order_medium);
+                                        for ($i = 0; $i < $count; $i++) { ?>
+                                        <option value="<?=$block->escapeHtml($order_source[$i]['affiliate_source']);?>">
+                                            <?= $block->escapeHtml($order_source[$i]['affiliate_source']); ?></option>
+                                        <?php } ?>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="admin__field field field-show_order_statuses  with-note"
+                            data-ui-id="grid-filter-form-fieldset-element-form-field-show-order-statuses">
+                                <label class="label admin__field-label" for="sales_report_show_order_statuses"
+                                data-ui-id="grid-filter-form-fieldset-element-select-show-order-statuses-label">
+                                <span>Medium</span></label>
+                                <div class="admin__field-control control">
+                                    <select id="sales_report_show_order_statuses" name="last_medium"
+                                    class=" select admin__control-select"
+                                    data-ui-id="grid-filter-form-fieldset-element-select-show-order-statuses">
+                                        <option value="" selected="selected">select medium</option>
+                                        <?php
+                                        $order_medium = $block->getMediumList();
+                                        $count = count($order_medium);
+                                        for ($i = 0; $i < $count; $i++) { ?>
+                                        <option value="<?=$block->escapeHtml($order_medium[$i]['affiliate_medium']);?>">
+                                            <?= $block->escapeHtml($order_medium[$i]['affiliate_medium']); ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="admin__field field">
+                                <label class="label admin__field-label">
+                                </label>
+                                <div class="admin__field-control control">
+                                    <button id="savelist" name="submit" class="primary" type="submit"
+                                    onClick="checkDate()"><span>Submit</span></button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <script>
+                    require(['mage/adminhtml/form'], function() {
+                        new FormElementDependenceController({
+                            "sales_report_order_statuses": {
+                                "sales_report_show_order_statuses": {
+                                    "values": ["1"],
+                                    "negative": false
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </div>
+            
+            <div id="id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJs" data-grid-id="id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJs">
+                <div class="admin__data-grid-header admin__data-grid-toolbar">
+                    <div class="admin__data-grid-header-row">
+                        <div class="admin__data-grid-export">
+                            <a id="downloadLink" onclick="exportF(this)"><button>Export to excel</button></a>
+                        </div>
+                    </div>
+                    <div class="admin__data-grid-header-row ">
+                    </div>
+                </div>
+                <div class="admin__data-grid-wrap admin__data-grid-wrap-static">
+                    <table class="data-grid wp-list-table widefat striped posts" id="pager" border="1">
+                        <thead>
+                            <tr>
+                                <th class="data-grid-th col-period no-link col-period">
+                                    <span>Order Id</span></th>
+                                <th class="data-grid-th col-orders no-link col-orders_count">
+                                    <span>customer Id</span></th>
+                                <th class="data-grid-th col-invoiced no-link col-total_invoiced_amount">
+                                    <span>Product Type</span></th>
+                                <th class="data-grid-th col-refunded no-link col-total_refunded_amount">
+                                    <span>Name</span></th>
+                                <th class="data-grid-th col-sales-tax no-link col-total_tax_amount">
+                                    <span>Grand Total(Base Currency)</span></th>
+                                <th class="data-grid-th col-sales-shipping no-link col-total_shipping_amount">
+                                    <span>Grand Total Paid(Base Currency)</span></th>
+
+                                <th class="data-grid-th col-canceled no-link col-total_canceled_amount">
+                                    <span>Last Source</span></th>
+                                <th class="data-grid-th col-canceled no-link col-total_canceled_amount">
+                                    <span>Last Medium</span>
+                                </th>
+                                <th class="data-grid-th col-canceled no-link col-total_canceled_amount">
+                                    <span>Ordered Date (Y-M-D)</span>
+                                </th>
+                                <th class="data-grid-th col-canceled no-link col-total_canceled_amount">
+                                    <span>Current status</span>
+                                </th>
+                                <th class="data-grid-th col-canceled no-link col-total_canceled_amount">
+                                    <span>Shipment date</span>
+                                </th>
+                                <th class="data-grid-th col-sales-tax no-link col-total_tax_amount">
+                                    <span>Return policy expired</span></th>
+
+                                <th class="data-grid-th col-sales-tax no-link col-total_tax_amount">
+                                    <span>Commission</span></th>
+                                </th>
+
+                            </tr>
+                        </thead>
+
+
+                        <tbody>
+                            <?php
+                            $grand_total = 0;
+                            $total_paid = 0;
+                            $result = $block->getAffiliatedList();
+                            if (count($result) > 0) {
+                                foreach ($result as $rslt) {
+                                    $eligible = 1;
+                                    $category_name = '';
+                                    ?>
+                                    <tr>
+                                        <td><?= $block->escapeHtml($rslt['order_id']); ?></td>
+                                        <td><?= $block->escapeHtml($rslt['customer_id']); ?></td>
+                                        <td>
+                                            <?php
+                                            $exclude = ['Gifts', 'Coins', 'Frames'];
+                                            $product_id = $rslt['product_id'];
+                                            $producttype = $block->getProductType($product_id);
+                                            $string = $producttype;
+                                            $str_arr = explode(' (', $string);
+                                            $protype = $str_arr[0];
+                                            if (in_array($protype, $exclude)) {
+                                                $eligible = 0;
+                                            }
+                                            $type = $str_arr[1];
+                                            if ($type == 0) {
+                                                $is_type = 'Diamond';
+                                            } else {
+                                                $is_type = 'Gold';
+                                            }
+                                            echo $block->escapeHtml(($protype . ' (' . $is_type . ') '));
+                                            ?>
+                                        </td>
+                                        <td><?= $block->escapeHtml($rslt['name']) ?></td>
+                                        <td><?= $block->escapeHtml(number_format($rslt['base_grand_total'], 2)); ?></td>
+                                        <td>
+                                            <?= $block->escapeHtml(
+                                                $rslt['base_currency_code'] . ' '
+                                                . number_format($rslt['base_total_paid'], 2)
+                                            ); ?>
+                                        </td>
+                                        <td>
+                                            <?= $block->escapeHtml($affiliate_source =  $rslt['affiliate_source']); ?>
+                                        </td>
+                                        <td>
+                                            <?= $block->escapeHtml($affiliate_medium =  $rslt['affiliate_medium']); ?>
+                                        </td>
+                                        <td><?= $block->escapeHtml($rslt['created_at']); ?></td>
+                                        <td><?= $block->escapeHtml($rslt['state'] . ' - ' . $rslt['status']); ?></td>
+                                        <?php
+                                        $parent_id = $rslt['magento_order_id'];
+
+                                        $res = $block->getShipmentDate($parent_id);
+
+
+                                        if ($res != '') {
+                                            $shipped_date = strtotime($res);
+
+                                            $time = time();
+                                            $days = (($time - $shipped_date) / 86400);
+                                            if ($days >= 30) {
+                                                $is_expired = 'Yes';
+                                            } else {
+                                                $is_expired = 'No';
+                                            }
+                                        } ?>
+                                        <td>
+                                            <?= $block->escapeHtml($res); ?>
+                                        </td>
+                                        <td>
+                                            <?php if ($res != '') {
+                                                echo $block->escapeHtml($is_expired);
+                                            } ?>
+                                        </td>
+
+
+                                        <td>
+                                            <?php
+
+                                            if ($eligible == 0) {
+                                                echo 'Not applicable';
+                                            }
+
+                                            if (strtolower($affiliate_source) == 'affonix' && $eligible == 1) {
+                                                if ($is_type == 'Diamond') {
+                                                    $Commission = round($rslt['base_grand_total'] * 0.08);
+                                                }
+                                                if ($is_type == 'Gold') {
+                                                    $Commission = round($rslt['base_grand_total'] * 0.04);
+                                                }
+                                                echo $block->escapeHtml(($Commission <= 5000) ? $Commission : 5000);
+                                            }
+
+                                            if (strtolower($affiliate_source) == 'icubeswire' && $eligible == 1) {
+                                                if ($is_type == 'Diamond') {
+                                                    $Commission = round($rslt['base_grand_total'] * 0.08);
+                                                }
+                                                if ($is_type == 'Gold') {
+                                                    $Commission = round($rslt['base_grand_total'] * 0.03);
+                                                }
+                                                echo $block->escapeHtml(($Commission <= 5000) ? $Commission : 5000);
+                                            }
+
+                                            if ((strtolower($affiliate_source) == 'admitad'
+                                                || strtolower($affiliate_medium) == 'admitad') && $eligible == 1) {
+                                                if ($is_type == 'Diamond') {
+                                                    $Commission = round($rslt['base_grand_total'] * 0.08);
+                                                }
+                                                if ($is_type == 'Gold') {
+                                                    $Commission = round($rslt['base_grand_total'] * 0.05);
+                                                }
+                                                echo $block->escapeHtml(($Commission <= 5000) ? $Commission : 5000);
+                                            }
+
+                                            if ((strtolower($affiliate_source) == 'indoleads'
+                                                || strtolower($affiliate_medium) == 'indoleads') && $eligible == 1) {
+                                                if ($is_type == 'Diamond') {
+                                                    $Commission = round($rslt['base_grand_total'] * 0.07);
+                                                }
+                                                if ($is_type == 'Gold') {
+                                                    $Commission = round($rslt['base_grand_total'] * 0.03);
+                                                }
+                                                echo $block->escapeHtml(($Commission <= 5000) ? $Commission : 5000);
+                                            }
+
+                                            if (strtolower($affiliate_source) == 'clickonik' && $eligible == 1) {
+                                                if ($is_type == 'Diamond') {
+                                                    $Commission = round($rslt['base_grand_total'] * 0.08);
+                                                }
+                                                if ($is_type == 'Gold') {
+                                                    $Commission = round($rslt['base_grand_total'] * 0.03);
+                                                }
+                                                echo $block->escapeHtml(($Commission <= 5000) ? $Commission : 5000);
+                                            }
+
+                                            if (strtolower($affiliate_source) == '3dot14' && $eligible == 1) {
+                                                if ($is_type == 'Diamond' || $is_type == 'Gold') {
+                                                    $Commission = round($rslt['base_grand_total'] * 0.01);
+                                                }
+
+                                                echo $block->escapeHtml(($Commission <= 5000) ? $Commission : 5000);
+                                            }
+
+                                            if (strtolower($affiliate_source) == 'tradetracker' && $eligible == 1) {
+                                                if ($is_type == 'Diamond') {
+                                                    $Commission = round($rslt['base_grand_total'] * 0.08);
+                                                }
+                                                if ($is_type == 'Gold') {
+                                                    $Commission = round($rslt['base_grand_total'] * 0.03);
+                                                }
+
+                                                echo $block->escapeHtml(($Commission <= 5000) ? $Commission : 5000);
+                                            }
+                                            ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    $grand_total += $rslt['base_grand_total'];
+                                    $total_paid  += $rslt['base_total_paid'];  ?>
+                                    <?php
+                                    unset($eligible);
+                                }
+                                ?>
+                                <tr>
+                                    <td colspan="4">Total </td>
+                                    <td>
+                                        <?= $block->escapeHtml(
+                                            $rslt['base_currency_code'] . ' ' . number_format($grand_total, 2)
+                                        ); ?>
+                                    </td>
+                                    <td>
+                                        <?= $block->escapeHtml(
+                                            $rslt['base_currency_code'].' '.number_format($total_paid, 2)
+                                        );?>
+                                    </td>
+                                    <td colspan="7"></td>
+                                </tr>
+                    </table>
+                                <?php
+                            } else {
+                                ?>
+                    <td colspan="13" style="text-align: center;">No Records Found!!!</td>
+                                <?php
+                            }
+                            ?>
+                </tbody>
+                </table>
+                <div id="pageNavPosition" class="pager-nav"></div>
+                </div>
+            </div>
+            <script>
+                var deps = [];
+                deps.push('mage/adminhtml/grid');
+                require(deps, function() {
+                    id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJsJsObject = new varienGrid(
+                        "id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJs",
+                        'http\u003A\u002F\u002F127.0.0.1\u002Fcandere\u002Fadmin\u002Freports\u002Freport_sales'
+                        +'\u002Fsales\u002Fkey\u002Ff6b4f573c129ff00cf7d18a1de6ee1cffd801f08b5a1ddf59b48303f4cada1de'
+                        +'\u002F',
+                        'page',
+                        'sort',
+                        'dir',
+                        'filter'
+                    );
+                    id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJsJsObject.useAjax = '';
+                    id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJsJsObject.rowClickCallback = openGridRow;
+
+                });
+            </script>
+
+            <script>
+                require([
+                    'jquery',
+                    'mage/backend/validation',
+                    "prototype"
+                ], function(jQuery) {
+                    jQuery('#filter_form').mage('validation', {
+                        errorClass: 'mage-error'
+                    });
+
+                    function filterFormSubmit() {
+                        var filters = $$('#filter_form input', '#filter_form select'),
+                            elements = [];
+
+                        for (var i in filters) {
+                            if (filters[i].value && filters[i].value.length && !filters[i].disabled) {
+                                elements.push(filters[i]);
+                            }
+                        }
+
+                        if (jQuery('#filter_form').valid()) {
+                            setLocation('http\u003A\u002F\u002F127.0.0.1\u002Fcandere\u002Fadmin\u002Freports'
+                            +'\u002Freport_sales\u002Fsales\u002Fkey'
+                            +'\u002Ff6b4f573c129ff00cf7d18a1de6ee1cffd801f08b5a1ddf59b48303f4cada1de'
+                            +'\u002Ffilter/' + Base64.encode(Form.serializeElements(elements)) + '/');
+                        }
+                    }
+                    //]]>
+                    window.filterFormSubmit = filterFormSubmit;
+                });
+            </script>
+        </div>
+    </div>
+</div>
+<!-- date picker -->
+<script>
+    require(["jquery", "mage/calendar"], function($) {
+        $("#sales_report_from").datepicker({
+            showMonthAfterYear: false,
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '2000:2021',
+        })
+    });
+</script>
+
+<script>
+    require(["jquery", "mage/calendar"], function($) {
+        $("#sales_report_to").datepicker({
+            showMonthAfterYear: false,
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '2000:2021',
+        })
+    });
+</script>
+
+<script>
+    function checkDate() {
+        var dateForm = document.forms['date-form'];
+        var startDate = new Date(dateForm['from'].value);
+        var endDate = new Date(dateForm['to'].value);
+        var date = endDate - startDate;
+        var diff = (date / 86400000);
+
+        if (startDate >= endDate) {
+            alert("Date from should be less than date to");
+        } else if (diff > 30) {
+            alert("Only 30 days Records are allowed. Please try it again");
+        } else if ((startDate == '') && (endDate == '')) {
+            alert("Please select Start Date and To date");
+        }
+    }
+</script>
+<!-- end date picker -->
+<script>
+    function exportF(elem) {
+        var table = document.getElementById("pager");
+        var html = table.outerHTML;
+        var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+        elem.setAttribute("href", url);
+        elem.setAttribute("download", "AffiliatedReport.xls"); // Choose the file name
+        return false;
+    }
+</script>
+<script>
+    $(document).ready(function() {
+        $('#table').dataTable();
+    });
+</script>
+
+<script>
+    /* eslint-env browser */
+    /* global document */
+
+    function Pager(tableName, itemsPerPage) {
+        'use strict';
+
+        this.tableName = tableName;
+        this.itemsPerPage = itemsPerPage;
+        this.currentPage = 1;
+        this.pages = 0;
+        this.inited = false;
+
+        this.showRecords = function(from, to) {
+            let rows = document.getElementById(tableName).rows;
+
+            // i starts from 1 to skip table header row
+            for (let i = 1; i < rows.length; i++) {
+                if (i < from || i > to) {
+                    rows[i].style.display = 'none';
+                } else {
+                    rows[i].style.display = '';
+                }
+            }
+        };
+
+        this.showPage = function(pageNumber) {
+            if (!this.inited) {
+                // Not initialized
+                return;
+            }
+
+            let oldPageAnchor = document.getElementById('pg' + this.currentPage);
+            oldPageAnchor.className = 'pg-normal';
+
+            this.currentPage = pageNumber;
+            let newPageAnchor = document.getElementById('pg' + this.currentPage);
+            newPageAnchor.className = 'pg-selected';
+
+            let from = (pageNumber - 1) * itemsPerPage + 1;
+            let to = from + itemsPerPage - 1;
+            this.showRecords(from, to);
+
+            let pgNext = document.querySelector('.pg-next'),
+                pgPrev = document.querySelector('.pg-prev');
+
+            if (this.currentPage == this.pages) {
+                pgNext.style.display = 'none';
+            } else {
+                pgNext.style.display = '';
+            }
+
+            if (this.currentPage === 1) {
+                pgPrev.style.display = 'none';
+            } else {
+                pgPrev.style.display = '';
+            }
+        };
+
+        this.prev = function() {
+            if (this.currentPage > 1) {
+                this.showPage(this.currentPage - 1);
+            }
+        };
+
+        this.next = function() {
+            if (this.currentPage < this.pages) {
+                this.showPage(this.currentPage + 1);
+            }
+        };
+
+        this.init = function() {
+            let rows = document.getElementById(tableName).rows;
+            let records = (rows.length - 1);
+
+            this.pages = Math.ceil(records / itemsPerPage);
+            this.inited = true;
+        };
+
+        this.showPageNav = function(pagerName, positionId) {
+            if (!this.inited) {
+                // Not initialized
+                return;
+            }
+
+            let element = document.getElementById(positionId),
+                pagerHtml = '<span onclick="' + pagerName + '.prev();" class="pg-normal pg-prev">&#171;</span>';
+
+            for (let page = 1; page <= this.pages; page++) {
+                pagerHtml += '<span id="pg' + page + '" class="pg-normal pg-next" onclick="' + pagerName
+                + '.showPage(' + page + ');">' + page + '</span>';
+            }
+
+            pagerHtml += '<span onclick="' + pagerName + '.next();" class="pg-normal">&#187;</span>';
+
+            element.innerHTML = pagerHtml;
+        };
+    }
+    //
+    let pager = new Pager('pager', 10);
+
+    pager.init();
+    pager.showPageNav('pager', 'pageNavPosition');
+    pager.showPage(1);
+</script>

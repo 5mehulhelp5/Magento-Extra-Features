@@ -1,0 +1,206 @@
+& when (@media-common = true) {
+    .casio-lottery-description {
+        border: solid 1px #bebebe;
+        display: block;
+        padding: 15px;
+    }
+
+    .mb-1 {
+        margin-bottom: 0.8rem !important;
+    }
+
+    .mb-2 {
+        margin-bottom: 1.6rem !important;
+    }
+
+    .mb-3 {
+        margin-bottom: 2.4rem !important;
+    }
+
+    .mt-3 {
+        margin-top: 2.4rem !important;
+    }
+
+    .cms-lottery-sale {
+        .pageHeader {
+            h1 {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .text-align-center {
+        text-align: center !important;
+    }
+
+    .heading-4 {
+        font-size: 20px !important;
+    }
+
+    #history-items {
+        &.is-acc-target {
+            .contents & {
+                height: auto;
+            }
+        }
+    }
+
+    .lottery-history-wrapper {
+        > .lottery-data-item {
+            &:not(.active) {
+                display: none !important;
+            }
+            .align-center {
+                text-align: center;
+            }
+        }
+    }
+
+    .contents .bg-red-1, .modal-wrap .bg-red-1, .categoryHeader .bg-red-1, .footerCategoryNav .bg-red-1 {
+        background-color: #ee1d23;
+        color: #fff;
+    }
+
+    .contents {
+        .title-1 {
+            &.casio-lottery-title {
+                margin-bottom: -5px;
+            }
+        }
+
+        .casio-lottery-subtitle {
+            margin-bottom: 35px;
+            font-size: 24px;
+        }
+    }
+
+    .checkout-cart-draw {
+        .product-item {
+            border-bottom: 1px solid #f2f2f2;
+            padding-bottom: 30px;
+
+            .product-info {
+                margin: auto 0;
+                padding-left: 15px;
+
+                p {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+
+    @media all and (max-width: 480px) {
+        .checkout-cart-draw {
+            .product-item {
+                &.d-flex {
+                    display: block !important;
+                }
+
+                .product-info {
+                    padding-top: 15px;
+                    padding-left: unset;
+                    text-align: center;
+                }
+
+                p {
+                    font-size: 18px;
+                    line-height: 24px;
+                }
+            }
+        }
+    }
+
+    .sales-draw-index {
+        .is-status {
+            padding: 0 10px;
+        }
+
+        .contents {
+            .history-dataItem {
+                .dataItem-txt {
+                    padding-right: 0;
+                    &:hover {
+                        opacity: 1;
+                    }
+
+                    &::after {
+                        display: none;
+                    }
+                }
+            }
+
+            .bg-gry-4 {
+                background: #d8d8d8;
+            }
+        }
+
+        .dataItem-winning {
+            &.mt-m {
+                padding-top: 20px;
+            }
+            .dataItem-2col {
+                padding-left: 0;
+                margin-top: 30px;
+                display: flex;
+                -webkit-box-align: center;
+                -webkit-align-items: center;
+                -ms-flex-align: center;
+                align-items: center;
+                -webkit-box-pack: center;
+                -webkit-justify-content: center;
+                -ms-flex-pack: center;
+                .dataItem-img {
+                    width: 175px !important;
+                    margin: 0;
+                }
+
+                .dataItem-txt {
+                    margin: auto 30px !important;
+
+                    .btn:after {
+                        display: inline-block;
+                        background: url(../../images/product_detail/icon_bag.svg) no-repeat 50% 50%;
+                        vertical-align: middle;
+                        width: 20px;
+                        height: 20px;
+                        margin-left: 10px;
+                        content: "";
+                    }
+                }
+            }
+        }
+        .add-to-cart {
+            padding: 9pt 80px !important;
+            max-width: 100% !important;
+        }
+        @media all and (max-width: 996px) {
+            .add-to-cart {
+                padding: 9pt 25px !important;
+                max-width: 100% !important;
+            }
+        }
+        @media all and (max-width: 480px) {
+            .dataItem-winning {
+                .dataItem-2col {
+                    display: block;
+
+                    .dataItem-txt {
+                        padding-right: 0;
+                        margin: 25px 30px 5px 30px !important;
+                    }
+
+                    .dataItem-img {
+                        margin: 0 auto;
+                        float: none;
+                    }
+                }
+            }
+
+            .add-to-cart {
+                padding: 9pt 50px !important;
+            }
+        }
+    }
+
+}

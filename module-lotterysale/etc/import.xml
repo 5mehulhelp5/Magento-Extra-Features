@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_ImportExport:etc/import.xsd">
+    <entity name="casio_lotterysale_application_import"
+            label="Lottery Results"
+            model="Casio\LotterySale\Model\Import\LotteryApplication"
+            behaviorModel="Casio\LotterySale\Model\Config\Source\Import\Behavior\LotteryApplication" />
+</config>

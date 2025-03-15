@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="lotterySales" xsi:type="array">
+                    <item name="class" xsi:type="string">Casio\LotterySale\Ui\DataProvider\Product\Form\Modifier\LotterySales</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Backend\Block\Widget\Form">
+        <plugin name="casio_lottery_result_numberofwinner"
+                type="Casio\LotterySale\Plugin\Block\Widget\FormPlugin"/>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponentFactory">
+        <plugin name="casio_lottery_application_value_by_timezone_website"
+                type="Casio\LotterySale\Plugin\Framework\View\Element\UiComponentFactoryPlugin"/>
+    </type>
+
+    <type name="Magento\Ui\Component\Form\Element\DataType\Date">
+        <plugin name="casio_lottery_convert_datetime_plugin" type="Casio\LotterySale\Plugin\DataType\DatePlugin"/>
+    </type>
+
+    <type name="Magento\Catalog\Controller\Adminhtml\Product\Save">
+        <plugin name="casio_lottery_sales_product_save_plugin"
+                type="Casio\LotterySale\Plugin\Product\Save"/>
+    </type>
+</config>

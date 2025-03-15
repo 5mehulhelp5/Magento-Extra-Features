@@ -1,0 +1,60 @@
+"Cannot purchase because the purchase deadline has expired","購入期限が終了しているためご購入いただけません"
+"Cannot be purchased because it is a lottery product that has already been purchased","すでにご購入済みの抽選商品のためご購入いただけません"
+"Cannot be purchased because it is an unwinned lottery product","未当選の抽選商品のためご購入いただけません"
+"Lottery application history","抽選申込履歴"
+"Applying","お申込中"
+"Lottery code:","抽選番号:"
+"Lottery Product:","商品:"
+"Scheduled winning announcement date:","当選発表予定日:"
+"Winning","当選"
+"Lost","落選"
+"Purchase deadline:","ご購入期限:"
+"Add to bag","バッグに追加"
+"Congratulations on winning!","ご当選おめでとうございます！"
+"(Purchased)","（ご購入済み）"
+"(End of purchase deadline)","（ご購入期限終了）"
+"There is no lottery application history","抽選申込履歴はありません。"
+"Winning","当選"
+"Congrats","おめでとう"
+"There is!","ございます！"
+"Product image","製品画像"
+"Number of Winner","当選者数上限"
+"The number of winners has not reached the upper limit","当選者数が不足しています。"
+"Total winner is greater than Number of Winner","当選者数が上限を超えています。"
+"Contains non-existent users","存在しないユーザーが含まれています"
+"Casio Lottery Title","抽選名"
+"User Name (Kana)","名前（カナ）"
+"Telephone","電話番号"
+"Prefecture","都道府県"
+"Building","建物・部屋番号"
+"Applicated Date","申込日時",
+"Casio Lottery Management","抽選情報一覧",
+"Lottery Application Management","抽選情報一覧",
+"Casio Lottery Applicated Count","抽選商品応募回数",
+"Casio Lottery Win Count","抽選商品当選回数"
+"Lottery sales application","抽選販売お申込"
+"Application period: ","申込期間："
+"Precautions regarding application","お申込に関する注意事項"
+"Agree and apply","同意して申込"
+"Agree and register as a new member","同意して新規会員登録"
+"The application is closed.","お申込は終了しました。"
+"I have already applied.","すでにお申込済みです。"
+"Continue shopping","買い物を続ける"
+"Accepted application","お申込を受け付けました"
+"Lottery number:","抽選番号："
+"Scheduled winning announcement date:","当選発表予定日："
+"Around","頃"
+"Mail Address","メールアドレス"
+"Complete the application","申込を完了する"
+Mon,月
+Tue,火
+Wed,水
+Thu,木
+Fri,金
+Sat,土
+Sun,日
+"Missing required data in column:  lottery_number","存在しない抽選番号が含まれています（N, N, N)"
+Lottery No,抽選番号
+Email,メールアドレス
+Contains non-existent lottery number,存在しない抽選番号が含まれています内行に
+Contains non-existent website,存在しないWebサイトの数が含まれています

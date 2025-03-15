@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="lottery_reception_email_template" label="Lottery Reception Email" file="lottery_reception_email_template.html" type="text"
+              module="Casio_LotterySale" area="frontend"/>
+    <template id="lottery_application_winner_email_template" label="Win Lottery Sales Email" file="winner_lottery_sales.html" type="html"
+              module="Casio_LotterySale" area="frontend"/>
+</config>

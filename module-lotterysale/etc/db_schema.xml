@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="casio_lottery_sales" resource="default" engine="innodb" comment="Casio Lottery Sales Table">
+        <column xsi:type="int" name="id" padding="6" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" identity="false" comment="Product Id"/>
+        <column xsi:type="text" name="title" nullable="true" comment="Lottery Title"/>
+        <column xsi:type="text" name="description" nullable="true" comment="Lottery Description"/>
+        <column xsi:type="varchar" name="sku" length="255" nullable="false" comment="Sku"/>
+        <column xsi:type="varchar" name="lottery_date" length="255" nullable="true" comment="Lottery Date"/>
+        <column xsi:type="datetime" name="application_date_from" nullable="true" default="NULL" comment="Lottery Application Date From"/>
+        <column xsi:type="datetime" name="application_date_to" nullable="true" default="NULL" comment="Lottery Application Date To"/>
+        <column xsi:type="datetime" name="purchase_deadline" nullable="true" comment="Lottery Purchase Deadline"/>
+        <column xsi:type="smallint" name="website_id" unsigned="true" nullable="false" identity="false" comment="Website ID"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" on_update="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" on_update="true" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CASIO_LOTTERY_SALES_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID" table="casio_lottery_sales"
+                    column="product_id" referenceTable="catalog_product_entity" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="CASIO_LOTTERY_SALES_WEBSITE_ID_STORE_WEBSITE_WEBSITE_ID"
+                    table="casio_lottery_sales" column="website_id" referenceTable="store_website"
+                    referenceColumn="website_id" onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="CASIO_LOTTERY_SALES_PRODUCT_ID_WEBSITE_ID">
+            <column name="product_id"/>
+            <column name="website_id"/>
+        </constraint>
+    </table>
+    <table name="casio_lottery_application" resource="default" engine="innodb" comment="Casio Lottery Application Table">
+        <column xsi:type="int" name="id" padding="6" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <column xsi:type="int" name="lottery_sales_id" unsigned="true" nullable="false" identity="false" comment="Lottery Sales Id"/>
+        <column xsi:type="int" name="user_id" unsigned="true" nullable="false" identity="false" comment="User Id"/>
+        <column xsi:type="varchar" name="email" length="512" nullable="false" comment="Email"/>
+        <column xsi:type="varchar" name="firstname" length="512" nullable="false" comment="Firstname"/>
+        <column xsi:type="varchar" name="lastname" length="512" nullable="false" comment="Lastname"/>
+        <column xsi:type="varchar" name="firstnamekana" length="512" nullable="true" comment="Firstname Kana"/>
+        <column xsi:type="varchar" name="lastnamekana" length="512" nullable="true" comment="Lastname Kana"/>
+        <column xsi:type="varchar" name="telephone" length="512" nullable="true" comment="telephone"/>
+        <column xsi:type="varchar" name="postcode" length="512" nullable="true" comment="Postcode"/>
+        <column xsi:type="int" name="region_id" unsigned="false" nullable="false" identity="false" comment="Region ID"/>
+        <column xsi:type="varchar" name="region" length="512" nullable="true" comment="Region"/>
+        <column xsi:type="varchar" name="city" length="512" nullable="true" comment="City"/>
+        <column xsi:type="varchar" name="street" length="512" nullable="true" comment="Street"/>
+        <column xsi:type="varchar" name="building" length="512" nullable="true" comment="Building"/>
+        <column xsi:type="int" name="status" unsigned="true" nullable="true" default="0" identity="false" comment="Status"/>
+        <column xsi:type="smallint" name="ordered" unsigned="true" nullable="true" default="0" identity="false" comment="Ordered"/>
+        <column xsi:type="varchar" name="lottery_sales_code" length="32" nullable="true" comment="Lottery sales Code"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" on_update="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" on_update="true" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CASIO_LOTTERY_APPLICATION_LOTTERY_SALES_ID_CASIO_LOTTERY_SALES_ID" table="casio_lottery_application"
+                    column="lottery_sales_id" referenceTable="casio_lottery_sales" referenceColumn="id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="CASIO_LOTTERY_APPLICATION_USER_ID_CUSTOMER_ENTITY_ENTITY_ID" table="casio_lottery_application"
+                    column="user_id" referenceTable="customer_entity" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="CASIO_LOTTERY_APPLICATION_LOTTERY_SALES_ID_USER_ID">
+            <column name="lottery_sales_id"/>
+            <column name="user_id"/>
+        </constraint>
+    </table>
+</schema>

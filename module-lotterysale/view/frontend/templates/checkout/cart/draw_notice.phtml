@@ -1,0 +1,33 @@
+<?php
+/**
+ * @var \Casio\LotterySale\Block\Draw $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$product = $block->getProduct();
+/** @var \Casio\LotterySale\ViewModel\LotteryApplication $viewModel */
+$viewModel = $block->getViewModel();
+$_helper = $viewModel->getCatalogHelperData();
+?>
+<p class="mb-1"><?=  /* @noEscape */__('Precautions regarding application') ?></p>
+<div class="casio-lottery-description">
+    <?=  /* @noEscape */ $_helper->getPageTemplateProcessor()
+        ->filter($product->getExtensionAttributes()->getCasioLotterySales()->getDescription()) ?>
+</div>
+<?php if ($block->isLogin()): ?>
+    <div class="btns">
+        <a class="btn btn-l is-submit" title="<?=  /* @noEscape */__('Agree and apply') ?>" href="<?=  /* @noEscape */$escaper->escapeUrl($block->getApplyUrl()) ?>">
+            <?=  /* @noEscape */__('Agree and apply') ?>
+        </a>
+    </div>
+<?php else: ?>
+    <div class="btns">
+        <a class="btn btn-l is-submit" title="<?=  /* @noEscape */__('Agree and apply') ?>"
+           href="<?=  /* @noEscape */$escaper->escapeUrl($block->getLoginUrl()) ?>">
+            <?=  /* @noEscape */__('Agree and apply') ?>
+        </a>
+        <a class="btn btn-l is-submit" title=" <?=  /* @noEscape */__('Agree and register as a new member') ?>"
+           href="<?=  /* @noEscape */$escaper->escapeUrl($block->getRegisterUrl()) ?>">
+            <?=  /* @noEscape */__('Agree and register as a new member') ?>
+        </a>
+    </div>
+<?php endif; ?>

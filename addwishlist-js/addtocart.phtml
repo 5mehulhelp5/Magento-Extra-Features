@@ -1,0 +1,26 @@
+<?php
+/**
+ * @package     EGC Supply
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+/** @var $viewModel \Codilar\EgcSupply\ViewModel\Product\View\AddToCart */
+/* @var $escaper \Magento\Framework\Escaper */
+?>
+<?php
+$_product = $block->getProduct();?>
+            <a href="#" class="to-wishlist" data-id="<?= $_product->getId() ?>" data-mage-init='{"addToWishlist": {"productId": <?= $_product->getId() ?>}}'>Wishlist</a>
+
+<script type="text/x-magento-init">
+    {
+        ".to-wishlist": {
+            "Magento_Catalog/js/addToWishlist": {
+                "productId": "<?= $_product->getId() ?>"
+            }
+        }
+    }
+</script>
+

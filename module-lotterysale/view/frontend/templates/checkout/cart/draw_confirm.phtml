@@ -1,0 +1,31 @@
+<?php
+/**
+ * @var \Casio\LotterySale\Block\Draw $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+$product = $block->getProduct();
+$lotterySale = $block->getCasioLotterySales();
+?>
+<div class="casio-lottery-description">
+    <p class="mb-3 text-align-center heading-4"><?=  /* @noEscape */ /* @noEscape */ __('Accepted application') ?></p>
+    <strong class="mb-2 d-block text-align-center">
+        <?=  /* @noEscape */ /* @noEscape */ __('Lottery number:') ?>
+        <a href="<?=  /* @noEscape */$escaper->escapeUrl($block->getDrawHistoryUrl()) ?>" style="text-decoration: underline;">
+            <?=$escaper->escapeHtml($lotterySale['lottery_sales_code'] ?? '') ?>
+        </a>
+    </strong>
+    <strong class="mb-1 d-block text-align-center">
+        <?=  /* @noEscape */ /* @noEscape */ __('Scheduled winning announcement date:') .
+            $product->getExtensionAttributes()->getCasioLotterySales()->getLotteryDate()
+        ?>
+    </strong>
+</div>
+<div class="mt-3 mb-3">
+    <?=  /* @noEscape */$block->getChildHtml('casio.lottery_sale.additional_information') ?>
+</div>
+<div class="btns">
+    <a class="btn btn-l is-submit" title="<?=  /* @noEscape */ /* @noEscape */ __('Continue shopping') ?>" href="<?=  /* @noEscape */$escaper->escapeUrl($block->getTopPageUrl()) ?>">
+        <?=  /* @noEscape */ /* @noEscape */ __('Continue shopping') ?>
+    </a>
+</div>

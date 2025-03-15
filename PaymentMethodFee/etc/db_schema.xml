@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="quote">
+        <column xsi:type="decimal" name="payment_method_fee" unsigned="false" scale="4" precision="20" nullable="false"
+                default="0" comment="Payment Method Fee"/>
+        <column xsi:type="decimal" name="base_payment_method_fee" unsigned="false" scale="4" precision="20" nullable="false"
+                default="0" comment="Base Payment Method Fee"/>
+        <column xsi:type="varchar" name="payment_method_fee_label" nullable="true" comment="Payment Method Fee Label"/>
+    </table>
+    <table name="sales_order">
+        <column xsi:type="decimal" name="payment_method_fee" unsigned="false" scale="4" precision="20" nullable="false"
+                default="0" comment="Payment Method Fee"/>
+        <column xsi:type="decimal" name="base_payment_method_fee" unsigned="false" scale="4" precision="20" nullable="false"
+                default="0" comment="Base Payment Method Fee"/>
+        <column xsi:type="varchar" name="payment_method_fee_label" nullable="true" comment="Payment Method Fee Label"/>
+    </table>
+</schema>

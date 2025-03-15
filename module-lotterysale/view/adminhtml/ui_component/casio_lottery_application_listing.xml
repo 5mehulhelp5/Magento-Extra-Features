@@ -1,0 +1,139 @@
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">casio_lottery_application_listing.casio_lottery_application_listing_data_source</item>
+            <item name="deps" xsi:type="string">casio_lottery_application_listing.casio_lottery_application_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">spinner_columns</item>
+        <item name="buttons" xsi:type="array"/>
+    </argument>
+    <dataSource name="casio_lottery_application_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Casio\LotterySale\Ui\DataProvider\LotteryApplication\DataProvider</argument>
+            <argument name="name" xsi:type="string">casio_lottery_application_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="spinner_columns">
+        <settings>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">casio_lottery_application_listing.casio_lottery_application_listing.spinner_columns.actions</item>
+                    <item name="target" xsi:type="string">applyAction</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">view</item>
+                        <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+        <column name="lottery_sales_code">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Lottery No</item>
+                </item>
+            </argument>
+        </column>
+        <column name="title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">Casio Lottery Title</item>
+                </item>
+            </argument>
+        </column>
+        <column name="sku">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">SKU</item>
+                </item>
+            </argument>
+        </column>
+        <column name="email">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">Email Address</item>
+                </item>
+            </argument>
+        </column>
+        <column name="created_at" class="Casio\LotterySale\Ui\Component\Listing\Column\DateTime">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Applicated Date</item>
+                </item>
+            </argument>
+        </column>
+        <column name="status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Casio\LotterySale\Model\Config\Source\Status</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                </item>
+            </argument>
+        </column>
+        <column name="website_id" class="Casio\LotterySale\Ui\Component\Listing\Column\Websites">
+            <settings>
+                <label translate="true">Website</label>
+                <options class="Casio\LotterySale\Model\Config\Source\Website"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Casio\LotterySale\Ui\Component\Listing\Column\ViewAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="viewUrlPath" xsi:type="string">casio_lottery/application/view</item>
+                    <item name="urlEntityParamName" xsi:type="string">id</item>
+                </item>
+            </argument>
+            <settings>
+                <indexField>id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Candere Software
+ *
+ * @category Codilar
+ * @package  CustomReports
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+  <menu>
+    <add id="Codilar_CustomReports::report_customreports" title="Custom Reports" translate="title" module="Codilar_CustomReports" sortOrder="20" parent="Magento_Reports::report" resource="Codilar_CustomReports::report_customreports" />
+    <add id="Codilar_CustomReports::report_customreports_usage" title="Daily Sales Report" translate="title" module="Codilar_CustomReports" sortOrder="10" parent="Codilar_CustomReports::report_customreports" action="customreports/usage/index" resource="Codilar_CustomReports::report_customreports_usage" />
+    <add id="Codilar_CustomReports::report_customreports_affiliated" title="Affiliated Report" translate="title" module="Codilar_CustomReports" sortOrder="10" parent="Codilar_CustomReports::report_customreports" action="customreports/usage/affiliated" resource="Codilar_CustomReports::report_customreports_affiliated" />
+    <add id="Codilar_CustomReports::report_customreports_survey" title="Survey Report" translate="title" module="Codilar_CustomReports" sortOrder="10" parent="Codilar_CustomReports::report_customreports" action="customreports/usage/survey" resource="Codilar_CustomReports::report_customreports_survey"/>
+    <add id="Codilar_CustomReports::report_customreports_voucher" title="Wallet Transaction Report" translate="title" module="Codilar_CustomReports" sortOrder="10" parent="Codilar_CustomReports::report_customreports" action="customreports/usage/voucher" resource="Codilar_CustomReports::report_customreports_voucher" />
+    <add id="Codilar_CustomReports::report_customreports_master" title="Master Data Report" translate="title" module="Codilar_CustomReports" sortOrder="10" parent="Codilar_CustomReports::report_customreports" action="customreports/usage/master" resource="Codilar_CustomReports::report_customreports_master" />
+    <add id="Codilar_CustomReports::report_customreports_vouchagram" title="GyFTR Report" translate="title" module="Codilar_CustomReports" sortOrder="10" parent="Codilar_CustomReports::report_customreports" action="customreports/usage/vouchagram" resource="Codilar_CustomReports::report_customreports_vouchagram" />
+  </menu>
+
+</config>

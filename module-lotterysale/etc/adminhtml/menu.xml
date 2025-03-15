@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Casio_LotterySale::manage"
+             title="Casio Lottery Sale"
+             module="Casio_LotterySale"
+             sortOrder="60"
+             parent="Casio::top_level"
+             resource="Casio_LotterySale::manage"/>
+        <add id="Casio_LotterySale::listing"
+             title="Casio Lottery Management"
+             module="Casio_LotterySale"
+             sortOrder="10"
+             action="casio_lottery/application/index"
+             resource="Casio_LotterySale::listing"
+             parent="Casio_LotterySale::manage"/>
+    </menu>
+</config>

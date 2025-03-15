@@ -1,0 +1,3 @@
+interface ProductInterface {
+    lottery_url: String @doc(description: "Lottery Sales Url Product.") @resolver(class: "Casio\\LotterySale\\Model\\Resolver\\LotteryUrl")
+}

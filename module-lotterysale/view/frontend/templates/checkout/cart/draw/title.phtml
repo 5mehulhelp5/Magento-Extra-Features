@@ -1,0 +1,17 @@
+<?php
+/**
+ * @var \Casio\LotterySale\Block\Draw $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$product = $block->getProduct();
+$applicationPeriod = $block->getChildBlock('application_period');
+$applicationPeriodHtml = $applicationPeriod ? $applicationPeriod->setProduct($product)->toHtml() : '';
+/** @var \Casio\LotterySale\ViewModel\LotteryApplication $viewModel */
+$viewModel = $block->getViewModel();
+$_helper = $viewModel->getCatalogHelperData();
+?>
+<div class="casio-lottery-subtitle">
+    <?=  /* @noEscape */ $_helper->getPageTemplateProcessor()
+        ->filter($product->getExtensionAttributes()->getCasioLotterySales()->getTitle()) ?>
+</div>
+<p class="mb-3"><?=  /* @noEscape */__('Application period: ') . $applicationPeriodHtml ?></p>

@@ -1,0 +1,24 @@
+{
+    "name": "casio-common/module-lotterysale",
+    "version": "1.0.1",
+    "description": "Casio Lottery Sale",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "minimum-stability": "dev",
+    "require": {
+        "magento/module-sales": "103.0.*",
+        "magento/module-checkout": "100.4.*",
+        "casio-common/module-salesperiod": "*",
+        "casio-common/module-casioidauth": "*",
+        "casio-common/module-core": "*",
+        "casio-common/module-backorder": "*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Casio\\LotterySale\\": ""
+        }
+    }
+}

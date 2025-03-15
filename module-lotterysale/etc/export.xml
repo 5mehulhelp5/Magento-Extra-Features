@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_ImportExport:etc/export.xsd">
+    <entity name="lottery_application" label="Lottery Application"
+            model="Casio\LotterySale\Model\Export\LotteryApplication"
+            entityAttributeFilterType="lottery_application"/>
+</config>

@@ -1,0 +1,8 @@
+type CartPrices {
+    payment_method_fee: PaymentMethodFee @resolver(class: "Codilar\\PaymentMethodFee\\Model\\Resolver\\Cart\\PaymentMethodFeeResolver")
+}
+type PaymentMethodFee {
+    value: Float
+    label: String
+    currency: String
+}

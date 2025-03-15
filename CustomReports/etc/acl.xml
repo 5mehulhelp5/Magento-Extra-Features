@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Reports::report">
+                    <resource id="Codilar_CustomReports::report_customreports" title="Custom Reports" translate="title" sortOrder="90">
+                        <resource id="Codilar_CustomReports::report_customreports_usage" title="Daily Sales Report" translate="title" sortOrder="10" />
+                        <resource id="Codilar_CustomReports::report_customreports_affiliated" title="Affiliated Report" translate="title" sortOrder="20" />
+                        <resource id="Codilar_CustomReports::report_customreports_survey" title="Survey Report" translate="title" sortOrder="30" />
+                        <resource id="Codilar_CustomReports::report_customreports_voucher" title="Wallet Transaction Report" translate="title" sortOrder="40" />
+                        <resource id="Codilar_CustomReports::report_customreports_master" title="Master Data Report" translate="title" sortOrder="50" />
+                        <resource id="Codilar_CustomReports::report_customreports_vouchagram" title="GyFTR Report" translate="title" sortOrder="60" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

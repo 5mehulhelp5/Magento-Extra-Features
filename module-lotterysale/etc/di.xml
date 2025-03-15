@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Casio\LotterySale\Api\LotteryApplicationRepositoryInterface" type="Casio\LotterySale\Model\LotteryApplicationRepository"/>
+	<preference for="Casio\LotterySale\Api\Data\LotteryApplicationInterface" type="Casio\LotterySale\Model\Data\LotteryApplication"/>
+	<preference for="Casio\LotterySale\Api\Data\LotteryApplicationSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Casio\LotterySale\Api\LotterySalesRepositoryInterface" type="Casio\LotterySale\Model\LotterySalesRepository"/>
+    <preference for="Casio\LotterySale\Api\Data\LotterySalesInterface" type="Casio\LotterySale\Model\Data\LotterySales"/>
+    <preference for="Casio\LotterySale\Api\Data\LotterySalesSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="casio_lottery_application_listing_data_source" xsi:type="string">Casio\LotterySale\Model\ResourceModel\LotteryApplication\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Casio\LotterySale\Model\ResourceModel\LotteryApplication\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">casio_lottery_application</argument>
+            <argument name="eventPrefix" xsi:type="string">casio_lottery_application_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">casio_lottery_application_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Casio\LotterySale\Model\ResourceModel\LotteryApplication</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Api\ProductRepositoryInterface">
+        <plugin name="casio_lottery_product_repository_plugin"
+                type="Casio\LotterySale\Plugin\ProductRepositoryPlugin"/>
+    </type>
+    <type name="Magento\Catalog\Model\Product">
+        <plugin name="casio_lottery_sales_product_after_load" type="Casio\LotterySale\Plugin\AfterProductLoad"/>
+    </type>
+    <type name="Magento\Catalog\Api\Data\ProductInterface">
+        <plugin name="ProductExtensionAttributeOperations" type="Casio\LotterySale\Plugin\ProductAttributesLoad"/>
+    </type>
+    <type name="Casio\SalesPeriod\Model\Resolver\SalesTypeResolver">
+        <arguments>
+            <argument name="salesTypes" xsi:type="array">
+                <item sortOrder="4" name="before_lottery" xsi:type="object">Casio\LotterySale\Model\SalesType\BeforeLotterySales</item>
+                <item sortOrder="5" name="lottery" xsi:type="object">Casio\LotterySale\Model\SalesType\RegularLotterySales</item>
+                <item sortOrder="6" name="end_lottery" xsi:type="object">Casio\LotterySale\Model\SalesType\EndLotterySales</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Casio\SalesPeriod\Model\SalesType\PurchaseValidator">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item sortOrder="4" name="before_lottery" xsi:type="object">Casio\LotterySale\Model\SalesType\Validator\BeforeLotterySales</item>
+                <item sortOrder="5" name="lottery" xsi:type="object">Casio\LotterySale\Model\SalesType\Validator\RegularLotterySales</item>
+                <item sortOrder="6" name="end_lottery" xsi:type="object">Casio\LotterySale\Model\SalesType\Validator\EndLotterySales</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Casio\SalesPeriod\Model\Resolver\SalesTypeResolver" type="Casio\LotterySale\Model\SalesType\SalesTypeResolver"/>
+    <type name="Casio\SalesPeriod\Plugin\Model\Quote\Item\Validator">
+        <plugin name="casio_lottery_validator" type="Casio\LotterySale\Plugin\Model\Quote\Item\Validator" />
+    </type>
+    <type name="Casio\SalesPeriod\Plugin\Model\Checkout\AbstractValidation">
+        <plugin name="casio_lottery_validation"
+                type="Casio\LotterySale\Plugin\Model\Checkout\AbstractValidation"/>
+    </type>
+    <!-- register the sample file -->
+    <type name="Magento\ImportExport\Model\Import\SampleFileProvider">
+        <arguments>
+            <argument name="samples" xsi:type="array">
+                <item name="casio_lotterysale_application_import" xsi:type="string">Casio_LotterySale</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Casio\ScheduledImportExportProxy\Plugin\Model\Scheduled\Operation">
+        <plugin name="casio_lottery_application_export_before_save_plugin" type="Casio\LotterySale\Plugin\ScheduledOperation" />
+    </type>
+    <type name="Magento\ImportExport\Controller\Adminhtml\Export\Export">
+        <plugin name="casio_lottery_application_export" type="Casio\LotterySale\Plugin\LotteryApplicationExportPlugin" />
+    </type>
+    <type name="Casio\LotterySale\Model\Export\LotteryApplication\FilterProcessorAggregator">
+        <arguments>
+            <argument name="handler" xsi:type="array">
+                <item name="varchar" xsi:type="object">Casio\LotterySale\Model\Export\LotteryApplication\Filter\VarcharFilter</item>
+                <item name="multiselect" xsi:type="object">Casio\LotterySale\Model\Export\LotteryApplication\Filter\MultiselectFilter</item>
+                <item name="datetime" xsi:type="object">Casio\LotterySale\Model\Export\LotteryApplication\Filter\DateTimeFilter</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

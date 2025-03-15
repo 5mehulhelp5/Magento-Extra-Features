@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/pdf_file.xsd">
+    <totals>
+        <total name="payment_method_fee">
+            <title translate="true">Payment method fee</title>
+            <source_field>payment_method_fee</source_field>
+            <model>Codilar\PaymentMethodFee\Model\Sales\Pdf\PaymentMethodFee</model>
+            <sort_order>500</sort_order>
+            <font_size>10</font_size>
+            <display_zero>false</display_zero>
+        </total>
+    </totals>
+</config>

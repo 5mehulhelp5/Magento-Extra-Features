@@ -1,0 +1,54 @@
+{
+    "casio_lottery_sales": {
+        "column": {
+            "id": true,
+            "product_id": true,
+            "title": true,
+            "description": true,
+            "sku": true,
+            "lottery_date": true,
+            "application_date_from": true,
+            "application_date_to": true,
+            "purchase_deadline": true,
+            "website_id": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "CASIO_LOTTERY_SALES_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true,
+            "CASIO_LOTTERY_SALES_WEBSITE_ID_STORE_WEBSITE_WEBSITE_ID": true,
+            "CASIO_LOTTERY_SALES_PRODUCT_ID_WEBSITE_ID": true
+        }
+    },
+    "casio_lottery_application": {
+        "column": {
+            "id": true,
+            "lottery_sales_id": true,
+            "user_id": true,
+            "email": true,
+            "firstname": true,
+            "lastname": true,
+            "firstnamekana": true,
+            "lastnamekana": true,
+            "telephone": true,
+            "postcode": true,
+            "region_id": true,
+            "region": true,
+            "city": true,
+            "street": true,
+            "building": true,
+            "status": true,
+            "ordered": true,
+            "lottery_sales_code": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_AB6AEC9C1820307F06ACFBF4B1BED223": true,
+            "CASIO_LOTTERY_APPLICATION_USER_ID_CUSTOMER_ENTITY_ENTITY_ID": true,
+            "CASIO_LOTTERY_APPLICATION_LOTTERY_SALES_ID_USER_ID": true
+        }
+    }
+}

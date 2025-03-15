@@ -1,0 +1,78 @@
+<?php
+
+/**
+ * @var \Casio\LotterySale\Block\Adminhtml\LotteryApplication\View $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+$product = $block->getProduct();
+$lotteryApplication = $block->getLotteryApplication();
+$lotterySales = $block->getLotterySales();
+?>
+<div class="fieldset-wrapper">
+    <table class="admin__table-secondary">
+        <tbody>
+        <tr>
+            <th><?= /* @noEscape */ $escaper->escapeHtml(__('Casio Lottery Title')) ?></th>
+            <td><?= /* @noEscape */ $escaper->escapeHtml($lotterySales->getTitle()) ?></td>
+        </tr>
+        <tr>
+            <th><?= /* @noEscape */ $escaper->escapeHtml(__('Sku')) ?></th>
+            <td><?= /* @noEscape */ $escaper->escapeHtml($lotterySales->getSku()) ?></td>
+        </tr>
+        <tr>
+            <th><?= /* @noEscape */ $escaper->escapeHtml(__('Product Name')) ?></th>
+            <td><?= /* @noEscape */ $escaper->escapeHtml($product->getName()) ?></td>
+        </tr>
+        <tr>
+            <th><?= /* @noEscape */ $escaper->escapeHtml(__('User ID')) ?></th>
+            <td><?= /* @noEscape */ $lotteryApplication->getUserId() ?></td>
+        </tr>
+        <tr>
+            <th><?= /* @noEscape */ $escaper->escapeHtml(__('Name')) ?></th>
+            <td><?= /* @noEscape */ $escaper->escapeHtml($block->getCustomerName($lotteryApplication->getUserId())) ?></td>
+        </tr>
+        <tr>
+            <th><?= /* @noEscape */ $escaper->escapeHtml(__('User Name (Kana)')) ?></th>
+            <td><?= /* @noEscape */ $lotteryApplication->getLastnamekana() . ' ' . $lotteryApplication->getFirstnamekana() ?></td>
+        </tr>
+        <tr>
+            <th><?= /* @noEscape */ $escaper->escapeHtml(__('Email Address')) ?></th>
+            <td><?= /* @noEscape */ $lotteryApplication->getEmail() ?></td>
+        </tr>
+        <tr>
+            <th><?= /* @noEscape */ $escaper->escapeHtml(__('Telephone')) ?></th>
+            <td><?= /* @noEscape */ $lotteryApplication->getTelephone() ?></td>
+        </tr>
+        <tr>
+            <th><?= /* @noEscape */ $escaper->escapeHtml(__('Postcode')) ?></th>
+            <td><?= /* @noEscape */ $lotteryApplication->getPostcode() ?></td>
+        </tr>
+        <tr>
+            <th><?= /* @noEscape */ $escaper->escapeHtml(__('Prefecture')) ?></th>
+            <td><?= /* @noEscape */ $lotteryApplication->getRegion() ?></td>
+        </tr>
+        <tr>
+            <th><?= /* @noEscape */ $escaper->escapeHtml(__('City')) ?></th>
+            <td><?= /* @noEscape */ $lotteryApplication->getCity() ?></td>
+        </tr>
+        <tr>
+            <th><?= /* @noEscape */ $escaper->escapeHtml(__('Town name & street number')) ?></th>
+            <td><?= /* @noEscape */ $escaper->escapeHtml($lotteryApplication->getStreet()) ?></td>
+        </tr>
+        <tr>
+            <th><?= /* @noEscape */ $escaper->escapeHtml(__('Building')) ?></th>
+            <td><?= /* @noEscape */ $escaper->escapeHtml($lotteryApplication->getBuilding()) ?></td>
+        </tr>
+        <tr>
+            <th><?= /* @noEscape */ $escaper->escapeHtml(__('Applicated Date')) ?></th>
+            <td><?= /* @noEscape */ $block->getCreatedAt($lotteryApplication->getCreatedAt())->format('Y-m-d H:i:s') ?></td>
+        </tr>
+        <tr>
+            <th><?= /* @noEscape */ $escaper->escapeHtml(__('Status')) ?></th>
+            <td><?= /* @noEscape */ __($block->getStatus($lotteryApplication->getStatus())) ?></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+

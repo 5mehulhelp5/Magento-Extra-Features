@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Brainvire Co., Ltd.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Brainvire.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.brainvire.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Brainvire
+ * @package     Brainvire_PriceDecimal
+ * @copyright   Copyright (c) 2019-2020 Brainvire Co., Ltd. All rights reserved. (http://www.brainvire.com/)
+ * @license     https://www.brainvire.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="bv_price_decimal" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Decimal Price</label>
+            <tab>general</tab>
+            <resource>Brainvire_PriceDecimal::config_price_decimal</resource>
+            <group id="general" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Show/Hide Decimal</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_all" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>show decimal at all places</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="bv_price_decimal/general/enable">1</field>
+                    </depends>
+                </field>
+                <field id="show_cart" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Show decimal on cart page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="bv_price_decimal/general/enable">1</field>
+                        <field id="bv_price_decimal/general/show_all">0</field>
+                    </depends>
+                </field>
+                <field id="show_checkout" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Show decimal on checkout page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="bv_price_decimal/general/enable">1</field>
+                        <field id="bv_price_decimal/general/show_all">0</field>
+                    </depends>
+                </field>
+                <field id="decimal_length" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Precision</label>
+                    <comment>Please enter the number between 1 to 3.</comment>
+                    <validate>required-entry validate-number-range number-range-1-3</validate>
+                    <depends>
+                        <field id="bv_price_decimal/general/enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

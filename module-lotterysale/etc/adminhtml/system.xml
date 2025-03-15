@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="lottery_sale" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+            <class>separator-top</class>
+            <label>Lottery Sale</label>
+            <tab>casio</tab>
+            <resource>Casio_LotterySale::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>General</label>
+                <field id="enabled" type="select" translate="label comment" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="win_email" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Winner Email Setting</label>
+                <depends>
+                    <field id="lottery_sale/general/enabled">1</field>
+                </depends>
+                <field id="sender" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="template" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Email Template</label>
+                    <source_model>Casio\LotterySale\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+            <group id="reception_email" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Apply Success Email Setting</label>
+                <depends>
+                    <field id="lottery_sale/general/enabled">1</field>
+                </depends>
+                <field id="template" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Email Template</label>
+                    <source_model>Casio\LotterySale\Model\Config\Source\Email\ReceptionEmailTemplate</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

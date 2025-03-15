@@ -1,0 +1,285 @@
+<?php
+/**
+ * Candere Software
+ *
+ * @category Codilar
+ * @package  CustomReports
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+/** @var \Codilar\CustomReports\Block\Adminhtml\Usage\Index $block */
+?>
+
+<?php
+$select = '';
+$date_from = '';
+$date_to = '';
+$order_status = '';
+$rst = $block->getorderlist();
+$result['total_orders'] = $rst['total_orders'];
+$result['base_grand_total'] = $rst['base_grand_total'];
+$result['base_total_paid'] = $rst['base_total_paid'];
+$result['insurance'] = $rst['insurance'];
+$result['gold_rate'] = $rst['gold_rate'];
+$result['average_ticket_value'] = $rst['average_ticket_value'];
+$result['average_ticket_value_dgrp'] = $rst['average_ticket_value_dgrp'];
+$result['average_ticket_value_non_dgrp'] = $rst['average_ticket_value_non_dgrp'];
+?>
+
+<div id="page:main-container" class="page-columns">
+    <div class="reports-content">
+        <div class="entry-edit form-inline">
+            <form id="filter_form" action="" method="get" novalidate="novalidate" name="date-form">
+                <div></div>
+                <fieldset class="fieldset admin__fieldset " id="sales_report_base_fieldset">
+                    <legend class="admin__legend legend">
+                        <span></span>
+                    </legend><br>
+
+                    <div class="messages"></div>
+
+                    <div class="admin__field field field-report_type  with-note"
+                    data-ui-id="grid-filter-form-fieldset-element-form-field-report-type">
+                        <label class="label admin__field-label" for="sales_report_report_type"
+                        data-ui-id="grid-filter-form-fieldset-element-select-report-type-label">
+                        <span>State</span></label>
+                        <div class="admin__field-control control">
+                            <select id="sales_report_report_type" name="order_state[]"
+                            class="select admin__control-select"
+                            data-ui-id="grid-filter-form-fieldset-element-select-report-type" multiple>
+                                <?php $dropdownstate = $block->getAllOrderStateList();
+                                foreach ($dropdownstate as $dropdown) { ?>
+                                    <option value="<?= $block->escapeHtml($dropdown['state']); ?>">
+                                    <?= $block->escapeHtml($dropdown['state']); ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="admin__field field field-report_type  with-note"
+                    data-ui-id="grid-filter-form-fieldset-element-form-field-report-type">
+                        <label class="label admin__field-label" for="sales_report_report_type"
+                        data-ui-id="grid-filter-form-fieldset-element-select-report-type-label">
+                        <span>Status</span></label>
+                        <div class="admin__field-control control">
+                            <select id="sales_report_report_type" name="order_status[]"
+                            class=" select admin__control-select"
+                            data-ui-id="grid-filter-form-fieldset-element-select-report-type" multiple>
+                                <?php $dropdownstatus = $block->getAllOrderStatusList();
+                                foreach ($dropdownstatus as $dropdown) { ?>
+                                    <option value="<?= $block->escapeHtml($dropdown['status']); ?>">
+                                    <?= $block->escapeHtml($dropdown['status']); ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="admin__field field field-from admin__field-small required _required"
+                    data-ui-id="grid-filter-form-fieldset-element-form-field-from">
+                        <label class="label admin__field-label" for="sales_report_from"
+                        data-ui-id="grid-filter-form-fieldset-element-text-from-label">
+                        <span>From</span></label>
+                        <div class="admin__field-control control">
+                            <input name="from" id="sales_report_from" value="" title="From"
+                            class="admin__control-text required-entry _required admin__control-text input-text"
+                            type="text" aria-required="true" autocomplete="off">
+                            <button type="button" class="ui-datepicker-trigger "></button>
+                        </div>
+                    </div>
+
+                    <div class="admin__field field field-to admin__field-small required _required"
+                    data-ui-id="grid-filter-form-fieldset-element-form-field-to">
+                        <label class="label admin__field-label" for="sales_report_to"
+                        data-ui-id="grid-filter-form-fieldset-element-text-to-label">
+                        <span>To</span></label>
+                        <div class="admin__field-control control">
+                            <input name="to" id="sales_report_to" value="" title="To"
+                            class="admin__control-text required-entry _required admin__control-text input-text "
+                            type="text" aria-required="true" autocomplete="off" onchange="TDate()">
+                            <button type="button" class="ui-datepicker-trigger v-middle"></button>
+                        </div>
+                    </div>
+
+                    <div class="admin__field field field-show_order_statuses  with-note"
+                    data-ui-id="grid-filter-form-fieldset-element-form-field-show-order-statuses">
+                        <label class="label admin__field-label" for="sales_report_show_order_statuses"
+                        data-ui-id="grid-filter-form-fieldset-element-select-show-order-statuses-label">
+                        <span>Channel</span></label>
+                        <div class="admin__field-control control">
+                            <select id="sales_report_show_order_statuses" name="channel"
+                            class="select admin__control-select"
+                            data-ui-id="grid-filter-form-fieldset-element-select-show-order-statuses">
+                                <option value="direct" selected="selected">Direct</option>
+                                <option value="marketplace">Marketplace</option>
+                                <option value="all">All</option>
+                                <option value="corporate">Corporate</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="admin__field field">
+                        <label class="label admin__field-label"></label>
+                        <div class="admin__field-control control">
+                            <button id="savelist" name="submit" class="primary" type="submit" onClick="checkDate()">
+                                <span>Submit</span></button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJs" data-grid-id="id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJs">
+        <div class="admin__data-grid-header admin__data-grid-toolbar">
+            <div class="admin__data-grid-header-row">
+                <div class="admin__data-grid-export">
+                    <a id="downloadLink" onclick="exportF(this)"><button>Export to excel</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin__data-grid-wrap admin__data-grid-wrap-static">
+        <table class="data-grid wp-list-table widefat striped posts" id="pager" border="1">
+            <thead>
+                <h1 style="text-align:center;">Master Data</h1>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Total Orders</td>
+                    <td><?= $block->escapeHtml($result['total_orders']) ?></td>
+                </tr>
+                <tr>
+                    <td>Sum of Base Grand Total</td>
+                    <td><?= $block->escapeHtml(round($result['base_grand_total'])) ?></td>
+                </tr>
+                <tr>
+                    <td>Sum of Base Total Paid</td>
+                    <td><?= $block->escapeHtml(round($result['base_total_paid'])) ?></td>
+                </tr>
+                <tr>
+                    <td>Sum of Insurance amount</td>
+                    <td><?= $block->escapeHtml(round($result['insurance'])) ?></td>
+                </tr>
+                <tr>
+                    <td>Sum of Gold metal weight</td>
+                    <td>Stay Tuned</td>
+                </tr>
+                <tr>
+                    <td>Average Gold Rate</td>
+                    <td><?= $block->escapeHtml(round($result['gold_rate'])) ?></td>
+                </tr>
+                <tr>
+                    <td>Average Ticket Value</td>
+                    <td><?= $block->escapeHtml(round($result['average_ticket_value'])) ?></td>
+                </tr>
+                <tr>
+                    <td>Average Ticket Value DGRP</td>
+                    <td><?= $block->escapeHtml(round($result['average_ticket_value_dgrp'])) ?></td>
+                </tr>
+                <tr>
+                    <td>Average Ticket Value Non DGRP</td>
+                    <td>
+                        <?= $block->escapeHtml(round($result['average_ticket_value_non_dgrp'])) ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        require(["jquery", "mage/calendar"], function($) {
+            const max = new Date().getUTCFullYear();
+            $("#sales_report_from").datepicker({
+                showMonthAfterYear: false,
+                dateFormat: 'mm/dd/yy',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '2000:max+1',
+            })
+
+            $("#sales_report_to").datepicker({
+                showMonthAfterYear: false,
+                dateFormat: 'mm/dd/yy',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '2000:max+1',
+            })
+        });
+
+        function checkDate() {
+            var dateForm = document.forms['date-form'];
+            var startDate = new Date(dateForm['from'].value);
+            var endDate = new Date(dateForm['to'].value);
+            var date = endDate - startDate;
+            var diff = (date / 86400000);
+
+            if (startDate >= endDate) {
+                alert("Date from should be less than date to");
+            } else if (diff > 30) {
+                alert("Only 30 days Records are allowed. Please try it again");
+            } else if ((startDate == '') && (endDate == '')) {
+                alert("Please select Start Date and To date");
+            }
+        }
+
+        function exportF(elem) {
+            var table = document.getElementById("pager");
+            var html = table.outerHTML;
+            var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+            elem.setAttribute("href", url);
+            elem.setAttribute("download", "Salesorder.xls"); // Choose the file name
+            return false;
+        }
+
+        require([
+            'jquery',
+            'mage/backend/validation',
+            "prototype"
+        ], function(jQuery) {
+
+            //<![CDATA[
+            jQuery('#filter_form').mage('validation', {
+                errorClass: 'mage-error'
+            });
+
+            function filterFormSubmit() {
+                var filters = $$('#filter_form input', '#filter_form select'),
+                    elements = [];
+
+                for (var i in filters) {
+                    if (filters[i].value && filters[i].value.length && !filters[i].disabled) {
+                        elements.push(filters[i]);
+                    }
+                }
+
+                if (jQuery('#filter_form').valid()) {
+                    setLocation('http\u003A\u002F\u002F127.0.0.1\u002Fcandere\u002Fadmin\u002Freports\u002Freport_sales'
+                    +'\u002Fsales\u002Fkey\u002Ff6b4f573c129ff00cf7d18a1de6ee1cffd801f08b5a1ddf59b48303f4cada1de'
+                    +'\u002Ffilter/' + Base64.encode(Form.serializeElements(elements)) + '/');
+                }
+            }
+            //]]>
+            window.filterFormSubmit = filterFormSubmit;
+        });
+
+        var deps = [];
+        deps.push('mage/adminhtml/grid');
+        require(deps, function() {
+            //<![CDATA[
+            id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJsJsObject = new varienGrid(
+                "id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJs",
+                'http\u003A\u002F\u002F127.0.0.1\u002Fcandere\u002Fadmin\u002Freports\u002Freport_sales\u002Fsales'
+                +'\u002Fkey\u002Ff6b4f573c129ff00cf7d18a1de6ee1cffd801f08b5a1ddf59b48303f4cada1de\u002F',
+                'page',
+                'sort',
+                'dir',
+                'filter'
+            );
+            id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJsJsObject.useAjax = '';
+            id_9Mfvy9NOaFAFMy2gBBxZAjSkrEjWfGJsJsObject.rowClickCallback = openGridRow;
+            //]]>
+        });
+    </script>

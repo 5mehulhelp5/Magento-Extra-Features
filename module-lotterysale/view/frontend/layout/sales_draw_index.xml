@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="formkey"/>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Lottery application history</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Casio\LotterySale\Block\Customer\ApplicationHistory" name="casio_lottery_application_history_block" template="lottery_application_history.phtml" cacheable="false">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Casio\LotterySale\ViewModel\LotteryApplication</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
