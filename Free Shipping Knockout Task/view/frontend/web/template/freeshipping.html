@@ -1,6 +1,8 @@
-<!-- ko if: (getfreeshippingAmount()!==0) -->
-<div class="prajwal"  data-bind="text: getFreeShippingConfig()"></div>
+<!-- ko if: (getfreeshippingAmount() !== 0) -->
+<div class="prajwal" data-bind="text: getFreeshipping()"></div>
 <div class="freeshiping-progress-bar" id="freeshiping-progress-bar">
-    <div class="freeshiping-progress-bar-item" id="freeshiping-progress-bar-item"></div>
+    <div class="freeshiping-progress-bar-item" id="freeshiping-progress-bar-item" data-bind="style: { width: progressBarWidth, backgroundColor: progressBarColor }"></div>
 </div>
 <!-- /ko -->
+
+
