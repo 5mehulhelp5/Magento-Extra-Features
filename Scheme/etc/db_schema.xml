@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Candere Software
+ *
+ * @category PG
+ * @package  Scheme
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<!-- <table name="sales_order" resource="default" engine="innodb" comment="Sales Order">
+        <column xsi:type="decimal" name="scheme_amount" scale="4" precision="12" unsigned="false" nullable="true" default="0" comment="scheme Redeem Amount"/>
+        <column xsi:type="decimal" name="base_scheme_amount" scale="4" precision="12" unsigned="false" nullable="true" default="0" comment="base scheme Redeem Amount"/>
+    </table>
+    <table name="quote" resource="default" engine="innodb" comment="Quote">
+        <column xsi:type="decimal" name="scheme_amount" scale="4" precision="12" unsigned="false" nullable="true" default="0" comment="scheme Redeem Amount"/>
+        <column xsi:type="decimal" name="base_scheme_amount" scale="4" precision="12" unsigned="false" nullable="true" default="0" comment="base scheme Redeem Amount"/>
+    </table>
+    <table name="sales_invoice" resource="default" engine="innodb" comment="Sales Invoice">
+        <column xsi:type="decimal" name="scheme_amount" scale="4" precision="12" unsigned="false" nullable="true" default="0" comment="scheme Redeem Amount"/>
+        <column xsi:type="decimal" name="base_scheme_amount" scale="4" precision="12" unsigned="false" nullable="true" default="0" comment="base scheme Redeem Amount"/>
+    </table>
+    <table name="sales_creditmemo" resource="default" engine="innodb" comment="Sales Creditmemo">
+        <column xsi:type="decimal" name="scheme_amount" scale="4" precision="12" unsigned="false" nullable="true" default="0" comment="scheme Redeem Amount"/>
+        <column xsi:type="decimal" name="base_scheme_amount" scale="4" precision="12" unsigned="false" nullable="true" default="0" comment="base scheme Redeem Amount"/>
+    </table> -->
+
+    <table name="kj_scheme_quote" resource="default" engine="innodb" comment="Scheme Quote Table">
+        <column xsi:type="int" name="id" padding="10" identity="true" unsigned="true" nullable="false" comment="Id"/>
+        <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="true" default="0" comment="Customer ID"/>
+        <column xsi:type="decimal" name="emi_amount" scale="4" precision="12" unsigned="false" nullable="true" default="0" comment="EMI Amount"/>
+        <column xsi:type="smallint" name="duration" padding="6" unsigned="false" nullable="true" default="0" comment="Duration"/>
+        <column xsi:type="varchar" name="scheme_name" nullable="true" length="255" comment="Scheme Name"/>
+        <column xsi:type="varchar" name="email_id" nullable="true" length="255" comment="Email"/>
+        <column xsi:type="varchar" name="customer_name" nullable="true" length="255" comment="Customer Name"/>
+        <column xsi:type="varchar" name="scheme_mobile_number" nullable="true" length="255" comment="Scheme Mobile Number"/>
+        <column xsi:type="smallint" name="is_mobile_verified" padding="6" unsigned="false" nullable="true" default="0" comment="Is Mobile verified"/>
+        <column xsi:type="text" name="address"  nullable="true" comment="Address"/>
+        <column xsi:type="varchar" name="pincode" nullable="true" length="255" comment="Pincode"/>
+        <column xsi:type="varchar" name="state" nullable="true" length="255" comment="state"/>
+        <column xsi:type="varchar" name="city" nullable="true" length="255" comment="city"/>
+        <column xsi:type="text" name="nominee_info" nullable="true" comment="Nominee Info"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <column xsi:type="smallint" name="auto_monthly_payment" padding="6" unsigned="false" nullable="true" default="0" comment="Auto monthly Payment"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="SCHEME_QUOTE_CUSTOMERID" indexType="btree">
+           <column name="customer_id"/>
+        </index>
+    </table>
+    <table name="kj_scheme_enrollment" resource="default" engine="innodb" comment="Scheme Enrollment Table">
+        <column xsi:type="int" name="id" padding="10" identity="true" unsigned="true" nullable="false" comment="Id"/>
+        <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="true" identity="false" default="0" comment="Customer ID"/>
+        <column xsi:type="varchar" name="email_id" nullable="true" length="255" comment="Email"/>
+        <column xsi:type="varchar" name="customer_name" nullable="true" length="255" comment="Customer Name"/>
+        <column xsi:type="varchar" name="scheme_mobile_number" nullable="true" length="255" comment="Scheme Mobile Number"/>
+        <column xsi:type="smallint" name="is_mobile_verified" padding="6" unsigned="false" nullable="true" default="0" comment="Is Mobile verified"/>
+        <column xsi:type="text" name="address"  nullable="true" comment="Address"/>
+        <column xsi:type="varchar" name="pincode" nullable="true" length="255" comment="Pincode"/>
+        <column xsi:type="varchar" name="state" nullable="true" length="255" comment="state"/>
+        <column xsi:type="varchar" name="city" nullable="true" length="255" comment="city"/>
+        <column xsi:type="varchar" name="plan_no" nullable="true" length="255" comment="Plan no"/>
+        <column xsi:type="smallint" name="duration" padding="6" unsigned="false" nullable="true" default="0" comment="Duration"/>
+        <column xsi:type="decimal" name="emi_amount" scale="4" precision="12" unsigned="false" nullable="true" default="0" comment="Emi Amount"/>
+        <!-- <column xsi:type="int" name="no_paid_installment"  nullable="true" default="0" comment="No Paid Installment"/> -->
+        <column xsi:type="varchar" name="scheme_name" nullable="true" length="255" comment="Scheme Name"/>
+        <column xsi:type="smallint" name="auto_monthly_payment" padding="6" unsigned="false" nullable="true" default="0" comment="Auto monthly Payment"/>
+        <column xsi:type="varchar" name="status" nullable="true" length="255" comment="Status"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <column xsi:type="varchar" name="utm_source" nullable="true" length="255" comment="utm Source"/>
+        <column xsi:type="varchar" name="utm_medium" nullable="true" length="255" comment="Utm Medium"/>
+        <column xsi:type="varchar" name="utm_campaign" nullable="true" length="255" comment="Utm Campaign"/>
+        <column xsi:type="smallint" name="is_defaulter" padding="6" unsigned="false" nullable="true" default="0" comment="Is Defaulter"/>
+        <column xsi:type="datetime" name="maturity_date" nullable="true" comment="Maturity Date"/>
+        <column xsi:type="text" name="benefit_list"  nullable="true" comment="Benefit list"/>
+        <column xsi:type="varchar" name="enrollment_no" nullable="true" length="255" comment="Scheme API Enrollment No"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="SCHEME_ENROLLMENT_CUSTOMERID" indexType="btree">
+           <column name="customer_id"/>
+        </index>
+        <index referenceId="SCHEME_ENROLLMENT_STATUS" indexType="btree">
+           <column name="status"/>
+        </index>
+    </table>
+    <table name="kj_scheme_nominee" resource="default" engine="innodb" comment="Scheme Nominee Table">
+        <column xsi:type="int" name="id" padding="10" identity="true" unsigned="true" nullable="false" comment="Id"/>
+        <column xsi:type="int" name="enrollment_id" padding="10" unsigned="true" nullable="true" default="0" comment="Enrollment ID"/>
+        <column xsi:type="varchar" name="nominee_name" nullable="true" length="255" comment="Nominee Name"/>
+        <column xsi:type="varchar" name="nominee_relationship" nullable="true" length="255" comment="Nominee Relationship"/>
+        <column xsi:type="varchar" name="nominee_mobilenumber" nullable="true" length="255" comment="Nominee MobileNumber"/>
+        <column xsi:type="varchar" name="nominee_nationality" nullable="true" length="255" comment="Nominee Nationality"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="SCHEME_NOMINEE_ENROLLMENTID" indexType="btree">
+           <column name="enrollment_id"/>
+        </index>
+    </table>
+    <table name="kj_scheme_payment_history" resource="default" engine="innodb" comment="Scheme Payment Table">
+        <column xsi:type="int" name="id" padding="10" identity="true" unsigned="true" nullable="false" comment="Id"/>
+        <column xsi:type="int" name="enrollment_id" padding="10" unsigned="true" nullable="true" default="0" comment="Enrollment ID"/>
+        <column xsi:type="int" name="installment_schedule_id" padding="10" unsigned="true" nullable="true" default="0" comment="Installment Schedule ID"/>
+        <column xsi:type="decimal" name="amount" scale="4" precision="12" unsigned="false" nullable="true" default="0" comment="Amount"/>
+        <column xsi:type="varchar" name="month" nullable="true" length="255" comment="Month"/>
+        <column xsi:type="datetime" name="payment_date" nullable="true" comment="Payment Date"/>
+        <column xsi:type="varchar" name="payment_status" nullable="true" length="255" comment="Payment status"/>
+        <column xsi:type="varchar" name="transaction_mode" nullable="true" length="255" comment="Transaction Mode"/>
+        <column xsi:type="varchar" name="payment_mode" nullable="true" length="255" comment="Payment Mode"/>
+        <column xsi:type="varchar" name="store_code" nullable="true" length="255" comment="Store Code"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <column xsi:type="text" name="transaction_info"  nullable="true" comment="Transaction Info"/>
+        <column xsi:type="varchar" name="reference_no" nullable="true" length="255" comment="Transaction Reference no"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="SCHEME_PAYMENT_HISTORY_ENROLLMENTID" indexType="btree">
+           <column name="enrollment_id"/>
+        </index>
+        <index referenceId="SCHEME_PAYMENT_HISTORY_ENROLLMENTID_PAYMENT_STATUS" indexType="btree">
+           <column name="enrollment_id"/>
+           <column name="payment_status"/>
+        </index>
+    </table>
+    <table name="kj_scheme_installment_schedules" resource="default" engine="innodb" comment="Scheme Installment Schedule Table">
+        <column xsi:type="int" name="id" padding="10" identity="true" unsigned="true" nullable="false" comment="Id"/>
+        <column xsi:type="int" name="enrollment_id" padding="10" unsigned="true" nullable="true" default="0" comment="Enrollment ID"/>
+        <column xsi:type="datetime" name="due_date" nullable="true" comment="Due Date"/>
+        <column xsi:type="smallint" name="is_paid" padding="6" unsigned="false" nullable="true" default="0" comment="Is Paid"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="SCHEME_INSTALLMENT_SCHEDULES_ENROLLMENTID" indexType="btree">
+           <column name="enrollment_id"/>
+        </index>
+        <index referenceId="SCHEME_INSTALLMENT_SCHEDULES_ENROLLMENTID_ISPAID" indexType="btree">
+           <column name="enrollment_id"/>
+           <column name="is_paid"/>
+        </index>
+    </table>
+    <table name="kj_scheme_sequence" resource="default" engine="innodb" comment="Scheme Sequence">
+        <column xsi:type="int" name="sequence_value" padding="10" identity="true" unsigned="true" nullable="false" comment="Sequence Value"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="sequence_value"/>
+        </constraint>
+    </table>
+</schema>

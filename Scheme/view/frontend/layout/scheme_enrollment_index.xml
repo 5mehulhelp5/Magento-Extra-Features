@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Candere Software
+ *
+ * @category PG
+ * @package  Scheme
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="KalyanUs_Scheme::css/style.css"/>
+        <meta name="robots" content="NOINDEX,FOLLOW"/>
+    </head>
+    <body>
+            <referenceContainer name="menu-search-container" remove="true" />
+            <referenceContainer name="logo-section" remove="true" />
+            <referenceContainer name="header-top-menu" remove="true"/>
+            <referenceBlock name="link-section" remove="true"/>
+            <referenceBlock name="page.main.title" remove="true"/>
+            <referenceBlock name="breadcrumbs" remove="true"/>
+
+            <referenceBlock name="footer" remove="true"/>
+
+            <referenceBlock name="klevu_frontendjs.init_session_data" remove="true" />
+            <referenceBlock name="klevu.addtocart.index" remove="true" />
+            <referenceBlock name="klevu.content.queryType" remove="true" />
+            <referenceBlock name="klevu.search.form_js" remove="true" />
+
+
+
+        <referenceContainer name="content">
+            <container name="scheme_steps" htmlClass="scheme_steps" htmlTag="div">
+                <block class="Magento\Framework\View\Element\Template" name="scheme_steps_wrap" template="KalyanUs_Scheme::header/scheme_steps.phtml"/>
+            </container>
+            <block class="KalyanUs\Scheme\Block\Enrollment\Index" name="kj_scheme_enrollment_index" as="info" template="KalyanUs_Scheme::enrollment/index.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

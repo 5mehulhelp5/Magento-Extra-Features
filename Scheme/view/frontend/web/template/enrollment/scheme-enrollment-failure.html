@@ -1,0 +1,29 @@
+<!--
+/**
+ * Candere Software
+ *
+ * @category PG
+ * @package  Scheme
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+-->
+<!--ko if(isFailureEnrollment()) -->
+<div class="order_failure_container flex_container_group">
+    <div class="item_info order_failure_wrapper ">
+        <div class="failure_image_section">
+            <img data-bind="attr: { src: require.toUrl('Codilar_Juspay/images/Order_Failed.gif') }" alt="Order_Failed">
+        </div>
+        <div class="info_heading">Oops!! Payment Failed</div>
+        <p class="try_again">No issues, you can wait for 2-3 mins and try placing the order again</p>
+        <div class="retry_cta_group">
+            <a data-bind="attr: { href: retryPaymentUrl() }"  class="retry_cta">retry payment</a>
+        </div>
+        <div class="other_options">
+            <span>OR</span>
+            <p>If you have any other queries, you can contact our customer support</p>
+            <a class="call_cta" href="+91 22 61066262">CALL +91 22 61066262</a>
+        </div>
+    </div>
+</div>
+<!--ko -->

@@ -1,0 +1,265 @@
+<!--
+/**
+ * Candere Software
+ *
+ * @category PG
+ * @package  Scheme
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+-->
+
+<!-- ko foreach: getRegion('messages') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+<div class="schemePage">
+    <!-- Plan Details -->
+    <div class="planDetails">
+        <a href="plan.html" class="page_head"> <img
+                data-bind="attr: { src: require.toUrl('KalyanUs_Scheme/images/chevron_left.svg') }" alt="Chevron"> Plan
+            Details</a>
+
+        <div class="planDetails__wrapper">
+            <div class="planDetails__wrapper--left">
+                <div class="planDetails__info">
+                    <p class="planDetails__info--text">Plan No. : <span
+                            data-bind="text: enrollmentDetail().plan_no"></span>
+                    </p>
+                    <p class="planDetails__info--text">Start Date : <span
+                            data-bind="text: enrollmentDetail().enrollment_date_format"></span></p>
+                    <p class="planDetails__info--text">Duration : <span
+                            data-bind="text: enrollmentDetail().duration"></span></p>
+                    <p class="planDetails__info--text">Plan Status :
+                        <span class="success" data-bind="text: enrollmentDetail().status_label"></span>
+                        <!-- ko if: enrollmentDetail().is_defaulter == 1 -->
+                        [<span class="success" data-bind="text: 'Defaulter'"></span>]
+                        <!--/ko-->
+                    </p>
+                </div>
+            </div>
+            <!-- ko if: enrollmentDetail().next_due_date_format -->
+            <div class="planDetails__wrapper--right">
+                <div class="planDetails__due">
+                    <p class="planDetails__due--title">Next installment due date,</p>
+                    <p class="planDetails__due--date" data-bind="text: enrollmentDetail().next_due_date_format"></p>
+                    <!-- ko if: enrollmentDetail().is_installment_payment_allow -->
+                    <div class="buttonWrapper">
+                        <a href="javascript:void(0)" title="Pay Installment" class="base_btn btn_md primary_btn"
+                            data-bind="click: function(){ payInstallment(enrollmentDetail().id); }"
+                            class="base_btn btn_md primary_btn">Pay Installment</a>
+                    </div>
+                    <!--/ko-->
+                </div>
+            </div>
+            <!--/ko-->
+        </div>
+    </div>
+    <!-- Plan Details -->
+
+    <!-- Plan Status -->
+    <div class="planStatus">
+        <p class="page_title">Plan Status</p>
+
+        <div class="planStatus__details">
+            <div class="planStatus__details--box">
+                <p class="planStatus__details--box-head">Installment Amount</p>
+                <p class="planStatus__details--box-action"
+                    data-bind="text: getFormattedPrice(enrollmentDetail().emi_amount)"></p>
+            </div>
+
+            <div class="planStatus__details--box">
+                <p class="planStatus__details--box-head">Installment Paid</p>
+                <p class="planStatus__details--box-action">
+                    <!--ko text: enrollmentDetail().paid_installment--><!--/ko-->/<!--ko text: enrollmentDetail().duration--><!--/ko-->
+                </p>
+            </div>
+
+            <div class="planStatus__details--box">
+                <p class="planStatus__details--box-head">Total Amount Paid</p>
+                <p class="planStatus__details--box-action"
+                    data-bind="text: getFormattedPrice(enrollmentDetail().total_amount_paid)"></p>
+            </div>
+
+            <div class="planStatus__details--box">
+                <p class="planStatus__details--box-head">Total Benefit</p>
+                <p class="planStatus__details--box-action"
+                    data-bind="text: getFormattedPrice(enrollmentDetail().benefit_amount)"></p>
+            </div>
+
+            <div class="planStatus__details--box">
+                <p class="planStatus__details--box-head">Redemption Amount</p>
+                <p class="planStatus__details--box-action"
+                    data-bind="text: getFormattedPrice(enrollmentDetail().redemption_amount)"></p>
+            </div>
+        </div>
+        <!-- ko if: installmentDetail().length -->
+        <div class="planStatus__track">
+            <!-- ko foreach: { data: installmentDetail, as: 'install'} -->
+            <!-- ko if: $parent.isPaidInstallment(install.is_paid) -->
+            <div class="planStatus__track--steps complete"><span><img
+                        data-bind="attr: { src: require.toUrl('KalyanUs_Scheme/images/check_white.svg') }"></span></div>
+            <!--/ko-->
+            <!-- ko if: !$parent.isPaidInstallment(install.is_paid) -->
+            <div class="planStatus__track--steps"><span><img
+                        data-bind="attr: { src: require.toUrl('KalyanUs_Scheme/images/check_white.svg') }"></span></div>
+            <!--/ko-->
+            <!--/ko-->
+        </div>
+        <!--/ko-->
+    </div>
+    <!-- Plan Status -->
+
+    <!-- ko if: installmentDetail().length -->
+    <div class="planInstallment">
+        <p class="page_title">Plan Installment</p>
+
+        <div class="table-responsive">
+            <table cellspacing="0" cellpadding="0" border="0" class="custom__table">
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Due Date</th>
+                        <th>Payment Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- ko foreach: { data: installmentDetail, as: 'install'} -->
+                    <tr>
+                        <td><!--ko text: install.no--><!--/ko--></td>
+                        <td><!--ko text: install.due_date_format--><!--/ko--></td>
+                        <td><!--ko text: install.payment_date_format--><!--/ko--></td>
+                        <td><!--ko text: $parent.getFormattedPrice(install.amount)--><!--/ko--></td>
+                        <td>
+                            <!-- ko if: $parent.isPaidInstallment(install.is_paid) -->
+                            Paid
+                            <!--/ko-->
+                            <!-- ko if: !$parent.isPaidInstallment(install.is_paid) -->
+                            -
+                            <!--/ko-->
+                        </td>
+                    </tr>
+                    <!-- /ko -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /ko -->
+
+    <!-- Plan Information -->
+    <div class="planInformation">
+        <p class="page_title">Personal Information</p>
+
+        <!-- ko if: enrollmentDetail().customer_name -->
+        <div class="planInformation__list">
+            <p class="planInformation__list--head">Name</p>
+            <p class="planInformation__list--data" data-bind="text: enrollmentDetail().customer_name"></p>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: enrollmentDetail().email_id -->
+        <div class="planInformation__list">
+            <p class="planInformation__list--head">Email</p>
+            <p class="planInformation__list--data" data-bind="text: enrollmentDetail().email_id"></p>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: enrollmentDetail().scheme_mobile_number -->
+        <div class="planInformation__list">
+            <p class="planInformation__list--head">Mobile</p>
+            <p class="planInformation__list--data" data-bind="text: '+'+enrollmentDetail().scheme_mobile_number"></p>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: enrollmentDetail().address -->
+        <div class="planInformation__list">
+            <p class="planInformation__list--head">Address</p>
+            <p class="planInformation__list--data" data-bind="text: enrollmentDetail().address"></p>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: nomineeDetail().nominee_name -->
+        <div class="planInformation__list">
+            <p class="planInformation__list--head">Nominee Name</p>
+            <p class="planInformation__list--data" data-bind="text: nomineeDetail().nominee_name"></p>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: nomineeDetail().nominee_relationship -->
+        <div class="planInformation__list">
+            <p class="planInformation__list--head">Relationship</p>
+            <p class="planInformation__list--data" data-bind="text: nomineeDetail().nominee_relationship"></p>
+        </div>
+        <!-- /ko -->
+    </div>
+    <!-- Plan Information -->
+
+    <!-- Plan Close -->
+    <!-- ko if: enrollmentDetail().is_preclouser_allow -->
+    <div class="planClose">
+        <p class="page_title">Want to Close Scheme Plan early ?</p>
+        <a href="javascript:void(0)" class="base_btn btn_md secondary_btn preClose_btn" title="PRE-CLOSE scheme NOW"
+            data-bind="click: function(){ getPreClosureDetail(enrollmentDetail().id); }">PRE-CLOSE scheme
+            NOW</a>
+    </div>
+    <!-- /ko -->
+    <!-- Plan Close -->
+
+
+    <div id="sideData" class="sideData" if="allowPreClosure">
+        <div class="__header">
+            <div class="__header__content">
+                <p class="__header__content--title">Pre - Close Plan</p>
+            </div>
+
+            <img data-bind="attr: { src: require.toUrl('KalyanUs_Scheme/images/sideData_close.svg') }" alt="Close"
+                class="img-fluid sideData__close" />
+        </div>
+        <div class="__body">
+            <div class="__body--content">
+                <div class="planScheme" if="isShowMissingBenefitInfo">
+                    <p class="planScheme--title">By closing your scheme early, you are missing out on...</p>
+                    <!-- ko foreach: { data: preClosureDetailArr().missingBenefit, as: 'missingDetail'} -->
+                    <div class="planScheme__flex">
+                        <p class="planScheme__flex--title">Closing Scheme in the
+                            <!--ko text: missingDetail.month--><!--/ko-->th month
+                            <span>(<!--ko text: missingDetail.percentage--><!--/ko-->% of 1st Installment)</span>
+                        </p>
+                        <p class="preClose__flex--data">
+                            <!--ko text: $parent.getFormattedPrice(missingDetail.total_final_amount)--><!--/ko-->
+                        </p>
+                    </div>
+                    <!-- /ko -->
+                </div>
+                <div class="preClose">
+                    <p class="planScheme--title">Summary of Plan</p>
+                    <div class="preClose__wrapper">
+                        <div class="preClose__flex">
+                            <p class="preClose__flex--title">You Paid
+                                (<!--ko text: preClosureDetailArr().paid_installment--><!--/ko--> months)</p>
+                            <p class="preClose__flex--data">
+                                <!--ko text: getFormattedPrice(preClosureDetailArr().total_amount_paid)--><!--/ko-->
+                            </p>
+                        </div>
+                        <div class="preClose__flex">
+                            <p class="preClose__flex--title">Total Benefit
+                                (<!--ko text: preClosureDetailArr().benefit_percentage--><!--/ko-->% of 1 month)</p>
+                            <p class="preClose__flex--data">
+                                <!--ko text: getFormattedPrice(preClosureDetailArr().benefit_amount)--><!--/ko-->
+                            </p>
+                        </div>
+                    </div>
+                    <div class="preClose__wrapper">
+                        <div class="preClose__flex">
+                            <p class="preClose__flex--title">Total Redeemable Amount for your jewellery</p>
+                            <p class="preClose__flex--data">
+                                <!--ko text: getFormattedPrice(preClosureDetailArr().redemption_amount)--><!--/ko-->
+                            </p>
+                        </div>
+                    </div>
+                    <a href="javascript:void(0)" class="base_btn btn_md primary_btn" title="Confirm Closure"
+                        data-bind="click: function(){ submitPreClosureDetail(preClosureDetailArr().enrollmentId); }">Confirm
+                        Closure</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

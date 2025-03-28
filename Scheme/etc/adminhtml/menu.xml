@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Candere Software
+ *
+ * @category PG
+ * @package  Scheme
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="KalyanUs_Scheme::parent" title="Scheme" module="KalyanUs_Scheme" sortOrder="100" resource="KalyanUs_Scheme::parent" parent="KalyanUs_Core::us_top_menu"/>
+		<add id="KalyanUs_Scheme::enrollment" title="Scheme Enrollment" module="KalyanUs_Scheme" sortOrder="20" parent="KalyanUs_Scheme::parent" action="scheme/enrollment" resource="KalyanUs_Scheme::enrollment"/>
+        <add id="KalyanUs_Scheme::configration" title="Configration" module="KalyanUs_Scheme" sortOrder="30" action="admin/system_config/edit/section/scheme" resource="KalyanUs_Scheme::enrollment" parent="KalyanUs_Scheme::parent"/>
+    </menu>
+</config>

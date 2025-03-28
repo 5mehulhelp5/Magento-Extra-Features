@@ -1,0 +1,186 @@
+<?php
+/**
+ * Candere Software
+ *
+ * @category PG
+ * @package  Scheme
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+
+/** @var  $block KalyanUs\Scheme\Block\Adminhtml\Enrollment\View */
+
+$enrollmentDetail=$block->getEnrollmentDetail();
+$nomineeDetail=$block->getNomineeDetail();
+$installmentRecords=$block->getAllInstallmentDetail();
+?>
+<section class="admin__page-section order-view-account-information">
+   <div class="admin__page-section-title">
+      <span class="title">Scheme Information</span>
+   </div>
+   <div class="admin__page-section-content">
+      <div class="admin__page-section-item order-information">
+         <div class="admin__page-section-item-title">
+            <span class="title">
+            Scheme / Plan no # <?= /* @noEscape */ $enrollmentDetail['plan_no']; ?>
+            </span>
+         </div>
+         <div class="admin__page-section-item-content">
+            <table class="admin__table-secondary order-information-table">
+               <tbody>
+                  <tr>
+                     <th>Start Date</th>
+                     <td><?= /* @noEscape */ $enrollmentDetail['created_at'] ?? ''; ?></td>
+                  </tr>
+                  <tr>
+                     <th>Updated Date</th>
+                     <td><?= /* @noEscape */ $enrollmentDetail['updated_at'] ?? ''; ?></td>
+                  </tr>
+                  <tr>
+                     <th>Scheme / Plan Status</th>
+                     <td><?= /* @noEscape */ $block->getStatusLabel($enrollmentDetail['status']); ?></td>
+                  </tr>
+                  <tr>
+                     <th>Scheme Name</th>
+                     <td><?= /* @noEscape */ $enrollmentDetail['scheme_name'] ?? ''; ?></td>
+                  </tr>
+                  <tr>
+                     <th>Scheme Duration</th>
+                     <td><?= /* @noEscape */ $enrollmentDetail['duration'] ?? ''; ?></td>
+                  </tr>
+                  <tr>
+                     <th>Emi Amount</th>
+                     <td><?= /* @noEscape */ $enrollmentDetail['emi_amount'] ?? ''; ?></td>
+                  </tr>
+                  <tr>
+                     <th>No of Installment Paid</th>
+                     <td><?= /* @noEscape */ $block->getCountOfPaidInstallmentByEnrollmentId(); ?></td>
+                  </tr>
+                  <tr>
+                     <th>Total Amount Paid</th>
+                     <td><?= /* @noEscape */ $block->getTotalAmountPaid(); ?></td>
+                  </tr>
+
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="admin__page-section-item order-account-information">
+         <div class="admin__page-section-item-title">
+            <span class="title">Account Information</span>
+         </div>
+         <div class="admin__page-section-item-content">
+            <table class="admin__table-secondary order-account-information-table">
+               <tbody>
+                  <tr>
+                     <th>Customer Name</th>
+                     <td>
+                        <span><?= /* @noEscape */ $enrollmentDetail['customer_name'] ?? ''; ?></span>
+                     </td>
+                  </tr>
+                  <tr>
+                     <th>Email</th>
+                     <td><?= /* @noEscape */ $enrollmentDetail['email_id'] ?? ''; ?></td>
+                  </tr>
+                  <tr>
+                     <th>Scheme Mobile Number</th>
+                     <td><?= /* @noEscape */ $enrollmentDetail['scheme_mobile_number'] ?? ''; ?></td>
+                  </tr>
+                  <tr>
+                     <th>Is Mobile Verified?</th>
+                     <td><?= /* @noEscape */ $enrollmentDetail['is_mobile_verified'] ? 'Yes' : 'No'; ?></td>
+                  </tr>
+                  <tr>
+                     <th>Address</th>
+                     <td><?= /* @noEscape */ $enrollmentDetail['address'] ?? ''; ?></td>
+                  </tr>
+                  <tr>
+                     <th>City / Pincode</th>
+                     <td>
+                        <?= /* @noEscape */ $enrollmentDetail['city'] ?? ''; ?> -
+                        <?= /* @noEscape */ $enrollmentDetail['pincode'] ?? ''; ?>
+                    </td>
+                  </tr>
+                  <tr>
+                     <th>State</th>
+                     <td><?= /* @noEscape */ $block->getRegionNameById($enrollmentDetail['state']); ?></td>
+                  </tr>
+                  <tr>
+                     <th>Nominee Name</th>
+                     <td><?= /* @noEscape */ $nomineeDetail['nominee_name'] ?? ''; ?></td>
+                  </tr>
+                  <tr>
+                     <th>Nominee Relateionship</th>
+                     <td><?= /* @noEscape */ $nomineeDetail['nominee_relationship'] ?? ''; ?></td>
+                  </tr>
+                  <tr>
+                     <th>Nominee Mobilenumber</th>
+                     <td><?= /* @noEscape */ $nomineeDetail['nominee_mobilenumber'] ?? ''; ?></td>
+                  </tr>
+                  <tr>
+                     <th>Nominee Nationality</th>
+                     <td><?= /* @noEscape */ $nomineeDetail['nominee_nationality'] ?? ''; ?></td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+</section>
+<section class="admin__page-section">
+   <div class="admin__page-section-title">
+      <span class="title">Installment Detail</span>
+   </div>
+   <div class="admin__table-wrapper">
+      <table class="data-table admin__table-primary edit-order-table">
+         <thead>
+            <tr class="headings">
+               <th class="col-product"><span>Month</span></th>
+               <th class="col-product"><span>Due Date</span></th>
+               <th class="col-status"><span>Payment Date</span></th>
+               <th class="col-price-original"><span>Amount</span></th>
+               <th class="col-price"><span>Status</span></th>
+               <th class="col-ordered-qty"><span>Transaction Mode</span></th>
+               <th class="col-ordered-qty"><span>Transaction Status</span></th>
+               <th class="col-subtotal"><span>Payment Mode</span></th>
+               <!-- <th class="col-actions last"><span>Actions</span></th> -->
+            </tr>
+         </thead>
+         <tbody class="even">
+            <?php foreach ($installmentRecords as $installment) { ?>
+            <tr>
+               <td class="col-product">
+                  <?= /* @noEscape */ $installment['month']; ?>
+               </td>
+               <td class="col-product">
+                  <?= /* @noEscape */ $installment['due_date']; ?>
+               </td>
+               <td class="col-status">
+                  <?= /* @noEscape */ $installment['payment_date']; ?>
+               </td>
+               <td class="col-price-original">
+                  <span class="price"><?= /* @noEscape */ $installment['amount']; ?></span>
+               </td>
+               <td class="col-price">
+                  <div class="price-excl-tax">
+                     <span class="price">
+                        <?= /* @noEscape */  ($installment['is_paid'] && $installment['payment_status']=='completed')
+                            ? 'Paid' : '-'; ?>
+                    </span>
+                  </div>
+               </td>
+               <td class="col-ordered-qty">
+                  <?= /* @noEscape */  $installment['transaction_mode']; ?>
+               </td>
+               <td class="col-ordered-qty">
+                  <?= /* @noEscape */  $installment['payment_status']; ?>
+               </td>
+               <td class="col-subtotal">
+                  <?= /* @noEscape */ $installment['payment_mode']; ?>
+               </td>
+            </tr>
+           <?php } ?>
+         </tbody>
+      </table>
+   </div>
+</section>

@@ -1,0 +1,136 @@
+<?php
+/**
+ * Candere Software
+ *
+ * @category PG
+ * @package  Scheme
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<script>
+    window.schemeConfig = <?= /* @noEscape */ json_encode(['priceFormat'=>$block->getPriceFormat()])?>
+</script>
+<div class="schemePage">
+    <!-- Planbook -->
+    <div class="planbook">
+        <p class="page_head">My Planbook</p>
+
+        <div class="planbook__wrapper">
+            <p class="planbook--heading">Have a wish to be fullfilled for your next ocassion ?</p>
+            <p class="planbook--para">Start planning for it now and we will also contribute towards your wish</p>
+
+            <div class="planbook__action">
+                <?php if($block->isSchemeApiEnabled()): ?>
+                    <a href="#"
+                       class="base_btn btn_md primary_btn sync-scheme" title="Sync Scheme">
+                        Sync Scheme
+                    </a>
+                <?php endif; ?>
+
+                <a href="<?= /* @noEscape */ $block->getNewEnrollmentUrl(); ?>"
+                    class="base_btn btn_md primary_btn" title="Enroll Now">
+                    Enroll Now
+                </a>
+                <a href="<?= /* @noEscape */ $block->getTermConditionUrl(); ?>"
+                    class="link_2 terms_btn" title="View Terms & Conditions">
+                    View Terms & Conditions
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Planbook -->
+
+    <div id="scheme-installment-component" data-bind="scope:'schemeinstallmentcomponent'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <script type="text/x-magento-init">
+        {
+            "#scheme-installment-component": {
+                "Magento_Ui/js/core/app": {
+                   "components": {
+                        "schemeinstallmentcomponent": {
+                            "component": "KalyanUs_Scheme/js/view/scheme-installment-component",
+                            "enrollmentDetail": <?= /* @noEscape */ json_encode($block->getListOfEnrollment()); ?>,
+                            "children":{
+                                "messages":{
+                                    "component": "Magento_Ui/js/view/messages",
+                                    "displayArea":"messages"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        </script>
+    </div>
+
+    <!-- Redemption -->
+    <div class="redemption">
+        <p class="page_title">How Redemption Works ?</p>
+
+        <p class="redemption__para">
+            Once all your installments are paid and you have received the benefits/our contribution in your account,
+            you can simply follow these easy steps to redeem the Scheme amount to buy your favourite jewellery.
+        </p>
+
+        <div class="redemption">
+            <div class="redemption__list">
+                <span class="redemption__list--icon">
+                    <img src="<?= /* @noEscape */ $this->getViewFileUrl('KalyanUs_Scheme::images/Visit.svg'); ?>"
+                        width="32" height="32" alt="Visit">
+                </span>
+                <p class="redemption__list--para">
+                    Visit our website & browse through 8000+ designs.
+                    Select the jewellery* of your choice except Gold Coins, Frames, Gift Cards etc.
+                    Move to the Checkout page.
+                </p>
+            </div>
+            <div class="redemption__list">
+                <span class="redemption__list--icon">
+                    <img src="<?= /* @noEscape */ $this->getViewFileUrl('KalyanUs_Scheme::images/Note.svg'); ?>"
+                        width="32" height="32" alt="Note">
+                </span>
+                <p class="redemption__list--para">
+                    Add your address & move to the payment page.
+                    On the payment page, select scheme in the payment method.
+                    You will be asked to verify yourself with the registered mobile number.
+                </p>
+            </div>
+            <div class="redemption__list">
+                <span class="redemption__list--icon">
+                    <img src="<?= /* @noEscape */ $this->getViewFileUrl('KalyanUs_Scheme::images/Order_Confirmation.svg'); ?>"
+                        width="32" height="32" alt="Order Confirmation">
+                </span>
+                <p class="redemption__list--para">
+                    Select the scheme you want to redeem. Yayyy! Your order has been placed.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Redemption -->
+</div>
+
+<!-- Sync Scheme Popup-->
+<div id="sync-scheme-popup" style="display: none;">
+    <form id="sync-scheme-form" data-mage-init='{"validation":{}}'>
+        <label for="enrollment_no"><?= __('Enter Enrollment No:') ?></label>
+        <input type="text" id="enrollment_no" name="enrollment_no"
+               class="input-text"
+               data-validate='{"required":true, "digits":true}'
+               placeholder="Enter Enrollment No"/>
+        <button type="submit" class="action primary">Submit</button>
+    </form>
+</div>
+
+<!-- End Sync Scheme Popup-->
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "KalyanUs_Scheme/js/view/sync-scheme": {}
+        }
+    }
+</script>

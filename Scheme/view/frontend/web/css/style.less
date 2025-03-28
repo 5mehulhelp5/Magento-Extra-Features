@@ -1,0 +1,1497 @@
+// @codingStandardsIgnoreFile
+/**
+ * Candere Software
+ *
+ * @category PG
+ * @package  Scheme
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+
+@import "_global.less";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    &:after,
+    &:before {
+        &:extend(*);
+    }
+}
+
+a {
+    text-decoration: none;
+    outline: none;
+
+    &:hover,
+    &:focus {
+        &:extend(a);
+    }
+}
+
+.img-fluid {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.section-padding {
+    padding: 36px 0;
+}
+
+.section--divider {
+    padding-top: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid @line;
+}
+
+.scheme-enrollment-index {
+    .page-main {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    #header_container{
+        position: static;
+    }
+
+    #success-enrollment-form {
+        margin-top: 48px;
+    }
+}
+
+.schemePage {
+    .container__group {
+        display: block;
+        max-width: 1200px;
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
+.page_title {
+    &:extend(.heading_6);
+    color: @headings;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.page_head {
+    &:extend(.heading_5);
+    color: @headings;
+    margin-bottom: 24px;
+}
+
+.section_head {
+    &:extend(.body_2);
+    color: @headings;
+    margin-bottom: 12px;
+}
+
+.para {
+    &:extend(.body_3);
+    color: @body;
+}
+
+.__flex {
+    &:extend(.d_flex);
+    justify-content: space-between;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.__heading {
+    background-color: @primary_background;
+    padding-top: 14px;
+    padding-bottom: 14px;
+
+    &--title {
+        &:extend(.sub_heading_2);
+        color: @headings;
+        text-transform: uppercase;
+    }
+
+    &--action {
+        &:extend(.action_btn_2);
+        color: @primary_500;
+        cursor: pointer;
+    }
+
+    &--head {
+        &:extend(.body_2);
+        color: @label;
+
+        span {
+            &:extend(.sub_heading_1);
+            color: @body;
+        }
+    }
+
+    &--link {
+        &:extend(.action_btn_2);
+        color: @body;
+
+        &-icon {
+            margin-left: 12px;
+        }
+
+        &:visited {
+            color: @body;
+        }
+
+        &:hover {
+            color: @primary_500;
+        }
+    }
+}
+
+.__body {
+    text-align: center;
+    padding: 16px 24px;
+    background-color: @white;
+
+    &--head {
+        &:extend(.overline);
+        color: @label;
+
+        span {
+            &:extend(.sub_heading_1);
+            color: @body;
+            display: block;
+            margin-top: 8px;
+        }
+    }
+}
+.scheme_steps{
+    border-bottom: 1px solid @line;
+}
+.sectionHeader {
+    padding: 16px 0;
+    max-width: 1600px;
+    width: 85%;
+    margin: auto;
+    box-sizing: border-box;
+
+    &__wrapper {
+        &:extend(.d_flex);
+        justify-content: space-between;
+
+        &--center {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+}
+
+.schemeSteps {
+    &:extend(.d_flex);
+    justify-content: space-between;
+
+    &__list {
+        text-align: center;
+        position: relative;
+        flex-basis: 100%;
+
+        &:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(0, -10px);
+            height: 3px;
+            width: 100%;
+            background-color: @secondary_background;
+        }
+
+        &.complete {
+            &:after {
+                background-color: @primary_500;
+            }
+
+            span {
+                border-color: @primary_500;
+                background-color: @primary_500;
+
+                svg {
+                    path {
+                        fill: @white;
+                    }
+                }
+            }
+
+            p {
+                color: @primary_500;
+            }
+        }
+
+        &.active {
+            span {
+                border-color: @primary_500;
+                background-color: @primary_50;
+
+                svg {
+                    path {
+                        fill: @primary_500;
+                    }
+                }
+            }
+
+            p {
+                color: @primary_500;
+            }
+        }
+
+        span {
+            &:extend(.d_flex);
+            width: 40px;
+            height: 40px;
+            border-radius: 40px;
+            border: 2px solid @secondary_background;
+            background-color: @secondary_background;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        p  {
+            &:extend(.sub_heading_2);
+            color: @label;
+            margin-top: 4px;
+        }
+    }
+}
+
+.schemeLayout {
+    margin-top: 24px;
+
+    &__wrapper {
+        &:extend(.d_flex);
+        align-items: flex-start;
+
+        &--left {
+            flex: 0 0 65%;
+            max-width: 65%;
+            position: relative;
+            padding-right: 48px;
+
+            &:after {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                border-right: 1px solid @line;
+            }
+        }
+
+        &--right {
+            flex: 0 0 35%;
+            max-width: 35%;
+            padding-left: 48px;
+            .continue_btn{
+                width:100%;
+                border:none;
+                outline:none;
+            }
+        }
+    }
+
+    .sliderBox {
+        position: relative;
+        padding: 8px 0 40px;
+        margin-bottom: 36px;
+
+        &__label {
+            &--left,
+            &--right {
+                position: absolute;
+                bottom: 0;
+                &:extend(.body_2);
+                color: @body;
+            }
+
+            &--left {
+                left: 0;
+            }
+
+            &--right {
+                right: 0;
+            }
+        }
+    }
+
+    .amountBox,
+    .automateBox {
+        margin-bottom: 24px;
+    }
+
+    .amountBox {
+        .page_title {
+            margin-bottom: 24px;
+        }
+
+        .input_group_container {
+            gap: 24px;
+        }
+
+        .chip_group {
+            .chip_ {
+                padding: 6px 8px;
+                cursor: pointer;
+                transition: all .5s ease-in;
+
+                &.isActive {
+                    background-color: @primary_100;
+
+                    span {
+                        color: @primary_500;
+                    }
+                }
+            }
+        }
+    }
+
+    .automateBox {
+        .custome_input_container {
+            margin-bottom: 8px;
+        }
+    }
+
+    .termsConditions {
+        &:extend(.body_3);
+        color: @headings;
+
+        span {
+            display: inline-block;
+            color: @primary_500;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
+    .summaryBox {
+        &:extend(.md_radius);
+        background-color: @white;
+        border: 1px solid @line;
+        margin-top: 24px;
+        overflow: hidden;
+
+        .schemeSummary {
+
+            &__list {
+                &:extend(.d_flex);
+                justify-content: space-between;
+                padding: 16px;
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid @line;
+                }
+
+                &--text {
+                    &:extend(.body_2);
+                    color: @body;
+
+                    span {
+                        display: block;
+                        &:extend(.body_4);
+                    }
+                }
+
+                &--price {
+                    &:extend(.body_1);
+                    color: @headings;
+
+                    &.success {
+                        color: @success;
+                    }
+                }
+
+                &.redeem {
+                    background-color: @primary_50;
+
+                    .schemeSummary__list--price {
+                        color: @primary_700;
+                    }
+                }
+            }
+        }
+    }
+
+    .informationBox {
+        &:extend(.schemeLayout .summaryBox);
+
+        &__wrapper {
+            padding-top: 16px;
+            padding-bottom: 16px;
+
+            &:not(:last-child) {
+                border-bottom: 1px solid @line;
+            }
+
+            &--head {
+                &:extend(.body_2);
+                color: @body;
+            }
+
+            &--data {
+                &:extend(.body_2);
+                color: @headings;
+            }
+        }
+    }
+}
+
+// Form Div
+.formDiv {
+    padding-top: 16px;
+
+    .personalDetails__form {
+        margin-bottom: 24px;
+    }
+
+    .input_group_container {
+        gap: 20px;
+
+        &:nth-child(2) {
+            .input_group_ {
+                flex-basis: 100%;
+            }
+        }
+
+        &:not(:last-child) {
+            margin-bottom: 36px;
+        }
+
+        .input_group_ {
+            flex-basis: 100%;
+            background-color: @white;
+
+            div.mage-error {
+                font-size: 12px;
+            }
+
+            #sch-pincode-error {
+                font-size: 10px;
+            }
+
+            #sch-city-error {
+                font-size: 10px;
+                line-height: 1.3;
+                padding: 0 12px;
+                bottom: -28px;
+            }
+        }
+    }
+
+    &__accordion {
+        &:extend(.md_radius);
+        background-color: @primary_background;
+        margin-bottom: 24px;
+
+        &--head {
+            &:extend(.d_flex);
+            justify-content: space-between;
+            padding: 16px 24px;
+
+            &-title {
+                &:extend(.sub_heading_1);
+                color: @headings;
+            }
+
+            &-action {
+                &:extend(.action_btn_2);
+                color: @primary_500;
+                cursor: pointer;
+            }
+        }
+
+        &--body {
+            padding: 16px 24px;
+        }
+    }
+
+    &--text {
+        &:extend(.body_3);
+        color: @headings;
+        margin-top: 24px;
+    }
+    .mobile_with_cc{
+        position:relative;
+        input.input_type_text{
+            padding-left:110px!important;
+            box-sizing: border-box;
+        }
+        .mobile_cc{
+            &:extend(.d_flex);
+            position:absolute;
+            top:0;
+            left:0;
+            height:100%;
+            width:100px;
+            justify-content:flex-start;
+            align-items: center;
+            padding:16px 56px 16px 16px;
+            box-sizing: border-box;
+            border-right:1px solid @line;
+            &:extend(.body_2);
+            color:@body;
+            z-index: 5;
+            span{
+                opacity:0;
+                position:relative;
+                height:100%;
+                &:extend(.d_flex);
+                &:after{
+                    width: 12px;
+                    content: " ";
+                    position: absolute;
+                    right:-35px;
+                    top:50%;
+                    transform:translateY(-50%);
+                    height:8px;
+                }
+            }
+        }
+        .verify__,
+        .verified__{
+            &:extend(.d_flex);
+            position:absolute;
+            top:0;
+            right:0;
+            height:100%;
+            width:87px;
+            color:@primary_500;
+            font-size:14px;
+            font-weight:700;
+            text-transform: uppercase;
+            cursor:pointer;
+        }
+        .verified__{
+            pointer-events: none;
+        }
+        .intl-tel-input{
+            width:100%;
+            .flag-container{
+                &:extend(.d_flex);
+                position:absolute;
+                top:0;
+                left:0;
+                height:100%;
+                width:100px;
+                justify-content:center;
+                align-items: center;
+                box-sizing: border-box;
+                border-right:1px solid @line;
+                &:extend(.body_2);
+                color:@body;
+            }
+        }
+        &.fb_48{
+            flex-basis: 50%;
+        }
+        #sch-mobile-number-otp{
+            padding: 0 100px 0 16px!important;
+        }
+        #verify-number-otp-btn{
+            right:8px;
+        }
+        &.nominee{
+            &.active{
+                .mobile_cc{
+                    span{
+                        opacity:1;
+                    }
+                }
+            }
+        }
+        &.personal_details_mob{
+            .mobile_cc{
+                span{
+                    opacity:1;
+                }
+            }
+        }
+    }
+}
+// Form Div
+
+// Slider CSS
+.sliderBox {
+    position: relative;
+
+    .ui-widget-content {
+        background: @secondary_background;
+        border-color: @secondary_background;
+    }
+
+    .ui-widget-header {
+        background: @primary_500;
+        height:4px;
+    }
+
+    .ui-slider-horizontal {
+        height: 4px;
+
+        .ui-slider-handle {
+            top: -8px;
+            width:20px;
+            height:20px;
+        }
+    }
+
+    .ui-slider .ui-slider-handle {
+        border-radius: 50%;
+    }
+
+    .ui-state-default,
+    .ui-widget-content .ui-state-default,
+    .ui-widget-header .ui-state-default {
+        background: @white;
+        border: 2px solid @primary_500;
+    }
+}
+// Slider CSS
+//scheme_option_container
+.scheme_option_container{
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom:32px;
+    .check_wrapper{
+        &:extend(.d_flex);
+        justify-content: flex-start;
+        .custome_input_container{
+            +.custome_input_container{
+                margin-left:16px;
+            }
+        }
+        .custome_input_wrapper__{
+            .custome_checkmark{
+                &.modified_radiobtn{
+                    &:after{
+                        width:15px;
+                        height:15px;
+                    }
+                }
+            }
+        }
+    }
+}
+.automateBox{
+    display: none;
+
+    .custome_input_wrapper__{
+        &.checkbox__{
+            .custome_checkmark{
+                &.modified_checkbox{
+                    &:after{
+                        top: 1px;
+                        left: 5px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Planbook CSS
+.planbook {
+    margin-bottom: 24px;
+
+    .page_head {
+        margin-top: 24px;
+    }
+
+    .planbook__wrapper {
+        &:extend(.md_radius);
+        background: url('../images/Banner.jpg') no-repeat center center;
+        background-size: cover;
+        background-color: #FFF2E9;
+        padding: 36px;
+    }
+
+    &--heading {
+        &:extend(.heading_6);
+        color: @headings;
+        margin-bottom: 4px;
+    }
+
+    &--para {
+        &:extend(.body_2);
+        color: @body;
+        margin-bottom: 32px;
+    }
+
+    &__action {
+        &:extend(.d_flex);
+        justify-content: flex-start;
+
+        .link_2 {
+            color: @primary_700;
+            text-transform: capitalize;
+            text-decoration: underline;
+            margin-left: 28px;
+        }
+    }
+}
+// Planbook CSS
+
+// Plan CSS
+.plans {
+    margin-bottom: 24px;
+
+    &__Box {
+        &:extend(.md_radius);
+        border: 1px solid @line;
+        overflow: hidden;
+
+        &:not(:last-child) {
+            margin-bottom: 24px;
+        }
+
+        .__heading {
+            border-bottom: 1px solid @line;
+        }
+    }
+}
+// Plan CSS
+
+// Redemption CSS
+.redemption {
+    &__para {
+        &:extend(.body_2);
+        color: @body;
+        margin-top: 24px;
+        margin-bottom: 24px;
+    }
+
+    &__list {
+        &:extend(.d_flex);
+        justify-content: flex-start;
+        text-align: left;
+
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+
+        &--icon {
+            &:extend(.d_flex);
+            flex: 0 0 64px;
+            max-width: 64px;
+            width: 64px;
+            height: 64px;
+            border-radius: 64px;
+            background-color: @primary_50;
+        }
+
+        &--para {
+            &:extend(.body_2);
+            color: @body;
+            margin-left: 16px;
+        }
+    }
+}
+// Redemption CSS
+
+// Plan Details
+.planDetails {
+    &:extend(.section--divider);
+
+    .page_head {
+        display: block;
+        color: @headings !important;
+    }
+
+    &__wrapper {
+        &:extend(.d_flex);
+        align-items: flex-end;
+        justify-content: space-between;
+
+        &--left {
+            flex: 0 0 60%;
+            max-width: 60%;
+        }
+
+        &--right {
+            flex: 0 0 40%;
+            max-width: 40%;
+        }
+    }
+
+    &__info {
+        &--text {
+            &:extend(.body_2);
+            color: @label;
+
+            &:not(:last-child) {
+                margin-bottom: 16px;
+            }
+
+            span {
+                &:extend(.sub_heading_1);
+                color: @body;
+
+                &.success {
+                    color: @success;
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+
+    &__due {
+        &:extend(.md_radius);
+        border: 1px solid @line;
+        padding: 24px;
+
+        &--title {
+            &:extend(.overline);
+            color: @label;
+            margin-bottom: 8px;
+        }
+
+        &--date {
+            &:extend(.heading_5);
+            color: @headings;
+        }
+
+        .buttonWrapper {
+            padding-top: 16px;
+            margin-top: 16px;
+            border-top: 2px dashed @line;
+
+            .primary_btn {
+                display: inline-flex;
+            }
+        }
+    }
+}
+// Plan Details
+
+// Plan Status
+.planStatus {
+    &:extend(.section--divider);
+
+    .page_title {
+        margin-bottom: 24px;
+    }
+
+    &__details {
+        &:extend(.d_flex);
+        gap: 16px;
+
+        &--box {
+            background-color: @primary_background;
+            &:extend(.md_radius);
+            padding: 16px;
+            text-align: center;
+            flex-basis: 100%;
+
+            &-head {
+                &:extend(.body_3);
+                color: @label;
+                margin-bottom: 8px;
+            }
+
+            &-action {
+                &:extend(.sub_heading_1);
+                color: @headings;
+            }
+        }
+    }
+
+    &__track {
+        &:extend(.d_flex);
+        justify-content: space-between;
+        margin-top: 40px;
+
+        &--steps {
+            position: relative;
+            flex-basis: 100%;
+
+            &:before {
+                content: "";
+                height: 4px;
+                width: 100%;
+                background-color: @secondary_background;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-100%, -50%);
+                z-index: -1;
+            }
+
+            &:first-child::before {
+                display: none;
+            }
+
+            span {
+                &:extend(.d_flex);
+                width: 28px;
+                height: 28px;
+                border-radius: 28px;
+                margin: 0 auto;
+                background-color: @secondary_background;
+            }
+
+            &.complete {
+                &:before {
+                    background-color: @success;
+                }
+
+                span {
+                    background-color: @success;
+                }
+            }
+        }
+    }
+}
+// Plan Status
+
+// Plan Installment
+.planInstallment{
+    &:extend(.section--divider);
+
+    .page_title {
+        margin-bottom: 24px;
+    }
+
+    .custom__table {
+        width: 100%;
+        text-align: center;
+
+        thead tr {
+            &:extend(.md_radius);
+
+            th {
+                &:extend(.sub_heading_2);
+                color: @headings;
+                padding: 10px 24px;
+                background-color: @primary_background;
+                text-transform: uppercase;
+                text-align: center;
+            }
+        }
+
+        tbody tr {
+
+            &:not(:last-child) {
+                td {
+                    border-bottom: 1px solid @line;
+                }
+            }
+
+            td {
+                &:extend(.body_3);
+                color: @body;
+                padding: 8px 24px;
+                text-align: center;
+            }
+        }
+    }
+}
+// Plan Installment
+
+// Plan Information
+.planInformation {
+    &:extend(.section--divider);
+    border-bottom: none;
+
+    .page_title {
+        margin-bottom: 24px;
+    }
+
+    &__list {
+        &:extend(.d_flex);
+        justify-content: flex-start;
+        border-bottom: 1px solid @line;
+
+        &--head {
+            &:extend(.body_2);
+            color: @body;
+            flex: 0 0 40%;
+            max-width: 40%;
+            padding: 8px 0;
+        }
+
+        &--data {
+            &:extend(.body_2);
+            color: @headings;
+            flex: 0 0 60%;
+            max-width: 60%;
+            padding: 8px 0;
+        }
+    }
+}
+// Plan Information
+
+// Plan Close
+.planClose {
+    &:extend(.section--divider);
+    border-bottom: none;
+
+    .page_title {
+        margin-bottom: 24px;
+    }
+
+    .secondary_btn {
+        display: inline-flex !important;
+    }
+}
+// Plan Close
+
+// Pre Close
+.preClose {
+    text-align: left;
+
+    &__wrapper {
+        padding: 28px 0;
+        border-top: 1px solid @line;
+        border-bottom: 1px solid @line;
+    }
+
+    &__flex {
+        &:extend(.d_flex);
+        justify-content: space-between;
+
+        &:not(:last-child) {
+            margin-bottom: 32px;
+        }
+
+        &--title {
+            &:extend(.body_2);
+            color: @body;
+            flex: 0 0 65%;
+            max-width: 65%;
+        }
+
+        &--data {
+            &:extend(.heading_6);
+            color: @headings;
+            text-align: right;
+            flex: 0 0 35%;
+            max-width: 35%;
+        }
+    }
+
+    &--note {
+        &:extend(.body_3);
+        color: @label;
+        padding: 24px 0;
+    }
+}
+// Pre Close
+
+// Plan Scheme
+.planScheme {
+    margin-top: 36px;
+
+    &--title {
+        &:extend(.sub_heading_1);
+        color: @headings;
+        margin-bottom: 36px;
+    }
+
+    &__flex {
+        &:extend(.md_radius);
+        &:extend(.d_flex);
+        justify-content: space-between;
+        padding: 12px 16px;
+        background-color: @primary_background;
+
+        &:not(:last-child) {
+            margin-bottom: 24px;
+        }
+
+        &--title {
+            &:extend(.body_2);
+            color: @body;
+            flex: 0 0 65%;
+            max-width: 65%;
+            text-align: left;
+
+            span {
+                display: block;
+            }
+        }
+
+        &--data {
+            &:extend(.heading_6);
+            color: @headings;
+            text-align: right;
+            flex: 0 0 35%;
+            max-width: 35%;
+        }
+    }
+}
+// Plan Scheme
+
+// Voucher
+.voucher {
+    &__created {
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+
+        &--icon {
+            margin: 0 auto 34px;
+        }
+
+        &--success {
+            &:extend(.body_1);
+            color: @success;
+            margin-bottom: 24px;
+        }
+
+        &--text {
+            &:extend(.body_2);
+            color: @headings;
+            margin-bottom: 24px;
+        }
+    }
+
+    &__card {
+        &:extend(.md_radius);
+        &:extend(.d_flex);
+        justify-content: space-between;
+        border: 1px dashed @primary_500;
+        padding: 28px 24px;
+        background: linear-gradient(180deg, #F2FFFF 0%, #C3E9EC 100%);
+
+        &--title {
+            &:extend(.sub_heading_2);
+            color: @primary_700;
+            margin-bottom: 8px;
+        }
+
+        &--amount {
+            &:extend(.heading_5);
+            color: @headings;
+        }
+
+        &--code {
+            &:extend(.sub_heading_1);
+            &:extend(.sm_radius);
+            color: @primary_700;
+            border: 1px solid @primary_500;
+            padding: 8px;
+            margin-bottom: 4px;
+        }
+
+        &--copy {
+            &:extend(.body_4);
+            color: @placeholder;
+            cursor: pointer;
+            text-align: center;
+        }
+    }
+}
+// Voucher
+
+.planType {
+    &:extend(.d_flex);
+    gap: 48px;
+    width: 100%;
+    margin-bottom: 28px;
+
+    &__list {
+        &:extend(.d_flex);
+        &:extend(.md_radius);
+        justify-content: space-between;
+        flex-basis: 100%;
+        background-color: @primary_background;
+        border: 2px solid @primary_background;
+        padding: 24px;
+        position: relative;
+        cursor: pointer;
+
+        &--icon {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            display: none;
+        }
+
+        &--right {
+            text-align: center;
+        }
+
+        &--title {
+            &:extend(.body_1);
+            color: @headings;
+            margin-bottom: 24px;
+        }
+
+        &--heading {
+            &:extend(.body_3);
+            color: @body;
+            margin-bottom: 8px;
+        }
+
+        &.active {
+            background-color: @primary_100;
+            border-color: @primary_500;
+
+            .planType__list--icon {
+                display: block;
+            }
+        }
+    }
+
+    .duration {
+        &--title {
+            &:extend(.sub_heading_2);
+            color: @body;
+            margin-bottom: 4px;
+        }
+
+        &--months {
+            &:extend(.body_3);
+            color: @headings;
+        }
+    }
+
+    .benefit {
+        &--percent {
+            &:extend(.heading_4);
+            color: @headings;
+            margin-bottom: 8px;
+        }
+
+        &--months {
+            &:extend(.body_3);
+            color: @body;
+        }
+    }
+}
+
+// SideData CSS
+.sideData__backdrop,
+.popup__backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: fade(@only_black, 60%);
+    z-index: 9999;
+}
+
+.sideData {
+    background-color: @white;
+    max-width: 480px;
+    width: 100%;
+    height: 100vh;
+    padding: 24px;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    z-index: 99999;
+
+    &__close {
+        position: absolute;
+        top: 8px;
+        right: 0;
+        cursor: pointer;
+    }
+
+    .__header {
+        padding-bottom: 24px;
+        position: relative;
+
+        &__content {
+            &:extend(.d_flex);
+
+            &--title {
+                &:extend(.heading_6);
+                color: @headings;
+                position: relative;
+
+                &:after {
+                    content: "";
+                    width: 126px;
+                    height: 1px;
+                    margin: 0 auto;
+                    background: @primary_500;
+                    position: absolute;
+                    bottom: -12px;
+                    left: 50%;
+                    transform: translate(-50%, 0);
+                }
+            }
+        }
+    }
+
+    .__body {
+        padding: 0;
+        margin-top: 32px;
+
+        &--content {
+            height: ~"calc(90vh - 80px)";
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                width: 2px;
+                border-radius: 50px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: @white;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: @primary_500;
+            }
+
+            &::-webkit-scrollbar-thumb:hover {
+                background: @primary_700;
+            }
+
+            .planScheme {
+                margin-top: 0;
+
+                &--title {
+                    margin-bottom: 24px;
+                    text-align: left;
+                }
+
+                &__flex {
+                    margin-bottom: 24px;
+
+                    &:last-child {
+                        margin-bottom: 36px;
+                    }
+                }
+            }
+
+            .redemption {
+                margin-top: 36px;
+
+                &__list {
+
+                    &--icon {
+                        flex: 0 0 56px;
+                        max-width: 56px;
+                        width: 56px;
+                        height: 56px;
+                        border-radius: 56px;
+                    }
+
+                    &--para {
+                        &:extend(.body_3);
+                    }
+                }
+            }
+        }
+    }
+
+    // .__footer {
+    //     margin-top: 16px;
+
+    //     &__wrapper {
+    //         &:extend(.d_flex);
+    //         gap: 24px;
+    //         justify-content: space-between;
+    //     }
+    // }
+}
+// SideData CSS
+
+// Popup CSS
+.popup {
+    width: 600px;
+    margin: 0 auto;
+    position: fixed;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99999;
+
+    .popup-dialog {
+        position: relative;
+        width: auto;
+        width: 420px;
+        margin: 10px auto;
+        pointer-events: none;
+
+        &.popup-centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .popup__content {
+            &:extend(.lg_radius);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            pointer-events: auto;
+            background-color: @white;
+            background-clip: padding-box;
+            outline: 0;
+            padding: 16px 16px 24px;
+
+            .popup__header {
+                text-align: center;
+                margin-bottom: 24px;
+                position: relative;
+
+                &--title {
+                    &:extend(.heading_6);
+                    color: @headings;
+                    padding-bottom: 12px;
+                    position: relative;
+
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        width: 106px;
+                        height: 1px;
+                        margin: 0 auto;
+                        background-color: @primary_500;
+                    }
+                }
+            }
+
+            .popup__body {
+                position: relative;
+                flex: 1 1 auto;
+
+
+            }
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 50%;
+            right: 1%;
+            transform: translateY(-50%);
+            width: 14px;
+            height: 14px;
+            line-height: 14px;
+            cursor: pointer;
+        }
+    }
+}
+// Popup CSS
+
+.verifyError {
+    color: @white;
+    background-color: @error;
+    padding: 4px 16px;
+    &:extend(.body_3);
+    &:extend(.sm_radius);
+    margin-bottom: 24px;
+}

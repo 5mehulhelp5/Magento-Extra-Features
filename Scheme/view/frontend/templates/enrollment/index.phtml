@@ -1,0 +1,41 @@
+<?php
+/**
+ * Candere Software
+ *
+ * @category PG
+ * @package  Scheme
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+
+
+if ($block->isEnabledScheme()): ?>
+<script>
+    window.schemeConfig = <?= /* @noEscape */ json_encode(['priceFormat'=>$block->getPriceFormat()])?>
+</script>
+<div id="scheme-enrollment-component" data-bind="scope:'schemeenrollmentcomponent'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+    {
+        "#scheme-enrollment-component": {
+            "Magento_Ui/js/core/app": {
+               "components": {
+                    "schemeenrollmentcomponent": {
+                        "component": "KalyanUs_Scheme/js/view/scheme-enrollment-component",
+                        "quote": <?= /* @noEscape */ json_encode($block->getQuote()); ?>,
+                        "optionList": <?= /* @noEscape */ json_encode($block->optionArr()); ?>,
+                        "schemeData":<?= /* @noEscape */ json_encode($block->getSchemeData()); ?>,
+                        "children":{
+                            "messages":{
+                                "component": "Magento_Ui/js/view/messages",
+                                "displayArea":"messages"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    </script>
+</div>
+<?php endif; ?>

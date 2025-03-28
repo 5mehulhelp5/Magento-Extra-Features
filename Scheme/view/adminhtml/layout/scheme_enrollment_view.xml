@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Candere Software
+ *
+ * @category PG
+ * @package  Scheme
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+	<head>
+        <title>View Enrollment</title>
+    </head>
+	<body>
+        <referenceContainer name="content">
+            <block class="KalyanUs\Scheme\Block\Adminhtml\Enrollment\View" name="scheme_block_adminhtml_enrollment_view"  template="KalyanUs_Scheme::scheme_enrollment_view.phtml" />
+        </referenceContainer>
+    </body>
+</page>
