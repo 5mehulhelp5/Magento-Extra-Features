@@ -1,0 +1,79 @@
+<!--
+/**
+ * Candere Software
+ *
+ * @category PG
+ * @package  Scheme
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+-->
+<div id="success-enrollment-form" data-bind="visible:isSuccessEnrollment">
+    <div class="order_success_container flex_container_group">
+        <div class="item_info order_success_wrapper ">
+            <div class="success_image_section">
+                <img data-bind="attr: { src: require.toUrl('KalyanUs_Scheme/images/success_animation.gif') }"
+                    alt="success_animation" />
+            </div>
+            <div class="info_heading">You have subscribed to the Plan Successfully</div>
+            <p class="thankyou_message">Thank you for subscribing to our smart Jewellery Plan!!</p>
+            <div class="info_wrapper">
+
+                <div class="order_details_container">
+                    <p class="title">Your Plan Details</p>
+                    <!-- ko foreach: { data: successResponseArr(), as: 'successEnrollment'} -->
+                    <div class="details_wrapper">
+                        <p>Plan No. <span data-bind="text: successEnrollment.plan_no"></span></p>
+                        <p>Monthly Amount <span
+                                data-bind="text: $parent.getFormattedPrice(successEnrollment.emi_amount)"></span></p>
+                        <p>Pay next installment before <span
+                                data-bind="text: successEnrollment.next_due_date_format"></span></p>
+                    </div>
+                    <div class="user_email_section">
+                        <p>An email confirmation has been sent to: </p>
+                        <p class="user_email" data-bind="text: successEnrollment.email_id"></p>
+                    </div>
+                    <!-- /ko -->
+                </div>
+                <div class="track_cta_group">
+                    <p>You can view further updates of this plan in My Account</p>
+                    <a class="track_cta" data-bind="attr: { href: getPlanbookScheme() }">Go to Planbook</a>
+                </div>
+            </div>
+        </div>
+        <div class="item_info order_success_info_wrapper">
+            <div class="item_info_heading">What happens next ?</div>
+            <div class="item_details_info">
+                <div class="item_details_wrapper">
+                    <img data-bind="attr: { src: require.toUrl('KalyanUs_Scheme/images/payment_confirmation.svg') }"
+                        alt="payment_confirmation" />
+                    <div class="details_info">
+                        <p class="title">1. Pay your monthly installments</p>
+                        <p>You have enrolled in the plan by paying your first installment. You will now pay the rest of
+                            the installments within the prescribed timelines to mature your scheme.</p>
+                    </div>
+                </div>
+                <div class="item_details_wrapper">
+                    <img data-bind="attr: { src: require.toUrl('KalyanUs_Scheme/images/redeem.svg') }"
+                        alt="manufacturing" />
+                    <div class="details_info">
+                        <p class="title">2. Redeem your plan amount</p>
+                        <p>Once you have paid all your installments, then it’s time to reap the fruits of your
+                            investment. But not before Candere has contributed its fair share to your investment. The
+                            amount will be reflected in your 'Scheme' section. </p>
+                    </div>
+                </div>
+                <div class="item_details_wrapper">
+                    <img data-bind="attr: { src: require.toUrl('KalyanUs_Scheme/images/certificate.svg') }"
+                        alt="certificate" />
+                    <div class="details_info">
+                        <p class="title">3. Place an order</p>
+                        <p>The amount can be redeemed to purchase any jewellery of your choice except Gold Coins,
+                            Frames, gift cards etc. At the time of placing your order, you can find your scheme amount
+                            in the payment options. By clicking on that, you can redeem your Scheme Amount.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

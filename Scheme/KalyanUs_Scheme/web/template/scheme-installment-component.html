@@ -1,0 +1,48 @@
+<!--
+/**
+ * Candere Software
+ *
+ * @category PG
+ * @package  Scheme
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+-->
+
+<!-- ko foreach: getRegion('messages') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+<div class="plans">
+    <!-- ko if: enrollmentDetail().length -->
+    <p class="page_title">My Plans</p>
+    <!-- ko foreach: { data: enrollmentDetail, as: 'enroll'} -->
+    <div class="plans__Box">
+        <div class="__flex __heading">
+            <p class="__heading--head">Plan No. : <span text="enroll.plan_no"></span></p>
+            <p data-bind="visible: enroll.enrollment_no" class="__heading--head">Enrollment No. : <span text="enroll.enrollment_no"></span></p>
+            <p class="__heading--head">Status : <span text="enroll.status_label"></span></p>
+            <a data-bind="attr: { href: enroll.view_enrollment_url }"  target="_blank" class="__heading--link"
+                title="View Plan Details">View Plan Details
+                <img data-bind="attr: { src: require.toUrl('KalyanUs_Scheme/images/arrow.svg') }" alt="Arrow"
+                    class="__heading--link-icon">
+            </a>
+        </div>
+        <div class="__flex __body">
+            <p class="__body--head">Installment <span
+                    data-bind="text: $parent.getFormattedPrice(enroll.emi_amount)"></span></p>
+            <p class="__body--head">Months Paid
+                <span><!--ko text: enroll.paid_installment--><!--/ko-->/<!--ko text: enroll.duration--><!--/ko--></span>
+            </p>
+            <p class="__body--head">Total Balance <span
+                    data-bind="text: $parent.getFormattedPrice(total_amount_paid)"></span></p>
+            <p class="__body--head">Redemption Amount <span
+                    data-bind="text: $parent.getFormattedPrice(redemption_amount)"></span></p>
+            <!-- ko if: enroll.is_installment_payment_allow -->
+            <a href="javascript:void(0)" class="base_btn btn_md primary_btn" title="Pay Installment"
+                data-bind="click: function(){ $parent.payInstallment(enroll.id); }">Pay Installment</a>
+            <!--/ko-->
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- /ko -->
+</div>

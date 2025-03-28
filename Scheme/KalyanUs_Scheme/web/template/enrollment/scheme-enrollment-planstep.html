@@ -1,0 +1,87 @@
+<!--
+/**
+ * Candere Software
+ *
+ * @category PG
+ * @package  Scheme
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+-->
+<div class="scheme-step-plan scheme-step-1" id="scheme-step-1" data-step="1" data-bind="visible:isPlanStep">
+    <p class="page_title">Choose plan type</p>
+    <div class="planType">
+        <!-- ko foreach: { data: schemeData.schemes, as: 'scheduration'} -->
+        <div class="planType__list long_term"
+            data-bind="click: function(){ $parent.durationSelected(scheduration.duration); }, css: {'active':$parent.selectDurationScheme(scheduration.duration) } ">
+            <input style="display: none;" type="radio" name="scheme[duration]"
+                data-bind="checked:$parent.selectedDurationValue, attr: { id: 'duration-'+scheduration.duration, value: scheduration.duration }">
+            <span class="planType__list--icon">
+                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12.5 2C6.98 2 2.5 6.48 2.5 12C2.5 17.52 6.98 22 12.5 22C18.02 22 22.5 17.52 22.5 12C22.5 6.48 18.02 2 12.5 2ZM9.79 16.29L6.2 12.7C5.81 12.31 5.81 11.68 6.2 11.29C6.59 10.9 7.22 10.9 7.61 11.29L10.5 14.17L17.38 7.29C17.77 6.9 18.4 6.9 18.79 7.29C19.18 7.68 19.18 8.31 18.79 8.7L11.2 16.29C10.82 16.68 10.18 16.68 9.79 16.29Z"
+                        fill="#2FBCCC"></path>
+                </svg>
+            </span>
+            <div class="planType__list--left">
+                <p class="planType__list--title"><!--ko text: scheduration.name--><!--/ko--></p>
+                <div class="duration">
+                    <p class="duration--title">Duration :</p>
+                    <p class="duration--months"><!--ko text: scheduration.duration--><!--/ko--> months</p>
+                </div>
+            </div>
+            <div class="planType__list--right">
+                <p class="planType__list--heading">Get Extra</p>
+                <div class="benefit">
+                    <p class="benefit--percent"><!--ko text: scheduration.benefit_percentage--><!--/ko-->%</p>
+                    <p class="benefit--months">of 1 month</p>
+                </div>
+            </div>
+        </div>
+        <!--/ko-->
+    </div>
+
+
+
+    <div class="amountBox">
+        <p class="page_title">Monthly plan amount</p>
+        <div class="input_group_container">
+            <div class="input_group_ active">
+                <input data-bind="value: selectedEmiValue" class="input_type_text" type="text" name="scheme[emi_amount]"
+                    id="emi_amount" maxlength="6" data-validate="{required:true}">
+                <div class="label_ pushedUp">Enter Amount</div>
+            </div>
+
+            <div class="input_group_">
+                <div class="chip_group">
+                    <!-- ko foreach: { data: optionList.usuallySelectedEmiAmount, as: 'selectUsuallyEmi'} -->
+                    <div class="chip_"
+                        data-bind="click: function(){ $parent.selectUsuallyEmailAmount(selectUsuallyEmi); }, css: $parent.selectedEmiVal(selectUsuallyEmi) == true ? 'isActive' : ''">
+                        <span data-bind="text: $parent.getFormattedPrice(selectUsuallyEmi)"></span>
+                    </div>
+                    <!--/ko-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="automateBox">
+        <label class="custome_input_container">
+            <div class="custome_input_wrapper__ checkbox__">
+                <input type="checkbox" id="scheme-automate-monthly" name="scheme[auto_monthly_payment]" value="1"
+                    data-bind="checked:auto_monthly_payment">
+                <span class="custome_checkmark modified_checkbox"></span>
+            </div>
+            <span class="input_balel">Automate Monthly Payments</span>
+        </label>
+        <p class="para">
+            By agreeing to this you understand, acknowledge and agree that Candere may engage third party payment
+            processors or gateway service providers to automate recurring payments every month. You may also change to
+            manual payments at any point.
+        </p>
+    </div>
+    <div class="termsConditions">
+        <p class="terms_btn">By continuing, you agree with our <span><a class="term-condition"
+                    data-bind="attr: { href: getTermAndCondition() }">Terms & Conditions</a></span></p>
+    </div>
+</div>

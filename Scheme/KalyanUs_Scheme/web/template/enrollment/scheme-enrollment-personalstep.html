@@ -1,0 +1,150 @@
+<!--
+/**
+ * Candere Software
+ *
+ * @category PG
+ * @package  Scheme
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+-->
+<div class="scheme-step-personal scheme-step-2" id="scheme-step-2" data-step="2" data-bind="visible:isPersonalStep">
+  <!-- <p class="page_title">Personal Details</p> -->
+  <div class="formDiv">
+    <div class="input_group_container">
+      <div class="input_group_ email-group">
+        <input class="input_type_text input-text" type="text" id="sch-email" name="scheme[email_id]"
+          data-validate="{required:true, 'validate-email':true}"
+          data-bind="value: schemeEmail , attr: { readonly: allowToEditEmail()}">
+        <div class="label_ pushedUp">Email Address</div>
+        <div class="verify__" id="verify-email-btn"
+          data-bind="visible: isSendOtpVisible, click: sendOtp.bind($data, 'email')">Send Otp</div>
+        <div class="verify__" id="verified-email-btn" data-bind="visible: isVerifyOtp">Verified</div>
+      </div>
+    </div>
+    <div class="input_group_container">
+      <div class="input_group_">
+        <input class="input_type_text" type="text" id="sch-full-name" name="scheme[customer_name]"
+          data-validate="{required:true,'validate-alph-with-spaces-custom':true}" maxlength="200"
+          data-bind="value: schemeCustomerName">
+        <div class="label_ pushedUp">Full Name</div>
+      </div>
+
+      <div class="input_group_ mobile_with_cc personal_details_mob fb_48">
+        <input class="input_type_text mobile_number__" type="text" id="sch-mobile-number"
+          name="scheme[scheme_mobile_number]" data-validate="{required:true,'validate-digits':true,'minlength':10}"
+          data-bind="value: schemeMobileNumber">
+        <div class="mobile_cc"><span>+1</span></div>
+        <div class="label_ pushedUp">Mobile No.</div>
+      </div>
+
+      <!-- ko if: isOtpSend()-->
+      <div class='popup__backdrop' data-bind="click:closePopUp"></div>
+      <div class="popup">
+        <div class="popup-dialog popup-centered">
+          <div class="popup__content">
+            <div class="popup__header">
+              <p class="popup__header--title">Verify OTP</p>
+              <img
+                data-bind="attr: { src: require.toUrl('KalyanUs_Scheme/images/sideData_close.svg') }, click:closePopUp"
+                alt="Close" class="img-fluid close-popup">
+            </div>
+            <div class="popup__body">
+              <!-- ko if: verifyError()-->
+              <div class="verifyError">Please Enter Correct OTP Number</div>
+              <!--/ko-->
+              <div class="input_group_ mobile_with_cc fb_48">
+                <input class="input_type_text mobile_number__" type="text" id="sch-mobile-number-otp"
+                  name="scheme[scheme_mobile_number_otp]" data-validate="{required:true}">
+                <div class="verify__" id="verify-number-otp-btn" data-bind="click: verifyOtp">Verify Otp</div>
+                <div class="label_ pushedUp">Verify Otp</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/ko-->
+    </div>
+    <div class="input_group_container">
+      <div class="input_group_">
+        <input class="input_type_text" type="textarea" id="sch-address" name="scheme[address]"
+          data-validate="{required:true}" data-bind="value: schemeAddress">
+        <div class="label_ pushedUp">Address</div>
+      </div>
+    </div>
+    <div class="input_group_container">
+      <div class="input_group_">
+        <input class="input_type_text" type="text" id="sch-pincode" name="scheme[pincode]"
+          data-validate="{required:true,'validate-digits':true,'minlength':5}" data-bind="value: schemePincode">
+        <div class="label_ pushedUp">Pincode</div>
+      </div>
+
+      <div class="input_group_">
+        <div class="custome_select">
+          <select class="type_select" id="sch-state" name="scheme[state]" data-validate="{required:true}" data-bind="options: optionList.stateOption,optionsValue: 'region_id',optionsText: 'default_name',
+                                value: schemeState,
+                                optionsCaption: 'Select a Region/state'"></select>
+          <div class="label_ pushedUp">State</div>
+        </div>
+      </div>
+
+      <div class="input_group_">
+        <input class="input_type_text" type="text" id="sch-city" name="scheme[city]"
+          data-validate="{required:true,'validate-alph-with-spaces-custom':true}" data-bind="value: schemeCity">
+        <div class="label_ pushedUp">City</div>
+      </div>
+    </div>
+    <div class="formDiv__accordion nominee">
+      <div class="formDiv__accordion--head">
+        <p class="formDiv__accordion--head-title">Nominee Details (Optional)</p>
+        <p class="formDiv__accordion--head-action" data-bind="text:nomineText,click:addnominee"></p>
+      </div>
+      <div class="formDiv__accordion--body" data-bind="visible:isAllowNominee">
+        <div class="input_group_container">
+          <div class="input_group_">
+            <input class="input_type_text" type="text" id="sch-nominee-full-name" name="scheme[nominee][nominee_name]"
+              data-bind="value: nomineeName, attr: { 'data-validate': isAllowNominee() ? '{required:true, \'validate-alph-with-spaces-custom\':true}' : '{}'}"
+              maxlength="200">
+            <div class="label_ pushedUp">Full Name</div>
+          </div>
+
+          <div class="input_group_">
+            <div class="custome_select">
+              <select class="type_select" id="sch-nominee-relationship" name="scheme[nominee][nominee_relationship]"
+                data-bind="options: optionList.relationshipOption,
+                               value: nomineeRelationship,
+                               optionsCaption: 'Select a Relationship',
+                               attr: { 'data-validate': isAllowNominee() ? '{required:true}' : '{}' }">
+              </select>
+              <label class="label_ pushedUp"><span>Relationship</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="input_group_container">
+          <div class="input_group_ mobile_with_cc nominee">
+            <input class="input_type_text mobile_number__" type="text" id="sch-nominee-mobile-number"
+              name="scheme[nominee][nominee_mobilenumber]"
+              data-bind="value: nomineeMobileNumber, attr: { 'data-validate': isAllowNominee() ? '{required:true, \'validate-digits\':true}' : '{}' }">
+            <div class="mobile_cc"><span>+1</span></div>
+            <div class="label_">Mobile No.</div>
+          </div>
+
+          <div class="input_group_">
+            <div class="custome_select">
+              <select class="type_select" id="sch-nominee-nationality" name="scheme[nominee][nominee_nationality]"
+                data-bind="options: optionList.nationalityOption,
+                               value: nomineeNationality,
+                               optionsCaption: 'Select Nationality',
+                               attr: { 'data-validate': isAllowNominee() ? '{required:true}' : '{}' }">
+              </select>
+              <label class="label_ pushedUp"><span>Nationality</span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="formDiv--text">By clicking Continue, you are declaring that you’re above 18 years of age and a resident of
+      US.</p>
+  </div>
+</div>

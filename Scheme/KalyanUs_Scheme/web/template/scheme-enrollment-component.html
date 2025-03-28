@@ -1,0 +1,69 @@
+<!--
+/**
+ * Candere Software
+ *
+ * @category PG
+ * @package  Scheme
+ * @author Candere
+ * @copyright Candere Pvt. Ltd. (https://www.candere.com/)
+ */
+-->
+
+<!-- ko foreach: getRegion('messages') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+<div class="schemePage" data-bind="visible:isStepVisible">
+    <!-- Main -->
+    <div class="schemeLayout">
+        <div class="container__group">
+            <div class="row__group">
+                <div class="schemeLayout__wrapper">
+                    <div class="scheme-all-steps schemeLayout__wrapper--left" id="scheme-all-steps">
+                        <form class="personalDetails__form" id="scheme-enrollment-form"
+                            data-mage-init='{"validation": {}}'>
+                            <render args="schemePlanStepTemplate"></render>
+                            <render args="schemePersonalStepTemplate"></render>
+                        </form>
+                    </div>
+
+                    <div class="schemeLayout__wrapper--right">
+                        <button class="base_btn btn_lg primary_btn continue_btn"
+                            data-bind="click: continueButton">Continue</button>
+                        <div class="summaryBox">
+                            <div class="__flex __heading">
+                                <p class="__heading--title">Summary of Plan</p>
+                                <p class="__heading--action" data-bind="visible:isPersonalStep, click: changePlan">
+                                    Change Plan</p>
+                            </div>
+                            <div class="schemeSummary">
+                                <div class="schemeSummary__list">
+                                    <div class="schemeSummary__list--text">You Pay
+                                        <span>(<!--ko text: selectedDurationValue--><!--/ko--> months)</span>
+                                    </div>
+                                    <div class="schemeSummary__list--price"
+                                        data-bind="text:getTotalEmiAmountWithFormat(selectedEmiValue())"></div>
+                                </div>
+                                <div class="schemeSummary__list">
+                                    <div class="schemeSummary__list--text">Your Benefits
+                                        <span>(<!--ko text: benefitPercentageValue--><!--/ko-->% of 1 month)</span>
+                                    </div>
+                                    <div class="schemeSummary__list--price success"
+                                        data-bind="text:getBenefitWithFormat(selectedEmiValue())"></div>
+                                </div>
+                                <div class="schemeSummary__list redeem">
+                                    <div class="schemeSummary__list--text">Redeemable Amount <span>(After
+                                            <!--ko text: selectedDurationValue--><!--/ko--> months)</span></div>
+                                    <div class="schemeSummary__list--price"
+                                        data-bind="text:getRedeemableAmountWithFormat(selectedEmiValue())"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main -->
+</div>
+<render if="isSuccessEnrollment" args="schemeSuccessTemplate"></render>
+<render if="isFailureEnrollment" args="schemeFailureTemplate"></render>
