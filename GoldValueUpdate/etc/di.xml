@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Console Command to update the metal value based on purity -->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="update_gold_value" xsi:type="object">KalyanUs\GoldValueUpdate\Console\Command\UpdateGoldValue</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="KalyanUs\GoldValueUpdate\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">Update</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">KalyanUs\GoldValueUpdate\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
