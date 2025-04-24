@@ -222,7 +222,17 @@ bin/elasticsearch-plugin install analysis-icu
 sudo service elasticsearch restart
 composer install
 
+UPDATE core_config_data
+SET value = REPLACE(value, 'https://mcstaging2.candere.com', 'http://candere2.local')
+WHERE value LIKE '%https://mcstaging2.candere.com%';
 
+UPDATE core_config_data
+SET value = REPLACE(value, 'https://kalyan.candere.com', 'http://kalyan.candere2.local')
+WHERE value LIKE '%https://kalyan.candere.com%';
+
+UPDATE core_config_data
+SET value = REPLACE(value, 'https://staging-us.kalyanjewellers.net', 'http://us-kalyan.candere2.local')
+WHERE value LIKE '%https://staging-us.kalyanjewellers.net%';
 
 scp -r /var/www/html/React/demo/ codilar@192.168.29.171:/var/www/html/
 mysqldump -uhcgpx6hxwzycg_stg2 -pEMLJVH2GVkZsIkW -h 127.0.0.1 hcgpx6hxwzycg_stg2 | gzip > /app/hcgpx6hxwzycg_stg2/pub/media/sqls/kalyan_staging_27_02_2025.sql.gz
