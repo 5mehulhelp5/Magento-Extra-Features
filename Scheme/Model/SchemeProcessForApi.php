@@ -208,7 +208,7 @@ class SchemeProcessForApi
                     'amount' => $item['Amount'] ?? '',
                     'month' => $item['EMIMonth'] ?? '',
                     'payment_date' => isset($item['Date']) ? $this->getFormattedDate($item['Date']) : '',
-                    'payment_status' => $item['PaymentStatus'] ?? '',
+                    'payment_status' => $item['PaymentStatus'] ? strtolower($item['PaymentStatus']) :'',
                     'reference_no' => $item['ReferenceNo'] ?? '',
                     'transaction_mode' => $this->getOnlineTramsactionMode($item['MOP'] ?? ''),
                     'payment_mode' => $item['MOP'] ?? ''

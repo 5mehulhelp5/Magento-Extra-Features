@@ -131,6 +131,6 @@ class View extends \Magento\Backend\Block\Widget\Container
     public function getRegionNameById($regionId)
     {
         $region = $this->regionFactory->create()->load($regionId);
-        return $region->getId() ? $region->getName() : '';
+        return $region->getId() ? $region->getName() : $regionId;
     }
 }

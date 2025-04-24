@@ -130,7 +130,7 @@ class Buy extends Action
                         $razorpayData=[];
                         $currencyCode = $this->helperConfigScheme->getSelectedCurrency();
                         $razorpayData['currency']= $currencyCode;
-                        $razorpayData['name']='Candere Scheme';
+                        $razorpayData['name']='Kalyan Scheme';
                         $razorpayData['description']=$EnrollmentInfo['scheme_name'];
                         $razorpayData['image']='';
                         $razorpayData['prefill']=[

@@ -51,10 +51,16 @@ define([
                         messageList.addErrorMessage({ message: response.message });
                     }
                     popupModal.modal('closeModal');
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 2000);
                 },
                 error: function () {
                     messageList.addErrorMessage({ message: 'Something went wrong. Please try again.' });
                     popupModal.modal('closeModal');
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 2000);
                 }
             });
         });

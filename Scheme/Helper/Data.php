@@ -157,9 +157,9 @@ class Data extends AbstractHelper
     public function getMonth($datetime = '')
     {
         if ($datetime!='') {
-            return $this->timezoneInterface->date(new \DateTime($datetime))->format('M-Y');
+            return $this->timezoneInterface->date(new \DateTime($datetime),null,false)->format('M-Y');
         }
-        return $this->timezoneInterface->date()->format('M-Y');
+        return $this->timezoneInterface->date(null,null, false)->format('M-Y');
     }
 
     /**

@@ -11,7 +11,13 @@
 
 namespace KalyanUs\Scheme\Model;
 
+use KalyanUs\Scheme\Helper\Config;
+use KalyanUs\Scheme\Helper\Data;
 use Magento\Framework\App\ResourceConnection;
+use Magento\Framework\Event\ManagerInterface as EventManager;
+use Magento\Framework\Stdlib\DateTime\DateTime;
+use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
+use PG\Customerjourney\Model\CustomerjourneyService;
 
 class EnrollmentProcess
 {
@@ -47,16 +53,18 @@ class EnrollmentProcess
     public const SCHEME_PAYMENT_STATUS_COMPLETED_CODE = 'completed';
 
     public const SCHEME_PAYMENT_MODE_CODE = 'cash';
+    private EventManager $_eventManager;
 
     /**
      * Constructor
      *
      * @param ResourceConnection $resourceConnection
-     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $timezone
-     * @param \Magento\Framework\Stdlib\DateTime\DateTime $date
-     * @param \KalyanUs\Scheme\Helper\Config $helperConfigScheme
-     * @param \PG\Customerjourney\Model\CustomerjourneyService $customerjourneyService
-     * @param \KalyanUs\Scheme\Helper\Data $helperDataScheme
+     * @param TimezoneInterface $timezone
+     * @param DateTime $date
+     * @param Config $helperConfigScheme
+     * @param CustomerjourneyService $customerjourneyService
+     * @param Data $helperDataScheme
+     * @param EventManager $_eventManager
      */
     public function __construct(
         ResourceConnection $resourceConnection,
@@ -64,7 +72,8 @@ class EnrollmentProcess
         \Magento\Framework\Stdlib\DateTime\DateTime $date,
         \KalyanUs\Scheme\Helper\Config $helperConfigScheme,
         \PG\Customerjourney\Model\CustomerjourneyService $customerjourneyService,
-        \KalyanUs\Scheme\Helper\Data $helperDataScheme
+        \KalyanUs\Scheme\Helper\Data $helperDataScheme,
+        EventManager $_eventManager
     ) {
         $this->resourceConnection = $resourceConnection;
         $this->timezone =  $timezone;
@@ -72,6 +81,7 @@ class EnrollmentProcess
         $this->helperConfigScheme =$helperConfigScheme;
         $this->helperDataScheme =$helperDataScheme;
         $this->customerjourneyService=$customerjourneyService;
+        $this->_eventManager = $_eventManager;
     }
 
     /**
@@ -451,6 +461,7 @@ class EnrollmentProcess
                                 $this->updateScheduleInstallment($installmentDetail['id']);
                                 $isDefaulter=$this->getIsDefaulterFlag($records['payment_date'], $installmentDetail['due_date']);
                                 $this->changeEnrollmentStatus($enrollmentDetail['id'], $isDefaulter);
+                                $this->_eventManager->dispatch('scheme_installament_payment_complete_after',['scheme_payment_id' => $id, 'enrollment_data' => $enrollmentDetail]);
                             }
                         }
                     }

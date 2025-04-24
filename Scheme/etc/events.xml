@@ -3,4 +3,7 @@
     <event name="customer_login">
         <observer name="scheme_login_api_initialize" instance="KalyanUs\Scheme\Observer\CustomerLogin"/>
     </event>
+    <event name="scheme_installament_payment_complete_after">
+        <observer name="sen_scheme_payment_to_api" instance="KalyanUs\Scheme\Observer\SchemeInstallmentAfter"/>
+    </event>
 </config>
